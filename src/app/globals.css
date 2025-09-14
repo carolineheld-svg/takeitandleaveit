@@ -1,26 +1,89 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --background: #fefcfb;
+  --foreground: #831843;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #831843;
+    --foreground: #fefcfb;
   }
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Custom scrollbar for coquette theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fdf2f8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ec4899;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #db2777;
+}
+
+/* Coquette button styles */
+.btn-coquette {
+  @apply bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 text-white font-medium py-2 px-6 rounded-full shadow-coquette hover:shadow-coquette-lg transition-all duration-300 transform hover:scale-105;
+}
+
+.btn-coquette-outline {
+  @apply border-2 border-coquette-pink-400 text-coquette-pink-600 font-medium py-2 px-6 rounded-full hover:bg-coquette-pink-50 transition-all duration-300;
+}
+
+/* Card styles */
+.card-coquette {
+  @apply bg-white rounded-2xl shadow-coquette border border-coquette-pink-100 overflow-hidden;
+}
+
+.card-coquette-hover {
+  @apply card-coquette hover:shadow-coquette-lg transition-all duration-300 transform hover:-translate-y-1;
+}
+
+/* Input field styles */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+  color: #374151 !important; /* Gray-700 - matches website aesthetic */
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+textarea::placeholder {
+  color: #9ca3af !important; /* Gray-400 for placeholders */
+}
+
+/* Ensure focus states maintain proper text color */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  color: #374151 !important;
 }
