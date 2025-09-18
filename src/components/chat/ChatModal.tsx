@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { X, Send, MapPin, Clock } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { getChatMessages, createChatMessage } from '@/lib/database'
@@ -41,21 +41,11 @@ export default function ChatModal({ isOpen, onClose, tradeRequest }: ChatModalPr
   const [sending, setSending] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (isOpen && tradeRequest.id) {
-      fetchMessages()
-    }
-  }, [isOpen, tradeRequest.id])
-
-  useEffect(() => {
-    scrollToBottom()
-  }, [messages])
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const fetchMessages = async () => {
+  const fetchMessages = useCallback(async () => {
     setLoading(true)
     try {
       const fetchedMessages = await getChatMessages(tradeRequest.id)
@@ -65,7 +55,17 @@ export default function ChatModal({ isOpen, onClose, tradeRequest }: ChatModalPr
     } finally {
       setLoading(false)
     }
-  }
+  }, [tradeRequest.id])
+
+  useEffect(() => {
+    if (isOpen && tradeRequest.id) {
+      fetchMessages()
+    }
+  }, [isOpen, tradeRequest.id, fetchMessages])
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault()

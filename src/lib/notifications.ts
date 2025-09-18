@@ -4,7 +4,7 @@ export class NotificationService {
   private permission: NotificationPermission = 'default'
 
   private constructor() {
-    this.permission = 'Notification' in window ? Notification.permission : 'denied'
+    this.permission = typeof window !== 'undefined' && 'Notification' in window ? Notification.permission : 'denied'
   }
 
   public static getInstance(): NotificationService {
@@ -15,7 +15,7 @@ export class NotificationService {
   }
 
   public async requestPermission(): Promise<boolean> {
-    if (!('Notification' in window)) {
+    if (typeof window === 'undefined' || !('Notification' in window)) {
       console.warn('This browser does not support notifications')
       return false
     }
@@ -40,6 +40,10 @@ export class NotificationService {
   }
 
   public showNotification(title: string, options?: NotificationOptions): void {
+    if (typeof window === 'undefined') {
+      return
+    }
+
     if (this.permission !== 'granted') {
       console.warn('Notification permission not granted')
       return
@@ -67,13 +71,15 @@ export class NotificationService {
         notification.close()
       }
 
-      return notification
+      return
     } catch (error) {
       console.error('Error showing notification:', error)
     }
   }
 
   private handleNotificationClick(tag: string): void {
+    if (typeof window === 'undefined') return
+    
     // Parse notification type from tag and navigate accordingly
     const notificationType = tag.split('-')[0]
     
@@ -97,7 +103,7 @@ export class NotificationService {
   }
 
   public isSupported(): boolean {
-    return 'Notification' in window
+    return typeof window !== 'undefined' && 'Notification' in window
   }
 
   public getPermission(): NotificationPermission {

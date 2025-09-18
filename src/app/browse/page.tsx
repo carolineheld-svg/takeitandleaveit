@@ -5,10 +5,12 @@ import { useRouter } from 'next/navigation'
 import { Search, Heart, Tag, Filter, X } from 'lucide-react'
 import Link from 'next/link'
 import { useAuth } from '@/components/auth/AuthProvider'
-import { getItems, createTradeRequest } from '@/lib/database'
-import TradeRequestModal from '@/components/trade/TradeRequestModal'
+import { getItems } from '@/lib/database'
+import DirectChatModal from '@/components/chat/DirectChatModal'
 import WishlistButton from '@/components/wishlist/WishlistButton'
-import { CATEGORIES, CONDITIONS, SIZES, ITEM_STATUS } from '@/lib/constants'
+import SmartMatchSection from '@/components/browse/SmartMatchSection'
+import { smartMatchAI } from '@/lib/smartmatch'
+import { CATEGORIES, ITEM_STATUS } from '@/lib/constants'
 
 interface Item {
   id: string
@@ -17,7 +19,7 @@ interface Item {
   category: string
   subcategory: string | null
   condition: string
-  size: string
+  size: string | null
   description: string
   images: string[]
   status: string
@@ -25,7 +27,9 @@ interface Item {
   created_at: string
   user_id: string
   profiles: {
+    id: string
     username: string
+    full_name: string | null
     avatar_url: string | null
   }
 }
@@ -43,7 +47,7 @@ export default function BrowsePage() {
   const [selectedSize, setSelectedSize] = useState('')
   const [selectedStatus, setSelectedStatus] = useState('')
   const [selectedItem, setSelectedItem] = useState<Item | null>(null)
-  const [showTradeModal, setShowTradeModal] = useState(false)
+  const [showChatModal, setShowChatModal] = useState(false)
   const [showFilters, setShowFilters] = useState(false)
 
   useEffect(() => {
@@ -51,6 +55,15 @@ export default function BrowsePage() {
       try {
         const fetchedItems = await getItems()
         setItems(fetchedItems)
+        
+        // Track browsing activity for SmartMatch AI
+        if (user) {
+          await smartMatchAI.trackUserActivity(user.id, {
+            type: 'browse',
+            category: selectedCategory || 'all',
+            subcategory: selectedSubcategory || 'all'
+          })
+        }
       } catch (error) {
         console.error('Failed to fetch items:', error)
       } finally {
@@ -59,7 +72,7 @@ export default function BrowsePage() {
     }
 
     fetchItems()
-  }, [])
+  }, [user, selectedCategory, selectedSubcategory])
 
   const filteredItems = items.filter(item => {
     const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -71,7 +84,7 @@ export default function BrowsePage() {
     const matchesSubcategory = !selectedSubcategory || item.subcategory === selectedSubcategory
     const matchesBrand = !selectedBrand || item.brand === selectedBrand
     const matchesCondition = !selectedCondition || item.condition === selectedCondition
-    const matchesSize = !selectedSize || item.size === selectedSize
+    const matchesSize = !selectedSize || (item.size && item.size === selectedSize)
     const matchesStatus = !selectedStatus || item.status === selectedStatus
     
     return matchesSearch && matchesCategory && matchesSubcategory && matchesBrand && matchesCondition && matchesSize && matchesStatus
@@ -80,7 +93,7 @@ export default function BrowsePage() {
   const brands = Array.from(new Set(items.map(item => item.brand))).sort()
   const conditions = Array.from(new Set(items.map(item => item.condition))).sort()
   const categories = Array.from(new Set(items.map(item => item.category))).sort()
-  const sizes = Array.from(new Set(items.map(item => item.size))).sort()
+  const sizes = Array.from(new Set(items.map(item => item.size).filter(Boolean))).sort()
 
   const clearFilters = () => {
     setSearchTerm('')
@@ -92,7 +105,7 @@ export default function BrowsePage() {
     setSelectedStatus('')
   }
 
-  const handleTradeRequest = (item: Item) => {
+  const handleChatRequest = (item: Item) => {
     if (!user) {
       router.push('/auth/login')
       return
@@ -104,31 +117,9 @@ export default function BrowsePage() {
     }
     
     setSelectedItem(item)
-    setShowTradeModal(true)
+    setShowChatModal(true)
   }
 
-  const handleSendTradeRequest = async (message: string, meetingLocation?: string) => {
-    if (!selectedItem || !user) return
-    
-    try {
-      await createTradeRequest({
-        from_user_id: user.id,
-        to_user_id: selectedItem.user_id,
-        item_id: selectedItem.id,
-        message: message || null,
-        meeting_location: meetingLocation || null
-      })
-      
-      setShowTradeModal(false)
-      setSelectedItem(null)
-      
-      // Show success message
-      alert('Trade request sent successfully!')
-    } catch (error) {
-      console.error('Failed to send trade request:', error)
-      alert('Failed to send trade request. Please try again.')
-    }
-  }
 
   if (loading) {
     return (
@@ -258,7 +249,7 @@ export default function BrowsePage() {
                   >
                     <option value="">All Sizes</option>
                     {sizes.map(size => (
-                      <option key={size} value={size}>{size}</option>
+                      <option key={size} value={size as string}>{size}</option>
                     ))}
                   </select>
                 </div>
@@ -303,7 +294,8 @@ export default function BrowsePage() {
         {/* Items Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredItems.map((item) => (
-            <div key={item.id} className="card-coquette-hover group">
+            <Link key={item.id} href={`/item/${item.id}`} className="block">
+              <div className="card-coquette-hover group">
               <div className="relative">
                 <div className="aspect-[4/5] bg-gradient-to-br from-coquette-pink-100 to-coquette-gold-100 rounded-t-2xl overflow-hidden">
                   <img
@@ -323,7 +315,7 @@ export default function BrowsePage() {
                   <div className="flex items-center gap-3">
                     {!item.is_traded ? (
                       <button 
-                        onClick={() => handleTradeRequest(item)}
+                        onClick={() => handleChatRequest(item)}
                         className="bg-white/90 backdrop-blur-sm text-coquette-pink-600 px-6 py-2 rounded-full font-medium hover:bg-white transition-colors flex items-center gap-2"
                       >
                         <Heart className="w-4 h-4" />
@@ -351,9 +343,11 @@ export default function BrowsePage() {
                   <h3 className="font-coquette font-semibold text-coquette-pink-700 text-lg">
                     {item.name}
                   </h3>
-                  <span className="text-sm text-coquette-pink-500 bg-coquette-pink-100 px-2 py-1 rounded-full">
-                    {item.size}
-                  </span>
+                  {item.size && (
+                    <span className="text-sm text-coquette-pink-500 bg-coquette-pink-100 px-2 py-1 rounded-full">
+                      {item.size}
+                    </span>
+                  )}
                 </div>
                 
                 <div className="flex items-center gap-2 mb-2">
@@ -386,7 +380,8 @@ export default function BrowsePage() {
                   <span>by @{item.profiles.username}</span>
                 </div>
               </div>
-            </div>
+              </div>
+            </Link>
           ))}
         </div>
 
@@ -408,18 +403,20 @@ export default function BrowsePage() {
         )}
       </div>
 
-      {/* Trade Request Modal */}
+      {/* Direct Chat Modal */}
       {selectedItem && (
-        <TradeRequestModal
-          isOpen={showTradeModal}
+        <DirectChatModal
+          isOpen={showChatModal}
           onClose={() => {
-            setShowTradeModal(false)
+            setShowChatModal(false)
             setSelectedItem(null)
           }}
           item={selectedItem}
-          onSendRequest={handleSendTradeRequest}
         />
       )}
+
+      {/* SmartMatch AI Section */}
+      <SmartMatchSection />
     </div>
   )
 }

@@ -24,8 +24,8 @@ export default function LoginPage() {
     try {
       await signIn(email, password)
       router.push('/')
-    } catch (error: any) {
-      setError(error.message || 'Failed to sign in')
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : 'Failed to sign in')
     } finally {
       setLoading(false)
     }
@@ -108,7 +108,7 @@ export default function LoginPage() {
 
           <div className="mt-6 text-center">
             <p className="text-coquette-pink-600">
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
               <Link href="/auth/signup" className="text-coquette-pink-600 hover:text-coquette-pink-700 font-medium transition-colors">
                 Sign up
               </Link>

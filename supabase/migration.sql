@@ -13,7 +13,7 @@ DROP CONSTRAINT IF EXISTS items_condition_check;
 
 ALTER TABLE public.items 
 ADD CONSTRAINT items_condition_check 
-CHECK (condition IN ('Excellent', 'Decent', 'So-so', 'Poor'));
+CHECK (condition IN ('Excellent', 'Good', 'OK', 'Subpar'));
 
 -- Add status constraint
 ALTER TABLE public.items 

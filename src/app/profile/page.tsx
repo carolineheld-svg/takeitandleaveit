@@ -3,11 +3,12 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { User, Mail, Calendar, Package, Edit3, Trash2, Camera, Save, X } from 'lucide-react'
+import { User, Mail, Calendar, Package, Edit3, Trash2, Camera, Save, X, Shirt } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { getProfile, getItemsByUser, deleteItem, updateProfile } from '@/lib/database'
 import { uploadProfilePicture, deleteProfilePicture } from '@/lib/supabase-storage'
 import DeleteItemModal from '@/components/item/DeleteItemModal'
+import SizePreferencesModal from '@/components/profile/SizePreferencesModal'
 
 interface Profile {
   id: string
@@ -22,7 +23,7 @@ interface UserItem {
   name: string
   brand: string
   condition: string
-  size: string
+  size: string | null
   images: string[]
   is_traded: boolean
   created_at: string
@@ -40,6 +41,7 @@ export default function ProfilePage() {
   })
   const [deleting, setDeleting] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
+  const [sizePreferencesModal, setSizePreferencesModal] = useState(false)
   const [editForm, setEditForm] = useState({
     full_name: '',
     avatar_url: ''
@@ -257,13 +259,22 @@ export default function ProfilePage() {
                     </div>
                   </div>
 
-                  <button
-                    onClick={handleEditProfile}
-                    className="w-full mt-6 bg-coquette-pink-500 text-white px-4 py-2 rounded-lg hover:bg-coquette-pink-600 transition-colors flex items-center justify-center gap-2"
-                  >
-                    <Edit3 className="w-4 h-4" />
-                    Edit Profile
-                  </button>
+                  <div className="flex gap-3 mt-6">
+                    <button
+                      onClick={handleEditProfile}
+                      className="flex-1 bg-coquette-pink-500 text-white px-4 py-2 rounded-lg hover:bg-coquette-pink-600 transition-colors flex items-center justify-center gap-2"
+                    >
+                      <Edit3 className="w-4 h-4" />
+                      Edit Profile
+                    </button>
+                    <button
+                      onClick={() => setSizePreferencesModal(true)}
+                      className="flex-1 bg-coquette-gold-500 text-white px-4 py-2 rounded-lg hover:bg-coquette-gold-600 transition-colors flex items-center justify-center gap-2"
+                    >
+                      <Shirt className="w-4 h-4" />
+                      Size Preferences
+                    </button>
+                  </div>
                 </>
               ) : (
                 // Edit Mode
@@ -395,9 +406,11 @@ export default function ProfilePage() {
                           <h4 className="font-coquette font-semibold text-coquette-pink-700 text-lg">
                             {item.name}
                           </h4>
-                          <span className="text-sm text-coquette-pink-500 bg-coquette-pink-100 px-2 py-1 rounded-full">
-                            {item.size}
-                          </span>
+                          {item.size && (
+                            <span className="text-sm text-coquette-pink-500 bg-coquette-pink-100 px-2 py-1 rounded-full">
+                              {item.size}
+                            </span>
+                          )}
                         </div>
                         
                         <p className="text-coquette-gold-600 font-medium mb-2">{item.brand}</p>
@@ -450,6 +463,17 @@ export default function ProfilePage() {
         onConfirm={confirmDelete}
         itemName={deleteModal.item?.name || ''}
         loading={deleting}
+      />
+
+      {/* Size Preferences Modal */}
+      <SizePreferencesModal
+        isOpen={sizePreferencesModal}
+        onClose={() => setSizePreferencesModal(false)}
+        userId={user?.id || ''}
+        onSave={() => {
+          // Refresh profile or show success message
+          console.log('Size preferences saved!')
+        }}
       />
     </div>
   )

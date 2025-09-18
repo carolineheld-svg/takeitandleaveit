@@ -36,7 +36,10 @@ CREATE TABLE IF NOT EXISTS public.user_preferences (
   favorite_categories TEXT[] DEFAULT '{}',
   favorite_brands TEXT[] DEFAULT '{}',
   preferred_sizes TEXT[] DEFAULT '{}',
+  size_preferences JSONB DEFAULT '{}',
   browsing_history JSONB DEFAULT '{}',
+  search_history JSONB DEFAULT '{}',
+  ai_preferences JSONB DEFAULT '{}',
   last_recommendation_update TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 

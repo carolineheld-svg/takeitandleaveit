@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { uploadMultipleImages } from '@/lib/supabase-storage'
 import { createItem } from '@/lib/database'
-import { CATEGORIES, CONDITIONS, SIZES } from '@/lib/constants'
+import { CATEGORIES, CONDITIONS, SIZES, CLOTHING_CATEGORIES, SIZE_PREFERENCES } from '@/lib/constants'
 
 interface FormData {
   name: string
@@ -85,7 +85,9 @@ export default function ListItemPage() {
     setError('')
 
     // Validate form
-    if (!formData.name || !formData.brand || !formData.condition || !formData.size || !formData.description) {
+    const isClothingItem = CLOTHING_CATEGORIES.includes(formData.category)
+    
+    if (!formData.name || !formData.brand || !formData.condition || !formData.description || (isClothingItem && !formData.size)) {
       setError('Please fill in all required fields')
       setLoading(false)
       return
@@ -282,24 +284,33 @@ export default function ListItemPage() {
                 </select>
               </div>
 
-              <div>
-                <label htmlFor="size" className="block text-sm font-medium text-coquette-pink-700 mb-2">
-                  Size *
-                </label>
-                <select
-                  id="size"
-                  name="size"
-                  required
-                  value={formData.size}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
-                >
-                  <option value="">Select size</option>
-                  {SIZES.map(size => (
-                    <option key={size} value={size}>{size}</option>
-                  ))}
-                </select>
-              </div>
+              {/* Size - Only show for clothing items */}
+              {CLOTHING_CATEGORIES.includes(formData.category) && (
+                <div>
+                  <label htmlFor="size" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+                    Size *
+                  </label>
+                  <select
+                    id="size"
+                    name="size"
+                    required
+                    value={formData.size}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                  >
+                    <option value="">Select size</option>
+                    {formData.subcategory && SIZE_PREFERENCES[formData.subcategory as keyof typeof SIZE_PREFERENCES] ? (
+                      SIZE_PREFERENCES[formData.subcategory as keyof typeof SIZE_PREFERENCES].map(size => (
+                        <option key={size} value={size}>{size}</option>
+                      ))
+                    ) : (
+                      SIZES.map(size => (
+                        <option key={size} value={size}>{size}</option>
+                      ))
+                    )}
+                  </select>
+                </div>
+              )}
             </div>
 
             {/* Description */}

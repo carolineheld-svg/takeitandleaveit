@@ -10,9 +10,12 @@ import ChatModal from '@/components/chat/ChatModal'
 interface TradeRequest {
   id: string
   created_at: string
-  status: 'pending' | 'accepted' | 'declined'
+  updated_at: string
+  status: 'pending' | 'accepted' | 'declined' | 'completed'
   message: string | null
+  meeting_location: string | null
   from_user_id: string
+  to_user_id: string
   item_id: string
   items: {
     name: string
@@ -21,6 +24,7 @@ interface TradeRequest {
   }
   profiles: {
     username: string
+    full_name: string | null
     avatar_url: string | null
   }
 }

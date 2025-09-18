@@ -50,7 +50,7 @@ export default function RecommendationsSection() {
             </h2>
           </div>
           <p className="text-lg text-coquette-pink-600 max-w-2xl mx-auto">
-            Items we think you'll love based on your preferences
+            Items we think you&apos;ll love based on your preferences
           </p>
         </div>
 

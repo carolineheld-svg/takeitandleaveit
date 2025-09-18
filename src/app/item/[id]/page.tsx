@@ -1,0 +1,328 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { useParams, useRouter } from 'next/navigation'
+import { ArrowLeft, MessageCircle, Heart, Share2, User } from 'lucide-react'
+import { useAuth } from '@/components/auth/AuthProvider'
+import { getItemById, addToWishlist, removeFromWishlist, getWishlist } from '@/lib/database'
+import { Item } from '@/lib/database'
+import DirectChatModal from '@/components/chat/DirectChatModal'
+import Link from 'next/link'
+
+interface ItemWithProfile extends Item {
+  profiles: {
+    id: string
+    username: string
+    full_name: string | null
+    avatar_url: string | null
+  }
+}
+
+export default function ItemDetailPage() {
+  const { user } = useAuth()
+  const router = useRouter()
+  const params = useParams()
+  const itemId = params.id as string
+
+  const [item, setItem] = useState<ItemWithProfile | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+  const [isInWishlist, setIsInWishlist] = useState(false)
+  const [wishlistLoading, setWishlistLoading] = useState(false)
+  const [showTradeModal, setShowTradeModal] = useState(false)
+
+  useEffect(() => {
+    const fetchItem = async () => {
+      if (!itemId) return
+
+      try {
+        const fetchedItem = await getItemById(itemId)
+        if (!fetchedItem) {
+          setError('Item not found')
+          return
+        }
+        setItem(fetchedItem)
+      } catch (error) {
+        console.error('Failed to fetch item:', error)
+        setError('Failed to load item')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchItem()
+  }, [itemId])
+
+  useEffect(() => {
+    const checkWishlist = async () => {
+      if (!user || !item) return
+
+      try {
+        const wishlist = await getWishlist(user.id)
+        setIsInWishlist(wishlist.some((w: { item_id: string }) => w.item_id === item.id))
+      } catch (error) {
+        console.error('Failed to check wishlist:', error)
+      }
+    }
+
+    checkWishlist()
+  }, [user, item])
+
+  const handleWishlistToggle = async () => {
+    if (!user || !item || wishlistLoading) return
+
+    setWishlistLoading(true)
+    try {
+      if (isInWishlist) {
+        await removeFromWishlist(user.id, item.id)
+        setIsInWishlist(false)
+      } else {
+        await addToWishlist(user.id, item.id)
+        setIsInWishlist(true)
+      }
+    } catch (error) {
+      console.error('Failed to update wishlist:', error)
+      alert('Failed to update wishlist. Please try again.')
+    } finally {
+      setWishlistLoading(false)
+    }
+  }
+
+  const handleSendTradeRequest = () => {
+    if (!user) {
+      router.push('/auth/login')
+      return
+    }
+    setShowTradeModal(true)
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-coquette-pink-50 to-coquette-gold-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-coquette-pink-600">Loading item details...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error || !item) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-coquette-pink-50 to-coquette-gold-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-coquette font-bold text-coquette-pink-700 mb-4">
+            {error || 'Item not found'}
+          </h1>
+          <Link
+            href="/browse"
+            className="btn-coquette inline-flex items-center gap-2"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Browse
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-coquette-pink-50 to-coquette-gold-50">
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="flex items-center gap-4 mb-8">
+          <button
+            onClick={() => router.back()}
+            className="p-2 hover:bg-white/50 rounded-lg transition-colors"
+          >
+            <ArrowLeft className="w-6 h-6 text-coquette-pink-600" />
+          </button>
+          <h1 className="text-2xl font-coquette font-bold text-coquette-pink-700">
+            Item Details
+          </h1>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Images */}
+          <div className="space-y-4">
+            <div className="aspect-square bg-white rounded-2xl overflow-hidden shadow-lg">
+              {item.images && item.images.length > 0 ? (
+                <img
+                  src={item.images[0]}
+                  alt={item.name}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-coquette-pink-100 to-coquette-gold-100 flex items-center justify-center">
+                  <span className="text-coquette-pink-400 text-lg">No Image</span>
+                </div>
+              )}
+            </div>
+            
+            {/* Additional Images */}
+            {item.images && item.images.length > 1 && (
+              <div className="grid grid-cols-4 gap-2">
+                {item.images.slice(1, 5).map((image, index) => (
+                  <div key={index} className="aspect-square bg-white rounded-lg overflow-hidden shadow">
+                    <img
+                      src={image}
+                      alt={`${item.name} ${index + 2}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Details */}
+          <div className="space-y-6">
+            {/* Item Info */}
+            <div>
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <h2 className="text-3xl font-coquette font-bold text-coquette-pink-700 mb-2">
+                    {item.name}
+                  </h2>
+                  <p className="text-xl text-coquette-gold-600 font-medium">
+                    {item.brand}
+                  </p>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleWishlistToggle}
+                    disabled={wishlistLoading}
+                    className={`p-2 rounded-lg transition-colors ${
+                      isInWishlist 
+                        ? 'bg-coquette-pink-100 text-coquette-pink-600' 
+                        : 'bg-white/50 hover:bg-white text-coquette-pink-400 hover:text-coquette-pink-600'
+                    }`}
+                  >
+                    <Heart className={`w-5 h-5 ${isInWishlist ? 'fill-current' : ''}`} />
+                  </button>
+                  <button className="p-2 bg-white/50 hover:bg-white text-coquette-pink-400 hover:text-coquette-pink-600 rounded-lg transition-colors">
+                    <Share2 className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="text-xs text-coquette-gold-600 bg-coquette-gold-100 px-3 py-1 rounded-full">
+                  {item.category}
+                </span>
+                {item.subcategory && (
+                  <span className="text-xs text-coquette-pink-500 bg-coquette-pink-100 px-3 py-1 rounded-full">
+                    {item.subcategory}
+                  </span>
+                )}
+                <span className="text-xs text-green-600 bg-green-100 px-3 py-1 rounded-full">
+                  {item.condition}
+                </span>
+                {item.size && (
+                  <span className="text-xs text-blue-600 bg-blue-100 px-3 py-1 rounded-full">
+                    Size: {item.size}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Description */}
+            <div>
+              <h3 className="text-lg font-coquette font-semibold text-coquette-pink-700 mb-3">
+                Description
+              </h3>
+              <p className="text-coquette-pink-600 leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+
+            {/* Lister Info */}
+            <div className="bg-white/50 backdrop-blur-sm rounded-xl p-4">
+              <h3 className="text-lg font-coquette font-semibold text-coquette-pink-700 mb-3">
+                Listed by
+              </h3>
+              <div className="flex items-center gap-3">
+                {item.profiles?.avatar_url ? (
+                  <img
+                    src={item.profiles.avatar_url}
+                    alt="Profile"
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
+                ) : (
+                  <div className="w-12 h-12 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full flex items-center justify-center">
+                    <User className="w-6 h-6 text-white" />
+                  </div>
+                )}
+                <div>
+                  <p className="font-medium text-coquette-pink-700">
+                    {item.profiles?.full_name || item.profiles?.username || 'Unknown User'}
+                  </p>
+                  <p className="text-sm text-coquette-pink-500">
+                    @{item.profiles?.username}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            {user && user.id !== item.user_id && (
+              <div className="space-y-3">
+                <button
+                  onClick={handleSendTradeRequest}
+                  className="w-full btn-coquette flex items-center justify-center gap-2 py-4 text-lg"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  Send Trade Request
+                </button>
+                
+                <div className="text-center">
+                  <p className="text-sm text-coquette-pink-600">
+                    Interested in this item? Send a trade request to coordinate a meeting!
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Item Stats */}
+            <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4">
+              <h3 className="text-lg font-coquette font-semibold text-coquette-pink-700 mb-3">
+                Item Information
+              </h3>
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <span className="text-coquette-pink-500">Listed:</span>
+                  <p className="font-medium text-coquette-pink-700">
+                    {new Date(item.created_at).toLocaleDateString()}
+                  </p>
+                </div>
+                <div>
+                  <span className="text-coquette-pink-500">Status:</span>
+                  <p className={`font-medium ${
+                    item.status === 'available' ? 'text-green-600' :
+                    item.status === 'pending' ? 'text-yellow-600' :
+                    'text-red-600'
+                  }`}>
+                    {item.status === 'available' ? 'Available' :
+                     item.status === 'pending' ? 'Pending Trade' :
+                     'Traded'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Direct Chat Modal */}
+      {showTradeModal && item && (
+        <DirectChatModal
+          isOpen={showTradeModal}
+          onClose={() => setShowTradeModal(false)}
+          item={item}
+        />
+      )}
+    </div>
+  )
+}

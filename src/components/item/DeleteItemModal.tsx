@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React from 'react'
 import { X, Trash2, AlertTriangle } from 'lucide-react'
 
 interface DeleteItemModalProps {
@@ -44,7 +44,7 @@ export default function DeleteItemModal({
 
           <div className="mb-6">
             <p className="text-coquette-pink-600 mb-4">
-              Are you sure you want to delete <strong>"{itemName}"</strong>? This action cannot be undone.
+              Are you sure you want to delete <strong>&ldquo;{itemName}&rdquo;</strong>? This action cannot be undone.
             </p>
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
               <div className="flex items-start gap-3">

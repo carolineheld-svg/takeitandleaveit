@@ -20,8 +20,8 @@ CREATE TABLE public.items (
   brand TEXT NOT NULL,
   category TEXT NOT NULL,
   subcategory TEXT,
-  condition TEXT NOT NULL CHECK (condition IN ('Excellent', 'Decent', 'So-so', 'Poor')),
-  size TEXT NOT NULL,
+  condition TEXT NOT NULL CHECK (condition IN ('Excellent', 'Good', 'OK', 'Subpar')),
+  size TEXT,
   description TEXT NOT NULL,
   images TEXT[] NOT NULL DEFAULT '{}',
   status TEXT DEFAULT 'available' CHECK (status IN ('available', 'pending', 'traded')),
@@ -87,7 +87,10 @@ CREATE TABLE public.user_preferences (
   favorite_categories TEXT[] DEFAULT '{}',
   favorite_brands TEXT[] DEFAULT '{}',
   preferred_sizes TEXT[] DEFAULT '{}',
+  size_preferences JSONB DEFAULT '{}',
   browsing_history JSONB DEFAULT '{}',
+  search_history JSONB DEFAULT '{}',
+  ai_preferences JSONB DEFAULT '{}',
   last_recommendation_update TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
@@ -150,6 +153,8 @@ ALTER TABLE public.chat_messages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.notifications ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.wishlist ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.user_preferences ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.campus_locations ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.campus_impact ENABLE ROW LEVEL SECURITY;
 
 -- Profiles policies
 CREATE POLICY "Public profiles are viewable by everyone" ON public.profiles
@@ -206,7 +211,11 @@ CREATE POLICY "Users can create messages for their trade requests" ON public.cha
 
 -- Function to automatically create profile on user signup
 CREATE OR REPLACE FUNCTION public.handle_new_user()
-RETURNS TRIGGER AS $$
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
 BEGIN
   INSERT INTO public.profiles (id, username, full_name, avatar_url)
   VALUES (
@@ -226,7 +235,11 @@ CREATE TRIGGER on_auth_user_created
 
 -- Function to update updated_at timestamp
 CREATE OR REPLACE FUNCTION public.update_updated_at_column()
-RETURNS TRIGGER AS $$
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
 BEGIN
   NEW.updated_at = NOW();
   RETURN NEW;
@@ -244,7 +257,11 @@ CREATE TRIGGER update_trade_requests_updated_at
 
 -- Function to handle trade completion
 CREATE OR REPLACE FUNCTION public.complete_trade(trade_request_id UUID)
-RETURNS VOID AS $$
+RETURNS VOID
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
 DECLARE
   trade_record RECORD;
 BEGIN
@@ -295,6 +312,14 @@ CREATE POLICY "Users can view their own preferences" ON public.user_preferences
 
 CREATE POLICY "Users can manage their own preferences" ON public.user_preferences
   FOR ALL USING (auth.uid() = user_id);
+
+-- Campus locations policies
+CREATE POLICY "Anyone can view campus locations" ON public.campus_locations
+  FOR SELECT USING (true);
+
+-- Campus impact policies
+CREATE POLICY "Anyone can view campus impact" ON public.campus_impact
+  FOR SELECT USING (true);
 
 -- Create indexes for performance
 CREATE INDEX idx_notifications_user_id ON public.notifications(user_id);

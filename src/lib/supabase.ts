@@ -42,7 +42,7 @@ export type Database = {
           category: string
           subcategory: string | null
           condition: string
-          size: string
+          size: string | null
           description: string
           images: string[]
           status: string
@@ -60,7 +60,7 @@ export type Database = {
           category: string
           subcategory?: string | null
           condition: string
-          size: string
+          size: string | null
           description: string
           images: string[]
           status?: string
@@ -199,7 +199,7 @@ export type Database = {
             related_trade_request_id: string | null
             related_chat_message_id: string | null
             action_url: string | null
-            metadata: any
+            metadata: Record<string, unknown>
           }
           Insert: {
             id?: string
@@ -214,7 +214,7 @@ export type Database = {
             related_trade_request_id?: string | null
             related_chat_message_id?: string | null
             action_url?: string | null
-            metadata?: any
+            metadata?: Record<string, unknown>
           }
           Update: {
             id?: string
@@ -229,7 +229,7 @@ export type Database = {
             related_trade_request_id?: string | null
             related_chat_message_id?: string | null
             action_url?: string | null
-            metadata?: any
+            metadata?: Record<string, unknown>
           }
         }
         wishlist: {
@@ -261,7 +261,10 @@ export type Database = {
             favorite_categories: string[]
             favorite_brands: string[]
             preferred_sizes: string[]
-            browsing_history: any
+            size_preferences: Record<string, unknown>
+            browsing_history: Record<string, unknown>
+            search_history: Record<string, unknown>
+            ai_preferences: Record<string, unknown>
             last_recommendation_update: string
           }
           Insert: {
@@ -272,7 +275,10 @@ export type Database = {
             favorite_categories?: string[]
             favorite_brands?: string[]
             preferred_sizes?: string[]
-            browsing_history?: any
+            size_preferences?: Record<string, unknown>
+            browsing_history?: Record<string, unknown>
+            search_history?: Record<string, unknown>
+            ai_preferences?: Record<string, unknown>
             last_recommendation_update?: string
           }
           Update: {
@@ -283,7 +289,10 @@ export type Database = {
             favorite_categories?: string[]
             favorite_brands?: string[]
             preferred_sizes?: string[]
-            browsing_history?: any
+            size_preferences?: Record<string, unknown>
+            browsing_history?: Record<string, unknown>
+            search_history?: Record<string, unknown>
+            ai_preferences?: Record<string, unknown>
             last_recommendation_update?: string
           }
         }

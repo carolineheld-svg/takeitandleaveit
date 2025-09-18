@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Bell, X, Heart, MessageCircle, Handshake, ShoppingBag, Star, CheckCircle } from 'lucide-react'
+import { Bell, X, MessageCircle, Handshake, ShoppingBag, Star, CheckCircle } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { createClient } from '@/lib/supabase-client'
 import { notificationService, showNotificationWithTemplate, notificationTemplates } from '@/lib/notifications'
@@ -53,7 +53,7 @@ export default function NotificationBell() {
         if (error) throw error
 
         setNotifications(data || [])
-        setUnreadCount((data || []).filter(n => !n.is_read).length)
+        setUnreadCount((data || []).filter((n: Notification) => !n.is_read).length)
       } catch (error) {
         console.error('Failed to fetch notifications:', error)
       } finally {
@@ -74,7 +74,7 @@ export default function NotificationBell() {
           table: 'notifications',
           filter: `user_id=eq.${user.id}`,
         },
-        (payload) => {
+        (payload: { new: Notification }) => {
           const newNotification = payload.new as Notification
           setNotifications(prev => [newNotification, ...prev])
           setUnreadCount(prev => prev + 1)

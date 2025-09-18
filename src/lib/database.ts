@@ -4,7 +4,7 @@ import { Database } from '@/lib/supabase'
 // Create a singleton client instance for consistent session handling
 const supabase = createClient()
 
-type Item = Database['public']['Tables']['items']['Row']
+export type Item = Database['public']['Tables']['items']['Row']
 type ItemInsert = Database['public']['Tables']['items']['Insert']
 type ItemUpdate = Database['public']['Tables']['items']['Update']
 
@@ -139,8 +139,13 @@ export async function createTradeRequest(request: Omit<TradeRequestInsert, 'id' 
       type: 'trade_request',
       title: 'New Trade Request',
       message: `You received a new trade request for your item.`,
+      is_read: false,
+      read_at: null,
+      related_item_id: request.item_id,
       related_trade_request_id: data.id,
-      action_url: '/trades'
+      related_chat_message_id: null,
+      action_url: '/trades',
+      metadata: {}
     })
   } catch (notificationError) {
     console.error('Failed to create trade request notification:', notificationError)
@@ -204,8 +209,13 @@ export async function updateTradeRequest(id: string, updates: TradeRequestUpdate
         type: 'trade_accepted',
         title: 'Trade Request Accepted',
         message: `Your trade request has been accepted! You can now coordinate the exchange.`,
+        is_read: false,
+        read_at: null,
+        related_item_id: data.item_id,
         related_trade_request_id: data.id,
-        action_url: '/trades'
+        related_chat_message_id: null,
+        action_url: '/trades',
+        metadata: {}
       })
     } else if (updates.status === 'declined') {
       await createNotification({
@@ -213,8 +223,13 @@ export async function updateTradeRequest(id: string, updates: TradeRequestUpdate
         type: 'trade_declined',
         title: 'Trade Request Declined',
         message: `Your trade request has been declined.`,
+        is_read: false,
+        read_at: null,
+        related_item_id: data.item_id,
         related_trade_request_id: data.id,
-        action_url: '/trades'
+        related_chat_message_id: null,
+        action_url: '/trades',
+        metadata: {}
       })
     }
   } catch (notificationError) {
@@ -278,9 +293,13 @@ export async function createChatMessage(message: Omit<ChatMessageInsert, 'id' | 
         type: 'chat_message',
         title: 'New Message',
         message: `You received a new message about your trade.`,
-        related_chat_message_id: data.id,
+        is_read: false,
+        read_at: null,
+        related_item_id: tradeRequest.item_id,
         related_trade_request_id: message.trade_request_id,
-        action_url: '/trades'
+        related_chat_message_id: data.id,
+        action_url: '/trades',
+        metadata: {}
       })
     }
   } catch (notificationError) {
@@ -446,7 +465,7 @@ export async function getRecommendedItems(userId: string, limit: number = 6): Pr
     .select('item_id')
     .eq('user_id', userId)
 
-  const wishlistIds = wishlist?.map(w => w.item_id) || []
+  const wishlistIds = wishlist?.map((w: { item_id: string }) => w.item_id) || []
 
   // Build query based on preferences
   let query = supabase
@@ -492,7 +511,7 @@ export async function updateUserPreferences(userId: string, updates: {
   favorite_categories?: string[]
   favorite_brands?: string[]
   preferred_sizes?: string[]
-  browsing_history?: any
+  browsing_history?: Record<string, unknown>
 }): Promise<void> {
   const { error } = await supabase
     .from('user_preferences')
@@ -542,9 +561,13 @@ export async function completeTrade(tradeRequestId: string): Promise<void> {
           type: 'item_sold',
           title: 'Item Successfully Traded',
           message: `Your item "${tradeRequest.items.name}" has been successfully traded!`,
+          is_read: false,
+          read_at: null,
           related_item_id: tradeRequest.item_id,
           related_trade_request_id: tradeRequestId,
-          action_url: '/profile'
+          related_chat_message_id: null,
+          action_url: '/profile',
+          metadata: {}
         }),
         // Notification for the buyer (item bought)
         createNotification({
@@ -552,9 +575,13 @@ export async function completeTrade(tradeRequestId: string): Promise<void> {
           type: 'item_bought',
           title: 'Trade Completed',
           message: `You successfully traded for "${tradeRequest.items.name}"!`,
+          is_read: false,
+          read_at: null,
           related_item_id: tradeRequest.item_id,
           related_trade_request_id: tradeRequestId,
-          action_url: '/profile'
+          related_chat_message_id: null,
+          action_url: '/profile',
+          metadata: {}
         })
       ])
     }

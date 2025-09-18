@@ -5,9 +5,9 @@ import { useRouter, useParams } from 'next/navigation'
 import { X, Camera, Tag, FileText, Hash, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { useAuth } from '@/components/auth/AuthProvider'
-import { getItemById, updateItem, deleteItem } from '@/lib/database'
+import { getItemById, updateItem, deleteItem, Item } from '@/lib/database'
 import { uploadMultipleImages } from '@/lib/supabase-storage'
-import { CATEGORIES, CONDITIONS, SIZES } from '@/lib/constants'
+import { CATEGORIES, CONDITIONS, SIZES, CLOTHING_CATEGORIES, SIZE_PREFERENCES } from '@/lib/constants'
 
 interface FormData {
   name: string
@@ -41,7 +41,7 @@ export default function EditItemPage() {
   const [deleting, setDeleting] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
-  const [item, setItem] = useState<any>(null)
+  const [item, setItem] = useState<Item | null>(null)
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function EditItemPage() {
           category: fetchedItem.category,
           subcategory: fetchedItem.subcategory || '',
           condition: fetchedItem.condition,
-          size: fetchedItem.size,
+          size: fetchedItem.size || '',
           description: fetchedItem.description,
           images: [] // We'll keep existing images, only add new ones
         })
@@ -122,7 +122,9 @@ export default function EditItemPage() {
     setSaving(true)
     setError('')
 
-    if (!formData.name || !formData.brand || !formData.category || !formData.condition || !formData.size) {
+    const isClothingItem = CLOTHING_CATEGORIES.includes(formData.category)
+    
+    if (!formData.name || !formData.brand || !formData.category || !formData.condition || (isClothingItem && !formData.size)) {
       setError('Please fill in all required fields')
       setSaving(false)
       return
@@ -371,24 +373,33 @@ export default function EditItemPage() {
                     </select>
                   </div>
 
-                  <div>
-                    <label htmlFor="size" className="block text-sm font-medium text-coquette-pink-700 mb-2">
-                      Size *
-                    </label>
-                    <select
-                      id="size"
-                      name="size"
-                      required
-                      value={formData.size}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
-                    >
-                      <option value="">Select size</option>
-                      {SIZES.map(size => (
-                        <option key={size} value={size}>{size}</option>
-                      ))}
-                    </select>
-                  </div>
+                  {/* Size - Only show for clothing items */}
+                  {CLOTHING_CATEGORIES.includes(formData.category) && (
+                    <div>
+                      <label htmlFor="size" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+                        Size *
+                      </label>
+                      <select
+                        id="size"
+                        name="size"
+                        required
+                        value={formData.size}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                      >
+                        <option value="">Select size</option>
+                        {formData.subcategory && SIZE_PREFERENCES[formData.subcategory as keyof typeof SIZE_PREFERENCES] ? (
+                          SIZE_PREFERENCES[formData.subcategory as keyof typeof SIZE_PREFERENCES].map(size => (
+                            <option key={size} value={size}>{size}</option>
+                          ))
+                        ) : (
+                          SIZES.map(size => (
+                            <option key={size} value={size}>{size}</option>
+                          ))
+                        )}
+                      </select>
+                    </div>
+                  )}
                 </div>
 
                 {/* Description */}
@@ -490,7 +501,7 @@ export default function EditItemPage() {
               <ul className="space-y-3 text-sm text-coquette-pink-600">
                 <li className="flex items-start gap-2">
                   <span className="w-2 h-2 bg-coquette-pink-400 rounded-full mt-2 flex-shrink-0"></span>
-                  Be specific about the item's condition and any wear
+                  Be specific about the item&apos;s condition and any wear
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="w-2 h-2 bg-coquette-pink-400 rounded-full mt-2 flex-shrink-0"></span>
