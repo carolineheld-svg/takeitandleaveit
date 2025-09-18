@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Coquette pink and gold theme
+        // Pink and gold theme
         'coquette-pink': {
           50: '#fdf2f8',
           100: '#fce7f3',
@@ -49,17 +49,17 @@ module.exports = {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        'coquette': ['Playfair Display', 'serif'],
+        'elegant': ['Playfair Display', 'serif'],
         'sans': ['Inter', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
-        'gradient-coquette': 'linear-gradient(135deg, #fce7f3 0%, #fef3c7 100%)',
+        'gradient-primary': 'linear-gradient(135deg, #fce7f3 0%, #fef3c7 100%)',
         'gradient-pink': 'linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%)',
         'gradient-gold': 'linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%)',
       },
       boxShadow: {
-        'coquette': '0 10px 25px -5px rgba(236, 72, 153, 0.1), 0 10px 10px -5px rgba(236, 72, 153, 0.04)',
-        'coquette-lg': '0 20px 25px -5px rgba(236, 72, 153, 0.1), 0 10px 10px -5px rgba(236, 72, 153, 0.04)',
+        'primary': '0 10px 25px -5px rgba(236, 72, 153, 0.1), 0 10px 10px -5px rgba(236, 72, 153, 0.04)',
+        'primary-lg': '0 20px 25px -5px rgba(236, 72, 153, 0.1), 0 10px 10px -5px rgba(236, 72, 153, 0.04)',
       }
     },
   },

@@ -18,7 +18,7 @@ A campus trading platform with a pink and gold aesthetic. Trade items with fello
 ## Tech Stack
 
 - **Frontend**: Next.js 14 with TypeScript
-- **Styling**: Tailwind CSS with custom coquette theme
+- **Styling**: Tailwind CSS with custom pink and gold theme
 - **Database**: Supabase (PostgreSQL)
 - **Authentication**: Supabase Auth
 - **Deployment**: Vercel
@@ -37,7 +37,7 @@ A campus trading platform with a pink and gold aesthetic. Trade items with fello
 1. Clone the repository:
 ```bash
 git clone <your-repo-url>
-cd coquette-trading
+cd takeitandleaveit
 ```
 
 2. Install dependencies:
