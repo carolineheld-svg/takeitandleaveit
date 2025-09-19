@@ -1,8 +1,12 @@
+'use client'
+
 import Link from "next/link";
-import { Heart, Sparkles, Users, ShoppingBag } from "lucide-react";
+import { Heart, Sparkles, Users, ShoppingBag, LogIn, UserPlus } from "lucide-react";
+import { useAuth } from "@/components/auth/AuthProvider";
 import RecommendationsSection from "@/components/recommendations/RecommendationsSection";
 
 export default function Home() {
+  const { user } = useAuth();
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -21,13 +25,30 @@ export default function Home() {
               Sustainable, convenient, and 100% free!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/browse" className="btn-primary text-lg px-8 py-3">
-                <Sparkles className="w-5 h-5 mr-2" />
-                Browse Items
-              </Link>
-              <Link href="/list" className="btn-outline text-lg px-8 py-3">
-                List Your Item
-              </Link>
+              {user ? (
+                // User is signed in - show trading buttons
+                <>
+                  <Link href="/browse" className="btn-primary text-lg px-8 py-3">
+                    <Sparkles className="w-5 h-5 mr-2" />
+                    Browse Items
+                  </Link>
+                  <Link href="/list" className="btn-outline text-lg px-8 py-3">
+                    List Your Item
+                  </Link>
+                </>
+              ) : (
+                // User is not signed in - show auth buttons
+                <>
+                  <Link href="/auth/signup" className="btn-primary text-lg px-8 py-3">
+                    <UserPlus className="w-5 h-5 mr-2" />
+                    Sign Up
+                  </Link>
+                  <Link href="/auth/login" className="btn-outline text-lg px-8 py-3">
+                    <LogIn className="w-5 h-5 mr-2" />
+                    Sign In
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -98,10 +119,17 @@ export default function Home() {
           <p className="text-xl text-coquette-pink-600 mb-8">
             Join the Cate community and start reducing waste while discovering amazing pre-loved items.
           </p>
-          <Link href="/browse" className="btn-coquette text-lg px-8 py-4 inline-flex items-center">
-            <Sparkles className="w-5 h-5 mr-2" />
-            Explore Items
-          </Link>
+          {user ? (
+            <Link href="/browse" className="btn-primary text-lg px-8 py-4 inline-flex items-center">
+              <Sparkles className="w-5 h-5 mr-2" />
+              Explore Items
+            </Link>
+          ) : (
+            <Link href="/auth/signup" className="btn-primary text-lg px-8 py-4 inline-flex items-center">
+              <UserPlus className="w-5 h-5 mr-2" />
+              Join Now
+            </Link>
+          )}
         </div>
       </section>
 
