@@ -21,11 +21,11 @@ export default function Home() {
               Sustainable, convenient, and 100% free!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/browse" className="btn-coquette text-lg px-8 py-3">
+              <Link href="/browse" className="btn-primary text-lg px-8 py-3">
                 <Sparkles className="w-5 h-5 mr-2" />
-                Start Trading
+                Browse Items
               </Link>
-              <Link href="/list" className="btn-coquette-outline text-lg px-8 py-3">
+              <Link href="/list" className="btn-outline text-lg px-8 py-3">
                 List Your Item
               </Link>
             </div>
