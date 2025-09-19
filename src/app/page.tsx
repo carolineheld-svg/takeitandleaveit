@@ -14,12 +14,13 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-coquette opacity-50"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center">
-            <h1 className="text-5xl md:text-7xl font-coquette font-bold text-coquette-pink-700 mb-6">
-              Take It And
-              <span className="block bg-gradient-to-r from-coquette-pink-500 to-coquette-gold-500 bg-clip-text text-transparent">
-                Leave It
-              </span>
-            </h1>
+                   <h1 className="text-5xl md:text-7xl font-coquette font-bold text-coquette-pink-700 mb-6">
+                     Take It And
+                     <span className="block bg-gradient-to-r from-coquette-pink-500 to-coquette-gold-500 bg-clip-text text-transparent">
+                       Leave It
+                     </span>
+                   </h1>
+                   {/* Cache bust: Updated authentication buttons */}
             <p className="text-xl text-coquette-pink-600 mb-8 max-w-3xl mx-auto leading-relaxed">
               Take it or leave it has come to the web! Connect with fellow Cate students, trade items locally, and reduce waste all on campus. 
               Sustainable, convenient, and 100% free!
