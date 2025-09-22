@@ -88,7 +88,7 @@ export default function CarbonLeaderboard() {
           No Trading Data Yet
         </h3>
         <p className="text-gray-600">
-          Start trading to see who's making the biggest environmental impact!
+          Start trading to see who&apos;s making the biggest environmental impact!
         </p>
       </div>
     )

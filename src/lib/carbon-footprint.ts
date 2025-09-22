@@ -32,6 +32,15 @@ export interface CampusCarbonImpact {
   active_traders_count: number
 }
 
+export interface LeaderboardEntry {
+  user_id: string
+  username: string
+  full_name: string | null
+  avatar_url: string | null
+  total_co2_saved: number
+  total_trades: number
+}
+
 export class CarbonFootprintService {
   /**
    * Get carbon footprint data for a specific category and subcategory
@@ -145,14 +154,7 @@ export class CarbonFootprintService {
   /**
    * Get carbon savings leaderboard
    */
-  static async getCarbonSavingsLeaderboard(limit: number = 10): Promise<{
-    user_id: string
-    username: string
-    full_name: string | null
-    avatar_url: string | null
-    total_co2_saved: number
-    total_trades: number
-  }[]> {
+  static async getCarbonSavingsLeaderboard(limit: number = 10): Promise<LeaderboardEntry[]> {
     const { data, error } = await supabase
       .from('user_carbon_savings')
       .select(`
@@ -171,7 +173,7 @@ export class CarbonFootprintService {
     }
 
     // Aggregate data by user
-    const userTotals = data.reduce((acc: any, saving: any) => {
+    const userTotals = data.reduce((acc: Record<string, LeaderboardEntry>, saving: any) => {
       const userId = saving.user_id
       if (!acc[userId]) {
         acc[userId] = {
@@ -190,8 +192,8 @@ export class CarbonFootprintService {
 
     // Sort by total CO2 saved and return top users
     return Object.values(userTotals)
-      .sort((a: any, b: any) => b.total_co2_saved - a.total_co2_saved)
-      .slice(0, limit) as any[]
+      .sort((a: LeaderboardEntry, b: LeaderboardEntry) => b.total_co2_saved - a.total_co2_saved)
+      .slice(0, limit)
   }
 
   /**
