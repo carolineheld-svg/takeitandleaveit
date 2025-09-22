@@ -5,7 +5,6 @@ import { Heart, Sparkles, Users, ShoppingBag, LogIn, UserPlus } from "lucide-rea
 import { useAuth } from "@/components/auth/AuthProvider";
 import RecommendationsSection from "@/components/recommendations/RecommendationsSection";
 import CarbonImpactCard from "@/components/carbon/CarbonImpactCard";
-import CarbonLeaderboard from "@/components/carbon/CarbonLeaderboard";
 
 export default function Home() {
   const { user } = useAuth();
@@ -151,13 +150,12 @@ export default function Home() {
                    </p>
                  </div>
 
-                 <div className="grid lg:grid-cols-2 gap-8 mb-12">
+                 <div className="max-w-4xl mx-auto">
                    <CarbonImpactCard 
                      userId={user?.id} 
                      showPersonal={!!user} 
                      showCampus={true} 
                    />
-                   <CarbonLeaderboard />
                  </div>
                </div>
              </section>
