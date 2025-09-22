@@ -42,7 +42,10 @@ export default function WishlistButton({ itemId, className = '' }: WishlistButto
     checkWishlistStatus()
   }, [user, itemId, supabase])
 
-  const toggleWishlist = async () => {
+  const toggleWishlist = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    
     if (!user) {
       alert('Please sign in to add items to your wishlist')
       return
@@ -84,7 +87,7 @@ export default function WishlistButton({ itemId, className = '' }: WishlistButto
 
   return (
     <button
-      onClick={toggleWishlist}
+      onClick={(e) => toggleWishlist(e)}
       disabled={loading}
       className={`p-2 rounded-full transition-colors ${
         isInWishlist

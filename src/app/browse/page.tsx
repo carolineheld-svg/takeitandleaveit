@@ -315,7 +315,11 @@ export default function BrowsePage() {
                   <div className="flex items-center gap-3">
                     {!item.is_traded ? (
                       <button 
-                        onClick={() => handleChatRequest(item)}
+                        onClick={(e) => {
+                          e.preventDefault()
+                          e.stopPropagation()
+                          handleChatRequest(item)
+                        }}
                         className="bg-white/90 backdrop-blur-sm text-coquette-pink-600 px-6 py-2 rounded-full font-medium hover:bg-white transition-colors flex items-center gap-2"
                       >
                         <Heart className="w-4 h-4" />
