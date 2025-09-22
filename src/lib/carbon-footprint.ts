@@ -133,7 +133,7 @@ export class CarbonFootprintService {
     const totalCo2Saved = data.reduce((sum: number, saving: UserCarbonSavings) => sum + saving.co2_saved_kg, 0)
     const totalWaterSaved = data.reduce((sum: number, saving: UserCarbonSavings) => sum + (saving.water_saved_liters || 0), 0)
     const totalWasteDiverted = data.reduce((sum: number, saving: UserCarbonSavings) => sum + (saving.waste_diverted_kg || 0), 0)
-    const totalTrades = data.filter(saving => saving.savings_type === 'trade_completed').length
+    const totalTrades = data.filter((saving: UserCarbonSavings) => saving.savings_type === 'trade_completed').length
 
     return {
       totalCo2Saved,
