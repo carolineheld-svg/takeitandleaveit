@@ -32,24 +32,6 @@ export interface CampusCarbonImpact {
   active_traders_count: number
 }
 
-export interface LeaderboardEntry {
-  user_id: string
-  username: string
-  full_name: string | null
-  avatar_url: string | null
-  total_co2_saved: number
-  total_trades: number
-}
-
-interface CarbonSavingsWithProfile {
-  user_id: string
-  co2_saved_kg: number
-  profiles: {
-    username: string
-    full_name: string | null
-    avatar_url: string | null
-  }
-}
 
 export class CarbonFootprintService {
   /**
@@ -161,51 +143,6 @@ export class CarbonFootprintService {
     return data
   }
 
-  /**
-   * Get carbon savings leaderboard
-   */
-  static async getCarbonSavingsLeaderboard(limit: number = 10): Promise<LeaderboardEntry[]> {
-    const { data, error } = await supabase
-      .from('user_carbon_savings')
-      .select(`
-        user_id,
-        co2_saved_kg,
-        profiles!user_carbon_savings_user_id_fkey (
-          username,
-          full_name,
-          avatar_url
-        )
-      `)
-
-    if (error) {
-      console.error('Error fetching carbon savings leaderboard:', error)
-      return []
-    }
-
-    // Aggregate data by user
-    const userTotals = data.reduce((acc: Record<string, LeaderboardEntry>, saving: CarbonSavingsWithProfile) => {
-      const userId = saving.user_id
-      if (!acc[userId]) {
-        acc[userId] = {
-          user_id: userId,
-          username: saving.profiles.username,
-          full_name: saving.profiles.full_name,
-          avatar_url: saving.profiles.avatar_url,
-          total_co2_saved: 0,
-          total_trades: 0
-        }
-      }
-      acc[userId].total_co2_saved += saving.co2_saved_kg
-      acc[userId].total_trades += 1
-      return acc
-    }, {})
-
-    // Sort by total CO2 saved and return top users
-    const leaderboardEntries = Object.values(userTotals) as LeaderboardEntry[]
-    return leaderboardEntries
-      .sort((a: LeaderboardEntry, b: LeaderboardEntry) => b.total_co2_saved - a.total_co2_saved)
-      .slice(0, limit)
-  }
 
   /**
    * Format carbon savings for display

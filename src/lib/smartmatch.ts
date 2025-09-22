@@ -206,7 +206,7 @@ export class SmartMatchAI {
     }
 
     // Condition preference (5% weight)
-    const conditionScore = this.getConditionScore(item.condition, preferences)
+    const conditionScore = this.getConditionScore(item.condition)
     score += conditionScore * 0.05
     if (conditionScore > 0) {
       reasons.push(`Excellent condition (${item.condition})`)
@@ -277,7 +277,7 @@ export class SmartMatchAI {
     return Math.min(score, 10) // Cap at 10
   }
 
-  private getConditionScore(condition: string, _preferences: UserPreferences): number {
+  private getConditionScore(condition: string): number {
     // Prefer better conditions
     const conditionScores = {
       'Excellent': 10,
