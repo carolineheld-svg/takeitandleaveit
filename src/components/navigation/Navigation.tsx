@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useAuth } from '@/components/auth/AuthProvider'
+import MobileNavigation from './MobileNavigation'
 import { getProfile } from '@/lib/database'
 import NotificationBell from '@/components/notifications/NotificationBell'
 import { User, LogOut } from 'lucide-react'
@@ -59,7 +60,7 @@ export default function Navigation() {
             </Link>
           </div>
 
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-8">
             <Link href="/" className="text-coquette-pink-600 hover:text-coquette-pink-700 transition-colors">
               Home
             </Link>
@@ -131,15 +132,18 @@ export default function Navigation() {
                 </div>
               </>
             ) : (
-              <div className="flex items-center space-x-2">
-                <Link href="/auth/login" className="btn-coquette-outline text-sm">
+              <div className="hidden md:flex items-center space-x-2">
+                <Link href="/auth/login" className="btn-outline text-sm">
                   Sign In
                 </Link>
-                <Link href="/auth/signup" className="btn-coquette text-sm">
+                <Link href="/auth/signup" className="btn-primary text-sm">
                   Sign Up
                 </Link>
               </div>
             )}
+
+            {/* Mobile Navigation */}
+            <MobileNavigation />
           </div>
         </div>
       </div>

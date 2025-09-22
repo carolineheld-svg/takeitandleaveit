@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Heart, Sparkles, Users, ShoppingBag, LogIn, UserPlus } from "lucide-react";
 import { useAuth } from "@/components/auth/AuthProvider";
 import RecommendationsSection from "@/components/recommendations/RecommendationsSection";
+import CarbonImpactCard from "@/components/carbon/CarbonImpactCard";
+import CarbonLeaderboard from "@/components/carbon/CarbonLeaderboard";
 
 export default function Home() {
   const { user } = useAuth();
@@ -134,57 +136,32 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Recommendations Section */}
-      <RecommendationsSection />
+             {/* Recommendations Section */}
+             <RecommendationsSection />
 
-      {/* Campus Impact Section */}
-      <section className="py-20 bg-gradient-to-br from-green-50 to-emerald-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-coquette font-bold text-green-700 mb-6">
-              Our Campus Impact
-            </h2>
-            <p className="text-xl text-green-600 max-w-2xl mx-auto">
-              Join the movement towards sustainable living at Cate School
-            </p>
-          </div>
+             {/* Carbon Impact Section */}
+             <section className="py-20 bg-gradient-to-br from-green-50 to-emerald-50">
+               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div className="text-center mb-16">
+                   <h2 className="text-4xl font-coquette font-bold text-green-700 mb-6">
+                     Environmental Impact
+                   </h2>
+                   <p className="text-xl text-green-600 max-w-2xl mx-auto">
+                     Track your carbon footprint savings and see how trading makes a difference
+                   </p>
+                 </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl text-green-600">♻️</span>
-              </div>
-              <h3 className="text-2xl font-coquette font-bold text-green-700 mb-2">0</h3>
-              <p className="text-green-600">Items Traded</p>
-              <p className="text-sm text-green-500 mt-2">Keeping items out of landfills</p>
-            </div>
+                 <div className="grid lg:grid-cols-2 gap-8 mb-12">
+                   <CarbonImpactCard 
+                     userId={user?.id} 
+                     showPersonal={!!user} 
+                     showCampus={true} 
+                   />
+                   <CarbonLeaderboard />
+                 </div>
+               </div>
+             </section>
 
-            <div className="text-center">
-              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl text-green-600">👥</span>
-              </div>
-              <h3 className="text-2xl font-coquette font-bold text-green-700 mb-2">0</h3>
-              <p className="text-green-600">Community Members</p>
-              <p className="text-sm text-green-500 mt-2">Students and faculty participating</p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl text-green-600">🌱</span>
-              </div>
-              <h3 className="text-2xl font-coquette font-bold text-green-700 mb-2">100%</h3>
-              <p className="text-green-600">Sustainable</p>
-              <p className="text-sm text-green-500 mt-2">Zero waste trading platform</p>
-            </div>
-          </div>
-
-          <div className="mt-12 text-center">
-            <p className="text-green-600 text-lg">
-              Every trade contributes to a more sustainable Cate community
-            </p>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

@@ -296,6 +296,117 @@ export type Database = {
             last_recommendation_update?: string
           }
         }
+        carbon_footprint_categories: {
+          Row: {
+            id: string
+            created_at: string
+            category: string
+            subcategory: string | null
+            kg_co2_per_item: number
+            manufacturing_emissions: number
+            transportation_emissions: number
+            disposal_emissions: number
+            water_usage_liters: number | null
+            description: string | null
+          }
+          Insert: {
+            id?: string
+            created_at?: string
+            category: string
+            subcategory?: string | null
+            kg_co2_per_item: number
+            manufacturing_emissions: number
+            transportation_emissions: number
+            disposal_emissions: number
+            water_usage_liters?: number | null
+            description?: string | null
+          }
+          Update: {
+            id?: string
+            created_at?: string
+            category?: string
+            subcategory?: string | null
+            kg_co2_per_item?: number
+            manufacturing_emissions?: number
+            transportation_emissions?: number
+            disposal_emissions?: number
+            water_usage_liters?: number | null
+            description?: string | null
+          }
+        }
+        user_carbon_savings: {
+          Row: {
+            id: string
+            created_at: string
+            user_id: string
+            item_id: string
+            trade_id: string | null
+            co2_saved_kg: number
+            water_saved_liters: number | null
+            waste_diverted_kg: number | null
+            savings_type: 'trade_completed' | 'item_listed' | 'wishlist_added'
+            metadata: Record<string, unknown>
+          }
+          Insert: {
+            id?: string
+            created_at?: string
+            user_id: string
+            item_id: string
+            trade_id?: string | null
+            co2_saved_kg: number
+            water_saved_liters?: number | null
+            waste_diverted_kg?: number | null
+            savings_type: 'trade_completed' | 'item_listed' | 'wishlist_added'
+            metadata?: Record<string, unknown>
+          }
+          Update: {
+            id?: string
+            created_at?: string
+            user_id?: string
+            item_id?: string
+            trade_id?: string | null
+            co2_saved_kg?: number
+            water_saved_liters?: number | null
+            waste_diverted_kg?: number | null
+            savings_type?: 'trade_completed' | 'item_listed' | 'wishlist_added'
+            metadata?: Record<string, unknown>
+          }
+        }
+        campus_carbon_impact: {
+          Row: {
+            id: string
+            created_at: string
+            updated_at: string
+            total_co2_saved_kg: number
+            total_water_saved_liters: number
+            total_waste_diverted_kg: number
+            total_trades_completed: number
+            total_items_traded: number
+            active_traders_count: number
+          }
+          Insert: {
+            id?: string
+            created_at?: string
+            updated_at?: string
+            total_co2_saved_kg?: number
+            total_water_saved_liters?: number
+            total_waste_diverted_kg?: number
+            total_trades_completed?: number
+            total_items_traded?: number
+            active_traders_count?: number
+          }
+          Update: {
+            id?: string
+            created_at?: string
+            updated_at?: string
+            total_co2_saved_kg?: number
+            total_water_saved_liters?: number
+            total_waste_diverted_kg?: number
+            total_trades_completed?: number
+            total_items_traded?: number
+            active_traders_count?: number
+          }
+        }
     }
   }
 }
