@@ -201,7 +201,8 @@ export class CarbonFootprintService {
     }, {})
 
     // Sort by total CO2 saved and return top users
-    return Object.values(userTotals) as LeaderboardEntry[]
+    const leaderboardEntries = Object.values(userTotals) as LeaderboardEntry[]
+    return leaderboardEntries
       .sort((a: LeaderboardEntry, b: LeaderboardEntry) => b.total_co2_saved - a.total_co2_saved)
       .slice(0, limit)
   }
