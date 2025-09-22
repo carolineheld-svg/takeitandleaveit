@@ -60,7 +60,7 @@ export default function Navigation() {
             </Link>
           </div>
 
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-8">
             <Link href="/" className="text-coquette-pink-600 hover:text-coquette-pink-700 transition-colors">
               Home
             </Link>
