@@ -17,6 +17,7 @@ type ChatMessageInsert = Database['public']['Tables']['chat_messages']['Insert']
 
 type Profile = Database['public']['Tables']['profiles']['Row']
 type Notification = Database['public']['Tables']['notifications']['Row']
+type NotificationInsert = Database['public']['Tables']['notifications']['Insert']
 
 // Items
 export async function createItem(item: Omit<ItemInsert, 'id' | 'created_at' | 'updated_at'>): Promise<Item> {
@@ -344,7 +345,7 @@ export async function updateProfile(userId: string, updates: Partial<Profile>): 
 }
 
 // Notifications
-export async function createNotification(notification: Omit<Notification, 'id' | 'created_at'>): Promise<Notification> {
+export async function createNotification(notification: Omit<NotificationInsert, 'id' | 'created_at'>): Promise<Notification> {
   const { data, error } = await supabase
     .from('notifications')
     .insert(notification)
