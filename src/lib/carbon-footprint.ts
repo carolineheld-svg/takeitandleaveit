@@ -41,6 +41,16 @@ export interface LeaderboardEntry {
   total_trades: number
 }
 
+interface CarbonSavingsWithProfile {
+  user_id: string
+  co2_saved_kg: number
+  profiles: {
+    username: string
+    full_name: string | null
+    avatar_url: string | null
+  }
+}
+
 export class CarbonFootprintService {
   /**
    * Get carbon footprint data for a specific category and subcategory
@@ -173,7 +183,7 @@ export class CarbonFootprintService {
     }
 
     // Aggregate data by user
-    const userTotals = data.reduce((acc: Record<string, LeaderboardEntry>, saving: any) => {
+    const userTotals = data.reduce((acc: Record<string, LeaderboardEntry>, saving: CarbonSavingsWithProfile) => {
       const userId = saving.user_id
       if (!acc[userId]) {
         acc[userId] = {
