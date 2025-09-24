@@ -59,60 +59,60 @@ export default function SignupPage() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+              <label htmlFor="username" className="block text-sm font-medium text-primary-800 mb-2">
                 Username
               </label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coquette-pink-400 w-5 h-5" />
+                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-500 w-5 h-5" />
                 <input
                   id="username"
                   type="text"
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                  className="w-full pl-10 pr-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors text-gray-700"
                   placeholder="Choose a username"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-primary-800 mb-2">
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coquette-pink-400 w-5 h-5" />
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-500 w-5 h-5" />
                 <input
                   id="email"
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                  className="w-full pl-10 pr-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors text-gray-700"
                   placeholder="Enter your email"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-primary-800 mb-2">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coquette-pink-400 w-5 h-5" />
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-500 w-5 h-5" />
                 <input
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-12 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                  className="w-full pl-10 pr-12 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors text-gray-700"
                   placeholder="Create a password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-coquette-pink-400 hover:text-coquette-pink-600 transition-colors"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary-500 hover:text-primary-600 transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -122,23 +122,23 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full btn-coquette disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Creating Account...' : 'Create Account'}
             </button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-coquette-pink-600">
+            <p className="text-primary-600">
               Already have an account?{' '}
-              <Link href="/auth/login" className="text-coquette-pink-600 hover:text-coquette-pink-700 font-medium transition-colors">
+              <Link href="/auth/login" className="text-primary-600 hover:text-primary-700 font-medium transition-colors">
                 Sign in
               </Link>
             </p>
           </div>
 
           <div className="mt-6 text-center">
-            <Link href="/" className="text-coquette-pink-600 hover:text-coquette-pink-700 transition-colors">
+            <Link href="/" className="text-primary-600 hover:text-primary-700 transition-colors">
               ← Back to Home
             </Link>
           </div>
