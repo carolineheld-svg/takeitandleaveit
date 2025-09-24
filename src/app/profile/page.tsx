@@ -395,7 +395,7 @@ export default function ProfilePage() {
                         </div>
                         
                         {item.is_traded && (
-                          <div className="absolute top-4 right-4 bg-coquette-gold-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                          <div className="absolute top-4 right-4 bg-secondary-600 text-white px-3 py-1 rounded-full text-sm font-medium">
                             Traded
                           </div>
                         )}
@@ -403,11 +403,11 @@ export default function ProfilePage() {
 
                       <div className="p-4">
                         <div className="flex items-center justify-between mb-2">
-                          <h4 className="font-coquette font-semibold text-coquette-pink-700 text-lg">
+                          <h4 className="font-elegant font-semibold text-light-blue-800 text-lg">
                             {item.name}
                           </h4>
                           {item.size && (
-                            <span className="text-sm text-coquette-pink-500 bg-coquette-pink-100 px-2 py-1 rounded-full">
+                            <span className="text-sm text-light-blue-700 bg-light-blue-200 px-2 py-1 rounded-full">
                               {item.size}
                             </span>
                           )}

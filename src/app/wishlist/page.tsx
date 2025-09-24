@@ -174,7 +174,7 @@ export default function WishlistPage() {
                           className="w-6 h-6 rounded-full object-cover"
                         />
                       ) : (
-                        <div className="w-6 h-6 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full"></div>
+                        <div className="w-6 h-6 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"></div>
                       )}
                       <span className="text-sm text-light-blue-600">
                         {item.profiles?.full_name || item.profiles?.username || 'Unknown'}

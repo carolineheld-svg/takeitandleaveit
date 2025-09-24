@@ -121,22 +121,22 @@ export default function SizePreferencesModal({ isOpen, onClose, userId, onSave }
             <div className="space-y-6">
               {/* Clothing Categories */}
               {Object.entries(SIZE_PREFERENCES).map(([category, sizes]) => (
-                <div key={category} className="border border-coquette-pink-200 rounded-lg p-4">
+                <div key={category} className="border border-primary-200 rounded-lg p-4">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-coquette font-semibold text-lg text-coquette-pink-700">
+                    <h3 className="font-elegant font-semibold text-lg text-primary-800">
                       {category}
                     </h3>
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleSelectAll(category)}
-                        className="text-xs text-coquette-pink-500 hover:text-coquette-pink-700 transition-colors"
+                        className="text-xs text-primary-600 hover:text-primary-700 transition-colors"
                       >
                         Select All
                       </button>
-                      <span className="text-coquette-pink-300">|</span>
+                      <span className="text-primary-400">|</span>
                       <button
                         onClick={() => handleClearAll(category)}
-                        className="text-xs text-coquette-pink-500 hover:text-coquette-pink-700 transition-colors"
+                        className="text-xs text-primary-600 hover:text-primary-700 transition-colors"
                       >
                         Clear All
                       </button>
@@ -152,8 +152,8 @@ export default function SizePreferencesModal({ isOpen, onClose, userId, onSave }
                           onClick={() => handleSizeToggle(category, size)}
                           className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                             isSelected
-                              ? 'bg-coquette-pink-500 text-white'
-                              : 'bg-coquette-pink-100 text-coquette-pink-700 hover:bg-coquette-pink-200'
+                              ? 'bg-primary-600 text-white'
+                              : 'bg-primary-100 text-primary-700 hover:bg-primary-200'
                           }`}
                         >
                           {size}
@@ -166,7 +166,7 @@ export default function SizePreferencesModal({ isOpen, onClose, userId, onSave }
 
               {/* Non-clothing info */}
               <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                <h3 className="font-coquette font-semibold text-lg text-gray-700 mb-2">
+                <h3 className="font-elegant font-semibold text-lg text-primary-800 mb-2">
                   Non-Clothing Items
                 </h3>
                 <p className="text-gray-600 text-sm">
@@ -181,14 +181,14 @@ export default function SizePreferencesModal({ isOpen, onClose, userId, onSave }
           <div className="flex gap-3 mt-8">
             <button
               onClick={onClose}
-              className="flex-1 px-4 py-3 border border-coquette-pink-200 text-coquette-pink-600 rounded-lg hover:bg-coquette-pink-50 transition-colors"
+              className="flex-1 px-4 py-3 border border-primary-200 text-primary-600 rounded-lg hover:bg-primary-50 transition-colors"
             >
               Cancel
             </button>
             <button
               onClick={handleSave}
               disabled={saving}
-              className="flex-1 bg-coquette-pink-500 text-white px-4 py-3 rounded-lg font-medium hover:bg-coquette-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="flex-1 bg-primary-600 text-white px-4 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {saving ? (
                 <>

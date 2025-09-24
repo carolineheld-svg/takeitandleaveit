@@ -148,11 +148,11 @@ export default function ListItemPage() {
               Your item is now live and ready for trading. 
               Other users can now see it in the browse section.
             </p>
-            <div className="space-y-3">
-              <Link href="/browse" className="btn-primary w-full">
+            <div className="space-y-4">
+              <Link href="/browse" className="btn-primary w-full block">
                 Browse Other Items
               </Link>
-              <Link href="/list" className="btn-outline w-full">
+              <Link href="/list" className="btn-outline w-full block">
                 List Another Item
               </Link>
             </div>

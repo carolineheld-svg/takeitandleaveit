@@ -47,7 +47,7 @@ body {
 
 /* Primary button styles */
 .btn-primary {
-  @apply bg-gradient-to-r from-rose-400 to-lavender-400 text-white font-medium py-3 px-8 rounded-xl shadow-soft hover:shadow-primary transition-all duration-300 transform hover:scale-105 font-semibold;
+  @apply bg-gradient-to-r from-rose-400 to-lavender-400 text-white font-medium py-3 px-8 rounded-xl shadow-soft hover:shadow-primary transition-all duration-300 font-semibold;
 }
 
 .btn-outline {
