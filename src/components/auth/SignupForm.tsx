@@ -32,19 +32,19 @@ export default function SignupForm() {
   if (success) {
     return (
       <div className="max-w-md mx-auto">
-        <div className="card-coquette p-8 text-center">
-          <div className="w-16 h-16 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="card-primary p-8 text-center">
+          <div className="w-16 h-16 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center mx-auto mb-6">
             <span className="text-white text-2xl">✓</span>
           </div>
-          <h2 className="text-2xl font-coquette font-bold text-coquette-pink-700 mb-4">
+          <h2 className="text-2xl font-elegant font-bold text-primary-800 mb-4">
             Welcome to TakeItAndLeaveIt!
           </h2>
-          <p className="text-coquette-pink-600 mb-6">
+          <p className="text-primary-600 mb-6">
             Please check your email to verify your account and start trading.
           </p>
           <button
             onClick={() => setSuccess(false)}
-            className="btn-coquette-outline"
+            className="btn-outline"
           >
             Back to Sign Up
           </button>
@@ -55,12 +55,12 @@ export default function SignupForm() {
 
   return (
     <div className="max-w-md mx-auto">
-      <div className="card-coquette p-8">
+      <div className="card-primary p-8">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-coquette font-bold text-coquette-pink-700 mb-2">
+          <h2 className="text-3xl font-elegant font-bold text-primary-800 mb-2">
             Join Our Community
           </h2>
-          <p className="text-coquette-pink-600">
+          <p className="text-primary-600">
             Create your account and start trading
           </p>
         </div>
@@ -73,47 +73,47 @@ export default function SignupForm() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+            <label htmlFor="username" className="block text-sm font-medium text-primary-800 mb-2">
               Username
             </label>
             <div className="relative">
-              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coquette-pink-400 w-5 h-5" />
+              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-500 w-5 h-5" />
               <input
                 id="username"
                 type="text"
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                className="w-full pl-10 pr-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                 placeholder="your_username"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+            <label htmlFor="email" className="block text-sm font-medium text-primary-800 mb-2">
               Email
             </label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coquette-pink-400 w-5 h-5" />
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-500 w-5 h-5" />
               <input
                 id="email"
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                className="w-full pl-10 pr-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                 placeholder="your@email.com"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+            <label htmlFor="password" className="block text-sm font-medium text-primary-800 mb-2">
               Password
             </label>
             <div className="relative">
-              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coquette-pink-400 w-5 h-5" />
+              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-500 w-5 h-5" />
               <input
                 id="password"
                 type={showPassword ? 'text' : 'password'}
@@ -126,7 +126,7 @@ export default function SignupForm() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-coquette-pink-400 hover:text-coquette-pink-600 transition-colors"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary-500 hover:text-primary-600 transition-colors"
               >
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
@@ -136,16 +136,16 @@ export default function SignupForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full btn-coquette disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Creating Account...' : 'Create Account'}
           </button>
         </form>
 
         <div className="mt-6 text-center">
-          <p className="text-coquette-pink-600">
+          <p className="text-primary-600">
             Already have an account?{' '}
-            <button className="text-coquette-pink-500 hover:text-coquette-pink-700 font-medium transition-colors">
+            <button className="text-primary-500 hover:text-primary-700 font-medium transition-colors">
               Sign in
             </button>
           </p>

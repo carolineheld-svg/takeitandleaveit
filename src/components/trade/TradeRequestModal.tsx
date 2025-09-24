@@ -50,37 +50,37 @@ export default function TradeRequestModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-coquette-lg max-w-md w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-coquette font-bold text-coquette-pink-700">
+            <h2 className="text-2xl font-elegant font-bold text-primary-800">
               Send Trade Request
             </h2>
             <button
               onClick={onClose}
-              className="text-coquette-pink-400 hover:text-coquette-pink-600 transition-colors"
+              className="text-primary-500 hover:text-primary-600 transition-colors"
             >
               <X className="w-6 h-6" />
             </button>
           </div>
 
-          <div className="bg-coquette-pink-50 rounded-lg p-4 mb-6">
-            <h3 className="font-coquette font-semibold text-coquette-pink-700 mb-1">
+          <div className="bg-primary-50 rounded-lg p-4 mb-6">
+            <h3 className="font-elegant font-semibold text-primary-800 mb-1">
               {item.name}
             </h3>
-            <p className="text-coquette-gold-600 text-sm mb-2">{item.brand}</p>
-            <p className="text-coquette-pink-600 text-sm">
+            <p className="text-primary-700 text-sm mb-2">{item.brand}</p>
+            <p className="text-primary-600 text-sm">
               Listed by @{item.profiles.username}
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="message" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+              <label htmlFor="message" className="block text-sm font-medium text-primary-800 mb-2">
                 Message (Optional)
               </label>
               <div className="relative">
-                <MessageCircle className="absolute left-3 top-3 text-coquette-pink-400 w-5 h-5" />
+                <MessageCircle className="absolute left-3 top-3 text-primary-500 w-5 h-5" />
                 <textarea
                   id="message"
                   value={message}

@@ -78,9 +78,9 @@ export default function MobileNavigation() {
 
               {/* User Info */}
               {user && (
-                <div className="p-6 border-b border-coquette-pink-100">
+                <div className="p-6 border-b border-primary-100">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400">
+                    <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-r from-primary-500 to-secondary-500">
                       {user.user_metadata?.avatar_url ? (
                         <img
                           src={user.user_metadata.avatar_url}
@@ -126,7 +126,7 @@ export default function MobileNavigation() {
               </nav>
 
               {/* Auth Section */}
-              <div className="p-6 border-t border-coquette-pink-100">
+              <div className="p-6 border-t border-primary-100">
                 {user ? (
                   <button
                     onClick={handleSignOut}

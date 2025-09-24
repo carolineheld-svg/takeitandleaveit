@@ -94,24 +94,24 @@ export default function ChatModal({ isOpen, onClose, tradeRequest }: ChatModalPr
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-coquette-lg max-w-2xl w-full max-h-[80vh] flex flex-col">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] flex flex-col">
         {/* Header */}
-        <div className="p-6 border-b border-coquette-pink-100">
+        <div className="p-6 border-b border-primary-100">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-coquette font-bold text-coquette-pink-700">
+            <h2 className="text-2xl font-elegant font-bold text-primary-800">
               Trade Coordination
             </h2>
             <button
               onClick={onClose}
-              className="text-coquette-pink-400 hover:text-coquette-pink-600 transition-colors"
+              className="text-primary-600 hover:text-primary-700 transition-colors"
             >
               <X className="w-6 h-6" />
             </button>
           </div>
 
-          <div className="bg-coquette-pink-50 rounded-lg p-4">
+          <div className="bg-primary-50 rounded-lg p-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-coquette-pink-100 to-coquette-gold-100 rounded-lg overflow-hidden">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary-100 to-secondary-100 rounded-lg overflow-hidden">
                 <img
                   src={tradeRequest.items.images[0] || '/api/placeholder/100/100'}
                   alt={tradeRequest.items.name}
@@ -119,11 +119,11 @@ export default function ChatModal({ isOpen, onClose, tradeRequest }: ChatModalPr
                 />
               </div>
               <div>
-                <h3 className="font-coquette font-semibold text-coquette-pink-700">
+                <h3 className="font-elegant font-semibold text-primary-800">
                   {tradeRequest.items.name}
                 </h3>
-                <p className="text-coquette-gold-600 text-sm">{tradeRequest.items.brand}</p>
-                <p className="text-coquette-pink-600 text-sm">
+                <p className="text-primary-700 text-sm">{tradeRequest.items.brand}</p>
+                <p className="text-primary-600 text-sm">
                   Trading with @{tradeRequest.profiles.username}
                 </p>
               </div>
@@ -144,13 +144,13 @@ export default function ChatModal({ isOpen, onClose, tradeRequest }: ChatModalPr
         <div className="flex-1 p-6 overflow-y-auto space-y-4 min-h-0">
           {loading ? (
             <div className="flex justify-center py-8">
-              <div className="w-8 h-8 border-2 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin"></div>
+              <div className="w-8 h-8 border-2 border-primary-200 border-t-primary-500 rounded-full animate-spin"></div>
             </div>
           ) : messages.length === 0 ? (
             <div className="text-center py-8">
-              <MapPin className="w-12 h-12 text-coquette-pink-300 mx-auto mb-4" />
-              <p className="text-coquette-pink-600 mb-2">Start coordinating your trade!</p>
-              <p className="text-sm text-coquette-pink-500">
+              <MapPin className="w-12 h-12 text-primary-400 mx-auto mb-4" />
+              <p className="text-primary-700 mb-2">Start coordinating your trade!</p>
+              <p className="text-sm text-primary-600">
                 Discuss meeting location, time, and any other details.
               </p>
             </div>
@@ -163,14 +163,14 @@ export default function ChatModal({ isOpen, onClose, tradeRequest }: ChatModalPr
                 <div
                   className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${
                     message.sender_id === user?.id
-                      ? 'bg-coquette-pink-500 text-white'
-                      : 'bg-coquette-pink-100 text-coquette-pink-700'
+                      ? 'bg-primary-600 text-white'
+                      : 'bg-primary-100 text-primary-800'
                   }`}
                 >
                   <p className="text-sm">{message.message}</p>
                   <p
                     className={`text-xs mt-1 ${
-                      message.sender_id === user?.id ? 'text-pink-100' : 'text-coquette-pink-500'
+                      message.sender_id === user?.id ? 'text-white/80' : 'text-primary-600'
                     }`}
                   >
                     {new Date(message.created_at).toLocaleTimeString([], {

@@ -28,12 +28,12 @@ export default function LoginForm() {
 
   return (
     <div className="max-w-md mx-auto">
-      <div className="card-coquette p-8">
+      <div className="card-primary p-8">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-coquette font-bold text-coquette-pink-700 mb-2">
+          <h2 className="text-3xl font-elegant font-bold text-primary-800 mb-2">
             Welcome Back
           </h2>
-          <p className="text-coquette-pink-600">
+          <p className="text-primary-600">
             Sign in to continue your trading journey
           </p>
         </div>
@@ -46,42 +46,42 @@ export default function LoginForm() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+            <label htmlFor="email" className="block text-sm font-medium text-primary-800 mb-2">
               Email
             </label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coquette-pink-400 w-5 h-5" />
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-500 w-5 h-5" />
               <input
                 id="email"
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                className="w-full pl-10 pr-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                 placeholder="your@email.com"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+            <label htmlFor="password" className="block text-sm font-medium text-primary-800 mb-2">
               Password
             </label>
             <div className="relative">
-              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coquette-pink-400 w-5 h-5" />
+              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-500 w-5 h-5" />
               <input
                 id="password"
                 type={showPassword ? 'text' : 'password'}
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-10 pr-12 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                className="w-full pl-10 pr-12 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                 placeholder="••••••••"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-coquette-pink-400 hover:text-coquette-pink-600 transition-colors"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary-500 hover:text-primary-600 transition-colors"
               >
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
@@ -91,16 +91,16 @@ export default function LoginForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full btn-coquette disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Signing In...' : 'Sign In'}
           </button>
         </form>
 
         <div className="mt-6 text-center">
-          <p className="text-coquette-pink-600">
+          <p className="text-primary-600">
             Don&apos;t have an account?{' '}
-            <button className="text-coquette-pink-500 hover:text-coquette-pink-700 font-medium transition-colors">
+            <button className="text-primary-500 hover:text-primary-700 font-medium transition-colors">
               Sign up
             </button>
           </p>

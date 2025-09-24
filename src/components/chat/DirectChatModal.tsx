@@ -60,32 +60,32 @@ export default function DirectChatModal({ isOpen, onClose, item }: DirectChatMod
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-coquette-pink-100">
+        <div className="flex items-center justify-between p-6 border-b border-primary-100">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center">
               <MessageCircle className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-lg font-coquette font-semibold text-coquette-pink-700">
+              <h2 className="text-lg font-elegant font-semibold text-primary-800">
                 Send Trade Request
               </h2>
-              <p className="text-sm text-coquette-pink-500">
+              <p className="text-sm text-primary-600">
                 Contact @{item.profiles.username}
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-coquette-pink-50 rounded-lg transition-colors"
+            className="p-2 hover:bg-primary-50 rounded-lg transition-colors"
           >
-            <X className="w-5 h-5 text-coquette-pink-400" />
+            <X className="w-5 h-5 text-primary-600" />
           </button>
         </div>
 
         {/* Item Preview */}
-        <div className="p-6 border-b border-coquette-pink-100">
+        <div className="p-6 border-b border-primary-100">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-coquette-pink-100 to-coquette-gold-100 rounded-lg overflow-hidden">
+            <div className="w-16 h-16 bg-gradient-to-br from-primary-100 to-secondary-100 rounded-lg overflow-hidden">
               {item.images && item.images.length > 0 ? (
                 <img
                   src={item.images[0]}
@@ -94,15 +94,15 @@ export default function DirectChatModal({ isOpen, onClose, item }: DirectChatMod
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <span className="text-coquette-pink-400 text-xs">No Image</span>
+                  <span className="text-primary-600 text-xs">No Image</span>
                 </div>
               )}
             </div>
             <div className="flex-1">
-              <h3 className="font-coquette font-semibold text-coquette-pink-700">
+              <h3 className="font-elegant font-semibold text-primary-800">
                 {item.name}
               </h3>
-              <p className="text-coquette-gold-600 text-sm">{item.brand}</p>
+              <p className="text-primary-700 text-sm">{item.brand}</p>
             </div>
           </div>
         </div>
@@ -110,7 +110,7 @@ export default function DirectChatModal({ isOpen, onClose, item }: DirectChatMod
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div>
-            <label htmlFor="message" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+            <label htmlFor="message" className="block text-sm font-medium text-primary-800 mb-2">
               Message *
             </label>
             <textarea
@@ -118,21 +118,21 @@ export default function DirectChatModal({ isOpen, onClose, item }: DirectChatMod
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               rows={4}
-              className="w-full px-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors resize-none"
+              className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors resize-none"
               placeholder="Tell them why you'd love to trade for this item..."
               required
             />
           </div>
 
           <div>
-            <label htmlFor="meetingLocation" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+            <label htmlFor="meetingLocation" className="block text-sm font-medium text-primary-800 mb-2">
               Preferred Meeting Location (Optional)
             </label>
             <select
               id="meetingLocation"
               value={meetingLocation}
               onChange={(e) => setMeetingLocation(e.target.value)}
-              className="w-full px-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
             >
               <option value="">Select a campus location</option>
               <option value="Bothin Stairs">Bothin Stairs</option>
@@ -162,7 +162,7 @@ export default function DirectChatModal({ isOpen, onClose, item }: DirectChatMod
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-3 border border-coquette-pink-200 text-coquette-pink-600 rounded-lg hover:bg-coquette-pink-50 transition-colors"
+              className="flex-1 px-4 py-3 border border-primary-200 text-primary-600 rounded-lg hover:bg-primary-50 transition-colors"
             >
               Cancel
             </button>

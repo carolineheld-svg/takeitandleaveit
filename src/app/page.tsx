@@ -29,10 +29,9 @@ export default function Home() {
               {user ? (
                 // User is signed in - show trading buttons
                 <>
-                  <Link href="/browse" className="btn-primary text-lg flex items-center justify-center min-h-[48px] touch-manipulation">
-                    <Sparkles className="w-5 h-5 mr-2" />
-                    Browse Items
-                  </Link>
+                 <Link href="/browse" className="btn-primary text-lg flex items-center justify-center min-h-[48px] touch-manipulation">
+                   Browse Items
+                 </Link>
                   <Link href="/list" className="btn-outline text-lg flex items-center justify-center min-h-[48px] touch-manipulation">
                     List Your Item
                   </Link>

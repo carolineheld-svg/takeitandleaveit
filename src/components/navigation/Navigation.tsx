@@ -98,7 +98,7 @@ export default function Navigation() {
                     onClick={() => setShowUserMenu(!showUserMenu)}
                     className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 transition-colors"
                   >
-                    <div className="w-8 h-8 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full flex items-center justify-center overflow-hidden">
+                    <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center overflow-hidden">
                       {profile?.avatar_url ? (
                         <img 
                           src={profile.avatar_url} 
@@ -115,7 +115,7 @@ export default function Navigation() {
                   </button>
 
                 {showUserMenu && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-coquette border border-coquette-pink-100 py-1 z-50">
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-primary-100 py-1 z-50">
                     <Link
                       href="/profile"
                       className="flex items-center px-4 py-2 text-sm text-primary-600 hover:bg-primary-50 transition-colors"
