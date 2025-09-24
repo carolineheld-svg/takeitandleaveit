@@ -47,7 +47,7 @@ export default function ListItemPage() {
   // Show loading while checking authentication
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-light-purple">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-light-purple-700 font-elegant text-xl">Loading...</p>

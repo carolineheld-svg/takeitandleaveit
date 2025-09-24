@@ -182,10 +182,10 @@ export default function EditItemPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-light-purple">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-coquette-pink-600 font-coquette text-xl">Loading item...</p>
+          <p className="text-light-purple-700 font-elegant text-xl">Loading item...</p>
         </div>
       </div>
     )
@@ -193,7 +193,7 @@ export default function EditItemPage() {
 
   if (error && !item) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-light-purple">
         <div className="max-w-md mx-auto text-center">
           <div className="card-coquette p-8">
             <h2 className="text-2xl font-coquette font-bold text-coquette-pink-700 mb-4">
@@ -211,7 +211,7 @@ export default function EditItemPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-coquette-pink-50 to-coquette-gold-50">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-light-purple">
         <div className="max-w-md mx-auto text-center">
           <div className="card-coquette p-8">
             <div className="w-20 h-20 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full flex items-center justify-center mx-auto mb-6">

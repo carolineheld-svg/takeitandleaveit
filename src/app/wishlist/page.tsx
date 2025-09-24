@@ -77,10 +77,10 @@ export default function WishlistPage() {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-light-blue">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-coquette-pink-600 font-coquette text-xl">Loading...</p>
+          <p className="text-light-blue-700 font-elegant text-xl">Loading...</p>
         </div>
       </div>
     )
@@ -114,7 +114,7 @@ export default function WishlistPage() {
         {loading ? (
           <div className="text-center py-12">
             <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-coquette-pink-600 font-coquette text-xl">Loading your wishlist...</p>
+            <p className="text-light-blue-700 font-elegant text-xl">Loading your wishlist...</p>
           </div>
         ) : wishlistItems.length === 0 ? (
           <div className="text-center py-12">

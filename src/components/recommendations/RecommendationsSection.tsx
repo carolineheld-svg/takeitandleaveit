@@ -40,16 +40,16 @@ export default function RecommendationsSection() {
   if (!user) return null
 
   return (
-    <section className="py-24 bg-white/50">
+    <section className="py-24 bg-gradient-to-br from-rose-50 to-lavender-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <Star className="w-8 h-8 text-coquette-pink-500" />
-            <h2 className="text-4xl font-coquette font-bold text-coquette-pink-700">
+            <Star className="w-8 h-8 text-rose-500" />
+            <h2 className="text-4xl font-elegant font-bold text-primary-800">
               Recommended for You
             </h2>
           </div>
-          <p className="text-lg text-coquette-pink-600 max-w-2xl mx-auto">
+          <p className="text-lg text-primary-700 max-w-2xl mx-auto">
             Items we think you&apos;ll love based on your preferences
           </p>
         </div>
@@ -57,15 +57,15 @@ export default function RecommendationsSection() {
         {loading ? (
           <div className="text-center py-12">
             <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-coquette-pink-600 font-coquette text-xl">Finding recommendations...</p>
+            <p className="text-primary-700 font-elegant text-xl">Finding recommendations...</p>
           </div>
         ) : recommendations.length === 0 ? (
           <div className="text-center py-12">
             <Package className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-2xl font-coquette font-semibold text-gray-600 mb-2">
+            <h3 className="text-2xl font-elegant font-semibold text-primary-700 mb-2">
               No recommendations yet
             </h3>
-            <p className="text-gray-500 mb-6">
+            <p className="text-primary-600 mb-6">
               Start browsing and adding items to your wishlist to get personalized recommendations!
             </p>
             <Link 

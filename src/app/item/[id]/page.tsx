@@ -98,10 +98,10 @@ export default function ItemDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-coquette-pink-50 to-coquette-gold-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-light-green flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-coquette-pink-600">Loading item details...</p>
+          <p className="text-light-green-700">Loading item details...</p>
         </div>
       </div>
     )
@@ -109,7 +109,7 @@ export default function ItemDetailPage() {
 
   if (error || !item) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-coquette-pink-50 to-coquette-gold-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-light-green flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-coquette font-bold text-coquette-pink-700 mb-4">
             {error || 'Item not found'}
