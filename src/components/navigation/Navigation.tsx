@@ -46,39 +46,43 @@ export default function Navigation() {
   }
 
   return (
-    <header className="bg-white/80 backdrop-blur-sm border-b border-coquette-pink-100 sticky top-0 z-50">
+    <header className="bg-white/80 backdrop-blur-sm border-b border-secondary-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-2">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">T</span>
+          <div className="flex items-center space-x-3">
+            <Link href="/" className="flex items-center space-x-3">
+              <div className="w-10 h-10 flex items-center justify-center">
+                <img 
+                  src="/cate-logo.svg" 
+                  alt="Cate School Logo" 
+                  className="w-8 h-8 object-contain"
+                />
               </div>
-              <h1 className="text-2xl font-coquette font-semibold text-coquette-pink-600">
+              <h1 className="text-2xl font-elegant font-semibold text-primary-700">
                 TakeItAndLeaveIt
               </h1>
             </Link>
           </div>
 
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-coquette-pink-600 hover:text-coquette-pink-700 transition-colors">
+            <Link href="/" className="text-primary-600 hover:text-primary-700 transition-colors">
               Home
             </Link>
-            <Link href="/browse" className="text-coquette-pink-600 hover:text-coquette-pink-700 transition-colors">
+            <Link href="/browse" className="text-primary-600 hover:text-primary-700 transition-colors">
               Browse
             </Link>
-            <Link href="/list" className="text-coquette-pink-600 hover:text-coquette-pink-700 transition-colors">
+            <Link href="/list" className="text-primary-600 hover:text-primary-700 transition-colors">
               List Item
             </Link>
-            <Link href="/trades" className="text-coquette-pink-600 hover:text-coquette-pink-700 transition-colors">
+            <Link href="/trades" className="text-primary-600 hover:text-primary-700 transition-colors">
               Trades
             </Link>
             {user && (
               <>
-                <Link href="/wishlist" className="text-coquette-pink-600 hover:text-coquette-pink-700 transition-colors">
+                <Link href="/wishlist" className="text-primary-600 hover:text-primary-700 transition-colors">
                   Wishlist
                 </Link>
-                <Link href="/profile" className="text-coquette-pink-600 hover:text-coquette-pink-700 transition-colors">
+                <Link href="/profile" className="text-primary-600 hover:text-primary-700 transition-colors">
                   Profile
                 </Link>
               </>

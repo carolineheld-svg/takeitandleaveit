@@ -54,18 +54,22 @@ export default function MobileNavigation() {
           <div className="fixed right-0 top-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl transform transition-transform">
             <div className="flex flex-col h-full">
               {/* Header */}
-              <div className="flex items-center justify-between p-6 border-b border-coquette-pink-100">
-                <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-sm">T</span>
+              <div className="flex items-center justify-between p-6 border-b border-secondary-200">
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 flex items-center justify-center">
+                    <img 
+                      src="/cate-logo.svg" 
+                      alt="Cate School Logo" 
+                      className="w-6 h-6 object-contain"
+                    />
                   </div>
-                  <h1 className="text-xl font-coquette font-semibold text-coquette-pink-600">
+                  <h1 className="text-xl font-elegant font-semibold text-primary-700">
                     TakeItAndLeaveIt
                   </h1>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-2 rounded-lg text-coquette-pink-400 hover:bg-coquette-pink-50 transition-colors"
+                  className="p-2 rounded-lg text-primary-400 hover:bg-primary-50 transition-colors"
                   aria-label="Close menu"
                 >
                   <X className="w-5 h-5" />

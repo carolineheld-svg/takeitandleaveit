@@ -21,6 +21,18 @@ module.exports = {
           800: '#1e293b',
           900: '#0f172a',
         },
+        'periwinkle': {
+          50: '#f0f4ff',
+          100: '#e0e7ff',
+          200: '#c7d2fe',
+          300: '#a5b4fc',
+          400: '#818cf8',
+          500: '#6366f1',
+          600: '#4f46e5',
+          700: '#4338ca',
+          800: '#3730a3',
+          900: '#312e81',
+        },
         'secondary': {
           50: '#fefefe',
           100: '#fdfcfd',
@@ -97,6 +109,7 @@ module.exports = {
         'gradient-rose': 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)',
         'gradient-mint': 'linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%)',
         'gradient-lavender': 'linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%)',
+        'gradient-periwinkle': 'linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%)',
       },
       boxShadow: {
         'primary': '0 2px 4px -1px rgba(100, 116, 139, 0.08), 0 1px 2px -1px rgba(100, 116, 139, 0.04)',

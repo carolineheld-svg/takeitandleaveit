@@ -11,8 +11,8 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-hero">
-        <div className="absolute inset-0 bg-gradient-to-br from-rose-50/30 to-lavender-50/30"></div>
+      <section className="relative overflow-hidden bg-gradient-periwinkle">
+        <div className="absolute inset-0 bg-gradient-to-br from-rose-50/20 to-lavender-50/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
           <div className="text-center">
             <h1 className="text-5xl md:text-7xl font-elegant font-bold text-primary-900 mb-6">
