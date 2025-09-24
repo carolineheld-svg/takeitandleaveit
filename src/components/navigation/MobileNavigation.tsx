@@ -35,7 +35,7 @@ export default function MobileNavigation() {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="md:hidden p-2 rounded-lg text-coquette-pink-600 hover:bg-coquette-pink-50 transition-colors"
+        className="md:hidden p-3 rounded-lg text-primary-600 hover:bg-primary-50 transition-colors touch-manipulation"
         aria-label="Open menu"
       >
         <Menu className="w-6 h-6" />
@@ -116,7 +116,7 @@ export default function MobileNavigation() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-coquette-pink-50 hover:text-coquette-pink-600 transition-colors group"
+                      className="flex items-center gap-3 px-4 py-4 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors group touch-manipulation min-h-[48px]"
                     >
                       <Icon className="w-5 h-5 group-hover:text-coquette-pink-500" />
                       <span className="font-medium">{item.label}</span>
@@ -130,7 +130,7 @@ export default function MobileNavigation() {
                 {user ? (
                   <button
                     onClick={handleSignOut}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition-colors group"
+                    className="w-full flex items-center gap-3 px-4 py-4 rounded-lg text-red-600 hover:bg-red-50 transition-colors group touch-manipulation min-h-[48px]"
                   >
                     <LogOut className="w-5 h-5" />
                     <span className="font-medium">Sign Out</span>

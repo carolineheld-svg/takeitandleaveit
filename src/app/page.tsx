@@ -13,38 +13,38 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-periwinkle">
         <div className="absolute inset-0 bg-gradient-to-br from-rose-50/20 to-lavender-50/20"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32">
           <div className="text-center">
-            <h1 className="text-5xl md:text-7xl font-elegant font-bold text-primary-900 mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-elegant font-bold text-primary-900 mb-4 sm:mb-6 px-4">
               Take It And
               <span className="block bg-gradient-to-r from-rose-500 to-lavender-500 bg-clip-text text-transparent">
                 Leave It
               </span>
             </h1>
-            <p className="text-xl text-primary-700 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
+            <p className="text-lg sm:text-xl text-primary-700 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed font-medium px-4">
               Take it or leave it has come to the web! Connect with fellow Cate students, trade items locally, and reduce waste all on campus.
               Sustainable, convenient, and 100% free!
             </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center px-4">
               {user ? (
                 // User is signed in - show trading buttons
                 <>
-                  <Link href="/browse" className="btn-primary text-lg flex items-center justify-center">
+                  <Link href="/browse" className="btn-primary text-lg flex items-center justify-center min-h-[48px] touch-manipulation">
                     <Sparkles className="w-5 h-5 mr-2" />
                     Browse Items
                   </Link>
-                  <Link href="/list" className="btn-outline text-lg flex items-center justify-center">
+                  <Link href="/list" className="btn-outline text-lg flex items-center justify-center min-h-[48px] touch-manipulation">
                     List Your Item
                   </Link>
                 </>
               ) : (
                 // User is not signed in - show auth buttons
                 <>
-                  <Link href="/auth/signup" className="btn-primary text-lg flex items-center justify-center">
+                  <Link href="/auth/signup" className="btn-primary text-lg flex items-center justify-center min-h-[48px] touch-manipulation">
                     <UserPlus className="w-5 h-5 mr-2" />
                     Sign Up
                   </Link>
-                  <Link href="/auth/login" className="btn-outline text-lg flex items-center justify-center">
+                  <Link href="/auth/login" className="btn-outline text-lg flex items-center justify-center min-h-[48px] touch-manipulation">
                     <LogIn className="w-5 h-5 mr-2" />
                     Sign In
                   </Link>
@@ -58,16 +58,16 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-24 bg-gradient-secondary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl font-elegant font-bold text-primary-900 mb-6">
+          <div className="text-center mb-12 sm:mb-20">
+            <h2 className="text-3xl sm:text-4xl font-elegant font-bold text-primary-900 mb-4 sm:mb-6">
               How It Works
             </h2>
-            <p className="text-lg text-primary-700 max-w-2xl mx-auto font-medium">
+            <p className="text-lg text-primary-700 max-w-2xl mx-auto font-medium px-4">
               Sustainable, convenient, and community-focused campus trading
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12">
             <div className="text-center card-elevated p-8">
               <div className="w-20 h-20 bg-gradient-to-r from-rose-400 to-rose-500 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-soft">
                 <ShoppingBag className="w-10 h-10 text-white" />

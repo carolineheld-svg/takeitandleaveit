@@ -136,11 +136,11 @@ export default function BrowsePage() {
     <div className="min-h-screen bg-gradient-light-green">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-elegant font-bold text-light-green-800 mb-4">
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-elegant font-bold text-light-green-800 mb-3 sm:mb-4 px-4">
             Browse Items
           </h1>
-          <p className="text-xl text-light-green-700 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-light-green-700 max-w-2xl mx-auto px-4">
             Discover pre-loved items from our very own Cate students and faculty
           </p>
         </div>
@@ -149,22 +149,22 @@ export default function BrowsePage() {
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 mb-8 shadow-coquette">
           <div className="flex flex-col gap-4">
             {/* Search Bar */}
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-light-green-500 w-5 h-5" />
                   <input
                     type="text"
-                    placeholder="Search items, brands, categories, or descriptions..."
+                    placeholder="Search items, brands, categories..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                    className="w-full pl-10 pr-4 py-3 sm:py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors text-base"
                   />
                 </div>
               </div>
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2 px-4 py-3 bg-light-green-100 text-light-green-700 rounded-lg hover:bg-light-green-200 transition-colors"
+                className="flex items-center justify-center gap-2 px-4 py-3 bg-light-green-100 text-light-green-700 rounded-lg hover:bg-light-green-200 transition-colors min-h-[48px] touch-manipulation"
               >
                 <Filter className="w-4 h-4" />
                 Filters
@@ -292,7 +292,7 @@ export default function BrowsePage() {
         </div>
 
         {/* Items Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {filteredItems.map((item) => (
             <Link key={item.id} href={`/item/${item.id}`} className="block">
               <div className="card-coquette-hover group">
@@ -320,7 +320,7 @@ export default function BrowsePage() {
                           e.stopPropagation()
                           handleChatRequest(item)
                         }}
-                        className="bg-white/90 backdrop-blur-sm text-light-green-700 px-6 py-2 rounded-full font-medium hover:bg-white transition-colors flex items-center gap-2"
+                        className="bg-white/90 backdrop-blur-sm text-light-green-700 px-4 sm:px-6 py-2 rounded-full font-medium hover:bg-white transition-colors flex items-center gap-2 text-sm sm:text-base touch-manipulation min-h-[40px]"
                       >
                         <Heart className="w-4 h-4" />
                         Send Trade Request

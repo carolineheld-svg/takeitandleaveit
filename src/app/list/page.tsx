@@ -174,14 +174,14 @@ export default function ListItemPage() {
           </p>
         </div>
 
-        <div className="card-coquette p-8">
+        <div className="card-coquette p-4 sm:p-8">
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-6">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             {/* Item Name */}
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-coquette-pink-700 mb-2">
