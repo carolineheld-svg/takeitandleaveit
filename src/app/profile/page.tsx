@@ -203,14 +203,14 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-coquette-pink-50 to-coquette-gold-50 py-8">
+    <div className="min-h-screen bg-gradient-light-blue py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-coquette font-bold text-coquette-pink-700 mb-4">
+          <h1 className="text-4xl md:text-6xl font-elegant font-bold text-light-blue-800 mb-4">
             My Profile
           </h1>
-          <p className="text-xl text-coquette-pink-600">
+          <p className="text-xl text-light-blue-700">
             Manage your TakeItAndLeaveIt trading account
           </p>
         </div>

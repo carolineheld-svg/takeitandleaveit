@@ -165,14 +165,14 @@ export default function TradesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-coquette-pink-50 to-coquette-gold-50">
+    <div className="min-h-screen bg-gradient-light-purple">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-coquette font-bold text-coquette-pink-700 mb-4">
+          <h1 className="text-4xl md:text-6xl font-elegant font-bold text-light-purple-800 mb-4">
             Trade Requests
           </h1>
-          <p className="text-xl text-coquette-pink-600 max-w-2xl mx-auto">
+          <p className="text-xl text-light-purple-700 max-w-2xl mx-auto">
             Manage your incoming and outgoing trade requests
           </p>
         </div>

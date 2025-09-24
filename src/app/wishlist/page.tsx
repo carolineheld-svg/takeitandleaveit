@@ -87,7 +87,7 @@ export default function WishlistPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-coquette-pink-50 to-coquette-gold-50 py-8">
+    <div className="min-h-screen bg-gradient-light-blue py-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
@@ -101,11 +101,11 @@ export default function WishlistPage() {
           
           <div className="flex items-center gap-3">
             <Heart className="w-8 h-8 text-red-500 fill-current" />
-            <h1 className="text-4xl md:text-5xl font-coquette font-bold text-coquette-pink-700">
+            <h1 className="text-4xl md:text-5xl font-elegant font-bold text-light-blue-800">
               My Wishlist
             </h1>
           </div>
-          <p className="text-xl text-coquette-pink-600 mt-2">
+          <p className="text-xl text-light-blue-700 mt-2">
             Items you&apos;ve saved for later
           </p>
         </div>
@@ -176,16 +176,16 @@ export default function WishlistPage() {
                       ) : (
                         <div className="w-6 h-6 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full"></div>
                       )}
-                      <span className="text-sm text-coquette-pink-600">
+                      <span className="text-sm text-light-blue-600">
                         {item.profiles?.full_name || item.profiles?.username || 'Unknown'}
                       </span>
                     </div>
 
-                    <h3 className="font-coquette font-semibold text-lg text-coquette-pink-700 mb-2">
+                    <h3 className="font-elegant font-semibold text-lg text-light-blue-800 mb-2">
                       {item.name}
                     </h3>
                     
-                    <div className="flex items-center gap-4 text-sm text-coquette-pink-600 mb-3">
+                    <div className="flex items-center gap-4 text-sm text-light-blue-600 mb-3">
                       <span>{item.brand}</span>
                       <span>•</span>
                       <span>{item.condition}</span>
