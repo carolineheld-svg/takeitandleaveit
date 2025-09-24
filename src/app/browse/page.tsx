@@ -125,7 +125,7 @@ export default function BrowsePage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-light-green">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-primary-200 border-t-primary-500 rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-light-green-700 font-elegant text-xl">Loading items...</p>
         </div>
       </div>
@@ -146,7 +146,7 @@ export default function BrowsePage() {
         </div>
 
         {/* Search and Filters */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 mb-8 shadow-coquette">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 mb-8 shadow-lg">
           <div className="flex flex-col gap-4">
             {/* Search Bar */}
             <div className="flex flex-col sm:flex-row gap-4">
@@ -158,7 +158,7 @@ export default function BrowsePage() {
                     placeholder="Search items, brands, categories..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 sm:py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors text-base"
+                    className="w-full pl-10 pr-4 py-3 sm:py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors text-base"
                   />
                 </div>
               </div>
@@ -173,7 +173,7 @@ export default function BrowsePage() {
 
             {/* Advanced Filters */}
             {showFilters && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t border-coquette-pink-100">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t border-primary-100">
                 {/* Category Filter */}
                 <div>
                   <label className="block text-sm font-medium text-light-green-800 mb-2">Category</label>
@@ -183,7 +183,7 @@ export default function BrowsePage() {
                       setSelectedCategory(e.target.value)
                       setSelectedSubcategory('')
                     }}
-                    className="w-full px-3 py-2 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                    className="w-full px-3 py-2 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                   >
                     <option value="">All Categories</option>
                     {categories.map(category => (
@@ -199,7 +199,7 @@ export default function BrowsePage() {
                     <select
                       value={selectedSubcategory}
                       onChange={(e) => setSelectedSubcategory(e.target.value)}
-                      className="w-full px-3 py-2 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                      className="w-full px-3 py-2 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                     >
                       <option value="">All Subcategories</option>
                       {CATEGORIES[selectedCategory as keyof typeof CATEGORIES]?.map(subcategory => (
@@ -215,7 +215,7 @@ export default function BrowsePage() {
                   <select
                     value={selectedBrand}
                     onChange={(e) => setSelectedBrand(e.target.value)}
-                    className="w-full px-3 py-2 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                    className="w-full px-3 py-2 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                   >
                     <option value="">All Brands</option>
                     {brands.map(brand => (
@@ -230,7 +230,7 @@ export default function BrowsePage() {
                   <select
                     value={selectedCondition}
                     onChange={(e) => setSelectedCondition(e.target.value)}
-                    className="w-full px-3 py-2 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                    className="w-full px-3 py-2 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                   >
                     <option value="">All Conditions</option>
                     {conditions.map(condition => (
@@ -245,7 +245,7 @@ export default function BrowsePage() {
                   <select
                     value={selectedSize}
                     onChange={(e) => setSelectedSize(e.target.value)}
-                    className="w-full px-3 py-2 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                    className="w-full px-3 py-2 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                   >
                     <option value="">All Sizes</option>
                     {sizes.map(size => (
@@ -260,7 +260,7 @@ export default function BrowsePage() {
                   <select
                     value={selectedStatus}
                     onChange={(e) => setSelectedStatus(e.target.value)}
-                    className="w-full px-3 py-2 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                    className="w-full px-3 py-2 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                   >
                     <option value="">All Status</option>
                     {Object.entries(ITEM_STATUS).map(([key, value]) => (
@@ -295,9 +295,9 @@ export default function BrowsePage() {
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {filteredItems.map((item) => (
             <Link key={item.id} href={`/item/${item.id}`} className="block">
-              <div className="card-coquette-hover group">
+              <div className="card-primary group">
               <div className="relative">
-                <div className="aspect-[4/5] bg-gradient-to-br from-coquette-pink-100 to-coquette-gold-100 rounded-t-2xl overflow-hidden">
+                <div className="aspect-[4/5] bg-gradient-to-br from-primary-100 to-secondary-100 rounded-t-2xl overflow-hidden">
                   <img
                     src={item.images[0] || '/api/placeholder/400/500'}
                     alt={item.name}
@@ -306,7 +306,7 @@ export default function BrowsePage() {
                 </div>
                 
                 {item.is_traded && (
-                  <div className="absolute top-4 right-4 bg-coquette-gold-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  <div className="absolute top-4 right-4 bg-secondary-600 text-white px-3 py-1 rounded-full text-sm font-medium">
                     Traded
                   </div>
                 )}
@@ -391,7 +391,7 @@ export default function BrowsePage() {
 
         {filteredItems.length === 0 && (
           <div className="text-center py-12">
-            <div className="w-24 h-24 bg-coquette-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="w-24 h-24 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Search className="w-12 h-12 text-light-green-700" />
             </div>
             <h3 className="text-2xl font-elegant font-semibold text-light-green-800 mb-2">
@@ -400,7 +400,7 @@ export default function BrowsePage() {
             <p className="text-light-green-700 mb-6">
               Try adjusting your search or filters
             </p>
-            <Link href="/list" className="btn-coquette">
+            <Link href="/list" className="btn-primary">
               List Your First Item
             </Link>
           </div>

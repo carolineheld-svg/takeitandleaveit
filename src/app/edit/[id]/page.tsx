@@ -184,7 +184,7 @@ export default function EditItemPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-light-purple">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-primary-200 border-t-primary-500 rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-light-purple-700 font-elegant text-xl">Loading item...</p>
         </div>
       </div>
@@ -195,12 +195,12 @@ export default function EditItemPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-light-purple">
         <div className="max-w-md mx-auto text-center">
-          <div className="card-coquette p-8">
-            <h2 className="text-2xl font-coquette font-bold text-coquette-pink-700 mb-4">
+          <div className="card-primary p-8">
+            <h2 className="text-2xl font-elegant font-bold text-primary-800 mb-4">
               Error
             </h2>
-            <p className="text-coquette-pink-600 mb-6">{error}</p>
-            <Link href="/profile" className="btn-coquette">
+            <p className="text-primary-600 mb-6">{error}</p>
+            <Link href="/profile" className="btn-primary">
               Back to Profile
             </Link>
           </div>
@@ -213,21 +213,21 @@ export default function EditItemPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-light-purple">
         <div className="max-w-md mx-auto text-center">
-          <div className="card-coquette p-8">
-            <div className="w-20 h-20 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="card-primary p-8">
+            <div className="w-20 h-20 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-white text-3xl">✓</span>
             </div>
-            <h2 className="text-3xl font-coquette font-bold text-coquette-pink-700 mb-4">
+            <h2 className="text-3xl font-elegant font-bold text-primary-800 mb-4">
               Item Updated!
             </h2>
-            <p className="text-coquette-pink-600 mb-6">
+            <p className="text-primary-600 mb-6">
               Your item has been successfully updated.
             </p>
             <div className="space-y-3">
-              <Link href="/profile" className="btn-coquette w-full">
+              <Link href="/profile" className="btn-primary w-full">
                 View My Items
               </Link>
-              <Link href="/browse" className="btn-coquette-outline w-full">
+              <Link href="/browse" className="btn-outline w-full">
                 Browse Items
               </Link>
             </div>

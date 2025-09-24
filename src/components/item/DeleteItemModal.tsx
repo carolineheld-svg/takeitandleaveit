@@ -22,28 +22,28 @@ export default function DeleteItemModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-coquette-lg max-w-md w-full">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full">
         <div className="p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
                 <AlertTriangle className="w-5 h-5 text-red-600" />
               </div>
-              <h2 className="text-xl font-coquette font-bold text-coquette-pink-700">
+              <h2 className="text-xl font-elegant font-bold text-primary-800">
                 Delete Item
               </h2>
             </div>
             <button
               onClick={onClose}
               disabled={loading}
-              className="text-coquette-pink-400 hover:text-coquette-pink-600 transition-colors disabled:opacity-50"
+              className="text-primary-500 hover:text-primary-600 transition-colors disabled:opacity-50"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
           <div className="mb-6">
-            <p className="text-coquette-pink-600 mb-4">
+            <p className="text-primary-600 mb-4">
               Are you sure you want to delete <strong>&ldquo;{itemName}&rdquo;</strong>? This action cannot be undone.
             </p>
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
@@ -65,7 +65,7 @@ export default function DeleteItemModal({
             <button
               onClick={onClose}
               disabled={loading}
-              className="flex-1 px-4 py-3 border border-coquette-pink-200 text-coquette-pink-600 rounded-lg hover:bg-coquette-pink-50 transition-colors disabled:opacity-50"
+              className="flex-1 px-4 py-3 border border-primary-200 text-primary-600 rounded-lg hover:bg-primary-50 transition-colors disabled:opacity-50"
             >
               Cancel
             </button>
