@@ -33,29 +33,29 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #f8fafc;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #0ea5e9;
+  background: #f43f5e;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0284c7;
+  background: #e11d48;
 }
 
 /* Primary button styles */
 .btn-primary {
-  @apply bg-gradient-to-r from-primary-500 to-primary-600 text-white font-medium py-3 px-8 rounded-lg shadow-primary hover:shadow-primary-lg transition-all duration-300 transform hover:scale-105 font-semibold;
+  @apply bg-gradient-to-r from-rose-400 to-lavender-400 text-white font-medium py-3 px-8 rounded-xl shadow-soft hover:shadow-primary transition-all duration-300 transform hover:scale-105 font-semibold;
 }
 
 .btn-outline {
-  @apply border-2 border-primary-500 text-primary-600 font-medium py-3 px-8 rounded-lg hover:bg-primary-50 transition-all duration-300 font-semibold;
+  @apply border-2 border-rose-300 text-rose-600 font-medium py-3 px-8 rounded-xl hover:bg-rose-50 transition-all duration-300 font-semibold;
 }
 
 .btn-secondary {
-  @apply bg-secondary-100 text-secondary-700 font-medium py-3 px-8 rounded-lg hover:bg-secondary-200 transition-all duration-300 font-semibold;
+  @apply bg-secondary-100 text-primary-700 font-medium py-3 px-8 rounded-xl hover:bg-secondary-200 transition-all duration-300 font-semibold;
 }
 
 /* Card styles */
