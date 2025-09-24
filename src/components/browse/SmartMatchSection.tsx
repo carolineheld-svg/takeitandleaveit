@@ -97,7 +97,7 @@ export default function SmartMatchSection() {
           </div>
         ) : smartMatchItems.length === 0 ? (
           <div className="text-center py-12">
-            <Package className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <Package className="w-16 h-16 text-primary-400 mx-auto mb-4" />
             <h3 className="text-2xl font-elegant font-semibold text-primary-700 mb-2">
               No SmartMatch recommendations yet
             </h3>
@@ -175,7 +175,7 @@ export default function SmartMatchSection() {
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
-                          <Package className="w-12 h-12 text-gray-400" />
+                          <Package className="w-12 h-12 text-primary-400" />
                         </div>
                       )}
                     </div>

@@ -92,7 +92,7 @@ export default function ProfilePage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-light-blue">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-primary-200 border-t-primary-500 rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-light-blue-700 font-elegant text-xl">Loading...</p>
         </div>
       </div>
@@ -195,7 +195,7 @@ export default function ProfilePage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-light-blue">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-primary-200 border-t-primary-500 rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-light-blue-700 font-elegant text-xl">Loading profile...</p>
         </div>
       </div>
@@ -218,12 +218,12 @@ export default function ProfilePage() {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Profile Info */}
           <div className="lg:col-span-1">
-            <div className="card-coquette p-6 sticky top-8">
+            <div className="card-primary p-6 sticky top-8">
               {!isEditing ? (
                 // View Mode
                 <>
                   <div className="text-center mb-6">
-                    <div className="w-24 h-24 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                    <div className="w-24 h-24 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
                       {profile?.avatar_url ? (
                         <img 
                           src={profile.avatar_url} 
@@ -262,14 +262,14 @@ export default function ProfilePage() {
                   <div className="flex gap-3 mt-6">
                     <button
                       onClick={handleEditProfile}
-                      className="flex-1 bg-coquette-pink-500 text-white px-4 py-2 rounded-lg hover:bg-coquette-pink-600 transition-colors flex items-center justify-center gap-2"
+                      className="flex-1 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center gap-2"
                     >
                       <Edit3 className="w-4 h-4" />
                       Edit Profile
                     </button>
                     <button
                       onClick={() => setSizePreferencesModal(true)}
-                      className="flex-1 bg-coquette-gold-500 text-white px-4 py-2 rounded-lg hover:bg-coquette-gold-600 transition-colors flex items-center justify-center gap-2"
+                      className="flex-1 bg-secondary-600 text-white px-4 py-2 rounded-lg hover:bg-secondary-700 transition-colors flex items-center justify-center gap-2"
                     >
                       <Shirt className="w-4 h-4" />
                       Size Preferences
@@ -292,7 +292,7 @@ export default function ProfilePage() {
                           <User className="w-12 h-12 text-white" />
                         )}
                       </div>
-                      <label className="absolute bottom-0 right-0 bg-coquette-pink-500 text-white p-1 rounded-full cursor-pointer hover:bg-coquette-pink-600 transition-colors">
+                      <label className="absolute bottom-0 right-0 bg-primary-600 text-white p-1 rounded-full cursor-pointer hover:bg-primary-700 transition-colors">
                         <Camera className="w-3 h-3" />
                         <input
                           type="file"
@@ -309,7 +309,7 @@ export default function ProfilePage() {
 
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-coquette-pink-700 mb-2">
+                      <label className="block text-sm font-medium text-primary-800 mb-2">
                         Full Name
                       </label>
                       <input
@@ -317,7 +317,7 @@ export default function ProfilePage() {
                         value={editForm.full_name}
                         onChange={(e) => setEditForm(prev => ({ ...prev, full_name: e.target.value }))}
                         placeholder="Enter your full name"
-                        className="w-full px-3 py-2 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       />
                     </div>
 
@@ -348,7 +348,7 @@ export default function ProfilePage() {
                     <button
                       onClick={handleSaveProfile}
                       disabled={updating}
-                      className="flex-1 bg-coquette-pink-500 text-white px-4 py-2 rounded-lg hover:bg-coquette-pink-600 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+                      className="flex-1 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
                     >
                       <Save className="w-4 h-4" />
                       {updating ? 'Saving...' : 'Save'}
@@ -361,23 +361,23 @@ export default function ProfilePage() {
 
           {/* User's Items */}
           <div className="lg:col-span-2">
-            <div className="card-coquette p-6">
+            <div className="card-primary p-6">
               <h3 className="text-2xl font-elegant font-bold text-light-blue-800 mb-6">
                 My Listed Items
               </h3>
 
               {userItems.length === 0 ? (
                 <div className="text-center py-12">
-                  <div className="w-24 h-24 bg-coquette-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Package className="w-12 h-12 text-coquette-pink-400" />
+                  <div className="w-24 h-24 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Package className="w-12 h-12 text-primary-500" />
                   </div>
-                  <h4 className="text-xl font-coquette font-semibold text-coquette-pink-700 mb-2">
+                  <h4 className="text-xl font-elegant font-semibold text-primary-800 mb-2">
                     No items yet
                   </h4>
-                  <p className="text-light-blue-600 mb-6">
-                    Start your coquette trading journey by listing your first item!
+                  <p className="text-primary-600 mb-6">
+                    Start your trading journey by listing your first item!
                   </p>
-                  <a href="/list" className="btn-coquette">
+                  <a href="/list" className="btn-primary">
                     List Your First Item
                   </a>
                 </div>

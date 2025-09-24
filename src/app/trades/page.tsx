@@ -67,7 +67,7 @@ export default function TradesPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-light-purple">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-primary-200 border-t-primary-500 rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-light-purple-700 font-elegant text-xl">Loading...</p>
         </div>
       </div>
@@ -127,7 +127,7 @@ export default function TradesPage() {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'pending':
-        return <Clock className="w-5 h-5 text-coquette-gold-500" />
+        return <Clock className="w-5 h-5 text-primary-600" />
       case 'accepted':
         return <Check className="w-5 h-5 text-green-500" />
       case 'declined':
@@ -140,7 +140,7 @@ export default function TradesPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'pending':
-        return 'bg-coquette-gold-100 text-coquette-gold-700'
+        return 'bg-primary-100 text-primary-700'
       case 'accepted':
         return 'bg-green-100 text-green-700'
       case 'declined':
@@ -157,7 +157,7 @@ export default function TradesPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-light-purple">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-primary-200 border-t-primary-500 rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-light-purple-700 font-elegant text-xl">Loading trade requests...</p>
         </div>
       </div>
@@ -179,7 +179,7 @@ export default function TradesPage() {
 
         {/* Tabs */}
         <div className="flex justify-center mb-8">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-1 shadow-coquette">
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-1 shadow-lg">
             <button
               onClick={() => setActiveTab('received')}
               className={`px-6 py-3 rounded-xl font-medium transition-all ${
@@ -206,10 +206,10 @@ export default function TradesPage() {
         {/* Trade Requests */}
         <div className="space-y-6">
           {(activeTab === 'received' ? receivedRequests : processedRequests).map((request) => (
-            <div key={request.id} className="card-coquette p-6">
+            <div key={request.id} className="card-primary p-6">
               <div className="flex items-start gap-4">
                 {/* Item Image */}
-                <div className="w-20 h-20 bg-gradient-to-br from-coquette-pink-100 to-coquette-gold-100 rounded-lg overflow-hidden flex-shrink-0">
+                <div className="w-20 h-20 bg-gradient-to-br from-primary-100 to-secondary-100 rounded-lg overflow-hidden flex-shrink-0">
                   <img
                     src={request.items.images[0] || '/api/placeholder/400/500'}
                     alt={request.items.name}
@@ -242,10 +242,10 @@ export default function TradesPage() {
                   </div>
 
                   {request.message && (
-                    <div className="bg-coquette-pink-50 rounded-lg p-3 mb-4">
+                    <div className="bg-primary-50 rounded-lg p-3 mb-4">
                       <div className="flex items-start gap-2">
-                        <MessageCircle className="w-4 h-4 text-coquette-pink-500 mt-0.5 flex-shrink-0" />
-                        <p className="text-coquette-pink-700 text-sm">{request.message}</p>
+                        <MessageCircle className="w-4 h-4 text-primary-500 mt-0.5 flex-shrink-0" />
+                        <p className="text-primary-700 text-sm">{request.message}</p>
                       </div>
                     </div>
                   )}
@@ -288,8 +288,8 @@ export default function TradesPage() {
 
         {((activeTab === 'received' ? receivedRequests : processedRequests).length === 0) && (
           <div className="text-center py-12">
-            <div className="w-24 h-24 bg-coquette-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <MessageCircle className="w-12 h-12 text-coquette-pink-400" />
+            <div className="w-24 h-24 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <MessageCircle className="w-12 h-12 text-primary-500" />
             </div>
             <h3 className="text-2xl font-elegant font-semibold text-light-purple-800 mb-2">
               {activeTab === 'received' ? 'No pending requests' : 'No sent requests'}
@@ -300,7 +300,7 @@ export default function TradesPage() {
                 : 'You haven\'t sent any trade requests yet.'
               }
             </p>
-            <a href="/browse" className="btn-coquette">
+            <a href="/browse" className="btn-primary">
               Browse Items
             </a>
           </div>

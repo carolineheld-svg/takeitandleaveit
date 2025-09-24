@@ -92,7 +92,7 @@ export default function WishlistButton({ itemId, className = '' }: WishlistButto
       className={`p-2 rounded-full transition-colors ${
         isInWishlist
           ? 'text-red-500 hover:text-red-600 bg-red-50 hover:bg-red-100'
-          : 'text-gray-400 hover:text-red-500 hover:bg-red-50'
+          : 'text-primary-500 hover:text-red-500 hover:bg-red-50'
       } ${className}`}
       aria-label={isInWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
     >

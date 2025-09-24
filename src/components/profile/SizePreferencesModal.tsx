@@ -82,21 +82,21 @@ export default function SizePreferencesModal({ isOpen, onClose, userId, onSave }
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-coquette-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-coquette-pink-100 rounded-full flex items-center justify-center">
-                <Shirt className="w-5 h-5 text-coquette-pink-600" />
+              <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                <Shirt className="w-5 h-5 text-primary-600" />
               </div>
-              <h2 className="text-2xl font-coquette font-bold text-coquette-pink-700">
+              <h2 className="text-2xl font-elegant font-bold text-primary-800">
                 Size Preferences
               </h2>
             </div>
             <button
               onClick={onClose}
-              className="text-coquette-pink-400 hover:text-coquette-pink-600 transition-colors"
+              className="text-primary-500 hover:text-primary-600 transition-colors"
             >
               <X className="w-6 h-6" />
             </button>
@@ -104,18 +104,18 @@ export default function SizePreferencesModal({ isOpen, onClose, userId, onSave }
 
           {/* Description */}
           <div className="mb-6">
-            <p className="text-coquette-pink-600">
+            <p className="text-primary-600">
               Set your size preferences for clothing items only. This helps our SmartMatch AI recommend items that fit you perfectly!
             </p>
-            <p className="text-sm text-coquette-pink-500 mt-2">
+            <p className="text-sm text-primary-500 mt-2">
               Size preferences only apply to clothing categories (Clothing, Sports & Recreation clothing).
             </p>
           </div>
 
           {loading ? (
             <div className="text-center py-8">
-              <div className="w-8 h-8 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
-              <p className="text-coquette-pink-600">Loading your preferences...</p>
+              <div className="w-8 h-8 border-4 border-primary-200 border-t-primary-500 rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-primary-600">Loading your preferences...</p>
             </div>
           ) : (
             <div className="space-y-6">

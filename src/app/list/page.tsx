@@ -49,7 +49,7 @@ export default function ListItemPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-light-purple">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-primary-200 border-t-primary-500 rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-light-purple-700 font-elegant text-xl">Loading...</p>
         </div>
       </div>
@@ -137,8 +137,8 @@ export default function ListItemPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-light-purple">
         <div className="max-w-md mx-auto text-center">
-          <div className="card-coquette p-8">
-            <div className="w-20 h-20 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="card-primary p-8">
+            <div className="w-20 h-20 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-white text-3xl">✓</span>
             </div>
             <h2 className="text-3xl font-elegant font-bold text-light-purple-800 mb-4">
@@ -149,10 +149,10 @@ export default function ListItemPage() {
               Other users can now see it in the browse section.
             </p>
             <div className="space-y-3">
-              <Link href="/browse" className="btn-coquette w-full">
+              <Link href="/browse" className="btn-primary w-full">
                 Browse Other Items
               </Link>
-              <Link href="/list" className="btn-coquette-outline w-full">
+              <Link href="/list" className="btn-outline w-full">
                 List Another Item
               </Link>
             </div>
@@ -174,7 +174,7 @@ export default function ListItemPage() {
           </p>
         </div>
 
-        <div className="card-coquette p-4 sm:p-8">
+        <div className="card-primary p-4 sm:p-8">
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-6">
               {error}
@@ -184,11 +184,11 @@ export default function ListItemPage() {
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             {/* Item Name */}
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+              <label htmlFor="name" className="block text-sm font-medium text-primary-800 mb-2">
                 Item Name *
               </label>
               <div className="relative">
-                <Tag className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coquette-pink-400 w-5 h-5" />
+                <Tag className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-500 w-5 h-5" />
                 <input
                   id="name"
                   name="name"
@@ -196,7 +196,7 @@ export default function ListItemPage() {
                   required
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                  className="w-full pl-10 pr-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                   placeholder="e.g., Vintage Pink Blouse"
                 />
               </div>
@@ -204,11 +204,11 @@ export default function ListItemPage() {
 
             {/* Brand */}
             <div>
-              <label htmlFor="brand" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+              <label htmlFor="brand" className="block text-sm font-medium text-primary-800 mb-2">
                 Brand *
               </label>
               <div className="relative">
-                <Hash className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coquette-pink-400 w-5 h-5" />
+                <Hash className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-500 w-5 h-5" />
                 <input
                   id="brand"
                   name="brand"
@@ -216,7 +216,7 @@ export default function ListItemPage() {
                   required
                   value={formData.brand}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                  className="w-full pl-10 pr-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                   placeholder="e.g., Zara, H&M, Forever 21"
                 />
               </div>
@@ -224,7 +224,7 @@ export default function ListItemPage() {
 
             {/* Category */}
             <div>
-              <label htmlFor="category" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+              <label htmlFor="category" className="block text-sm font-medium text-primary-800 mb-2">
                 Category *
               </label>
               <select
@@ -233,7 +233,7 @@ export default function ListItemPage() {
                 required
                 value={formData.category}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
               >
                 <option value="">Select category</option>
                 {Object.keys(CATEGORIES).map(category => (
@@ -245,7 +245,7 @@ export default function ListItemPage() {
             {/* Subcategory */}
             {formData.category && (
               <div>
-                <label htmlFor="subcategory" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+                <label htmlFor="subcategory" className="block text-sm font-medium text-primary-800 mb-2">
                   Subcategory
                 </label>
                 <select
@@ -253,7 +253,7 @@ export default function ListItemPage() {
                   name="subcategory"
                   value={formData.subcategory}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                  className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                 >
                   <option value="">Select subcategory (optional)</option>
                   {CATEGORIES[formData.category as keyof typeof CATEGORIES]?.map(subcategory => (
@@ -266,7 +266,7 @@ export default function ListItemPage() {
             {/* Condition and Size */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="condition" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+                <label htmlFor="condition" className="block text-sm font-medium text-primary-800 mb-2">
                   Condition *
                 </label>
                 <select
@@ -275,7 +275,7 @@ export default function ListItemPage() {
                   required
                   value={formData.condition}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                  className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                 >
                   <option value="">Select condition</option>
                   {CONDITIONS.map(condition => (
@@ -287,7 +287,7 @@ export default function ListItemPage() {
               {/* Size - Only show for clothing items */}
               {CLOTHING_CATEGORIES.includes(formData.category) && (
                 <div>
-                  <label htmlFor="size" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+                  <label htmlFor="size" className="block text-sm font-medium text-primary-800 mb-2">
                     Size *
                   </label>
                   <select
@@ -296,7 +296,7 @@ export default function ListItemPage() {
                     required
                     value={formData.size}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                   >
                     <option value="">Select size</option>
                     {formData.subcategory && SIZE_PREFERENCES[formData.subcategory as keyof typeof SIZE_PREFERENCES] ? (
@@ -315,11 +315,11 @@ export default function ListItemPage() {
 
             {/* Description */}
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+              <label htmlFor="description" className="block text-sm font-medium text-primary-800 mb-2">
                 Description *
               </label>
               <div className="relative">
-                <FileText className="absolute left-3 top-3 text-coquette-pink-400 w-5 h-5" />
+                <FileText className="absolute left-3 top-3 text-primary-500 w-5 h-5" />
                 <textarea
                   id="description"
                   name="description"
@@ -327,7 +327,7 @@ export default function ListItemPage() {
                   rows={4}
                   value={formData.description}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors resize-none"
+                  className="w-full pl-10 pr-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors resize-none"
                   placeholder="Describe your item... What makes it special? Any unique details?"
                 />
               </div>
@@ -335,7 +335,7 @@ export default function ListItemPage() {
 
             {/* Image Upload */}
             <div>
-              <label className="block text-sm font-medium text-coquette-pink-700 mb-2">
+              <label className="block text-sm font-medium text-primary-800 mb-2">
                 Photos (up to 4) *
               </label>
               
@@ -343,7 +343,7 @@ export default function ListItemPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                   {formData.images.map((image, index) => (
                     <div key={index} className="relative group">
-                      <div className="aspect-square bg-gradient-to-br from-coquette-pink-100 to-coquette-gold-100 rounded-lg overflow-hidden">
+                      <div className="aspect-square bg-gradient-to-br from-primary-100 to-secondary-100 rounded-lg overflow-hidden">
                         <img
                           src={URL.createObjectURL(image)}
                           alt={`Preview ${index + 1}`}
@@ -363,13 +363,13 @@ export default function ListItemPage() {
               )}
 
               {formData.images.length < 4 && (
-                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-coquette-pink-300 rounded-lg cursor-pointer hover:bg-coquette-pink-50 transition-colors">
+                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-primary-300 rounded-lg cursor-pointer hover:bg-primary-50 transition-colors">
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <Camera className="w-8 h-8 text-coquette-pink-400 mb-2" />
-                    <p className="text-sm text-light-purple-600">
+                    <Camera className="w-8 h-8 text-primary-500 mb-2" />
+                    <p className="text-sm text-primary-700">
                       <span className="font-medium">Click to upload</span> or drag and drop
                     </p>
-                    <p className="text-xs text-coquette-pink-500">
+                    <p className="text-xs text-primary-600">
                       PNG, JPG up to 10MB each
                     </p>
                   </div>
@@ -389,7 +389,7 @@ export default function ListItemPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full btn-coquette disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Listing Item...' : 'List Item'}
               </button>

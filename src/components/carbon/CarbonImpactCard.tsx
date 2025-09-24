@@ -70,7 +70,7 @@ export default function CarbonImpactCard({
     if (co2 >= 50) return { level: 'Eco Champion', color: 'text-green-600', bg: 'bg-green-100' }
     if (co2 >= 20) return { level: 'Green Trader', color: 'text-blue-600', bg: 'bg-blue-100' }
     if (co2 >= 5) return { level: 'Eco Starter', color: 'text-yellow-600', bg: 'bg-yellow-100' }
-    return { level: 'Getting Started', color: 'text-gray-600', bg: 'bg-gray-100' }
+    return { level: 'Getting Started', color: 'text-primary-600', bg: 'bg-primary-100' }
   }
 
   return (
@@ -179,7 +179,7 @@ export default function CarbonImpactCard({
                 {formatNumber(campusData.total_co2_saved_kg, 0)}
               </div>
               <div className="text-sm text-green-600">kg CO₂ Saved</div>
-              <div className="text-xs text-gray-500 mt-1">
+              <div className="text-xs text-primary-600 mt-1">
                 ≈ {Math.round(campusData.total_co2_saved_kg / 2.5)} trees
               </div>
             </div>
@@ -189,7 +189,7 @@ export default function CarbonImpactCard({
                 {formatNumber(campusData.total_water_saved_liters, 0)}
               </div>
               <div className="text-sm text-blue-600">L Water Saved</div>
-              <div className="text-xs text-gray-500 mt-1">
+              <div className="text-xs text-primary-600 mt-1">
                 ≈ {Math.round(campusData.total_water_saved_liters / 2000)} showers
               </div>
             </div>
@@ -199,7 +199,7 @@ export default function CarbonImpactCard({
                 {campusData.total_trades_completed}
               </div>
               <div className="text-sm text-purple-600">Trades Completed</div>
-              <div className="text-xs text-gray-500 mt-1">
+              <div className="text-xs text-primary-600 mt-1">
                 {campusData.active_traders_count} active traders
               </div>
             </div>
