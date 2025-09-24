@@ -50,7 +50,7 @@ export default function ListItemPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-coquette-pink-600 font-coquette text-xl">Loading...</p>
+          <p className="text-light-purple-700 font-elegant text-xl">Loading...</p>
         </div>
       </div>
     )
@@ -141,10 +141,10 @@ export default function ListItemPage() {
             <div className="w-20 h-20 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-white text-3xl">✓</span>
             </div>
-            <h2 className="text-3xl font-coquette font-bold text-coquette-pink-700 mb-4">
+            <h2 className="text-3xl font-elegant font-bold text-light-purple-800 mb-4">
               Item Listed!
             </h2>
-            <p className="text-coquette-pink-600 mb-6">
+            <p className="text-light-purple-700 mb-6">
               Your item is now live and ready for trading. 
               Other users can now see it in the browse section.
             </p>
@@ -366,7 +366,7 @@ export default function ListItemPage() {
                 <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-coquette-pink-300 rounded-lg cursor-pointer hover:bg-coquette-pink-50 transition-colors">
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
                     <Camera className="w-8 h-8 text-coquette-pink-400 mb-2" />
-                    <p className="text-sm text-coquette-pink-600">
+                    <p className="text-sm text-light-purple-600">
                       <span className="font-medium">Click to upload</span> or drag and drop
                     </p>
                     <p className="text-xs text-coquette-pink-500">
@@ -398,7 +398,7 @@ export default function ListItemPage() {
         </div>
 
         <div className="text-center mt-6">
-          <Link href="/browse" className="text-coquette-pink-600 hover:text-coquette-pink-700 transition-colors">
+          <Link href="/browse" className="text-light-purple-600 hover:text-light-purple-700 transition-colors">
             ← Back to Browse
           </Link>
         </div>

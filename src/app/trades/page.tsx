@@ -68,7 +68,7 @@ export default function TradesPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-coquette-pink-600 font-coquette text-xl">Loading...</p>
+          <p className="text-light-purple-700 font-elegant text-xl">Loading...</p>
         </div>
       </div>
     )
@@ -158,7 +158,7 @@ export default function TradesPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-coquette-pink-600 font-coquette text-xl">Loading trade requests...</p>
+          <p className="text-light-purple-700 font-elegant text-xl">Loading trade requests...</p>
         </div>
       </div>
     )
@@ -185,7 +185,7 @@ export default function TradesPage() {
               className={`px-6 py-3 rounded-xl font-medium transition-all ${
                 activeTab === 'received'
                   ? 'bg-coquette-pink-500 text-white shadow-sm'
-                  : 'text-coquette-pink-600 hover:text-coquette-pink-700'
+                  : 'text-light-purple-600 hover:text-light-purple-700'
               }`}
             >
               Received ({receivedRequests.length})
@@ -195,7 +195,7 @@ export default function TradesPage() {
               className={`px-6 py-3 rounded-xl font-medium transition-all ${
                 activeTab === 'sent'
                   ? 'bg-coquette-pink-500 text-white shadow-sm'
-                  : 'text-coquette-pink-600 hover:text-coquette-pink-700'
+                  : 'text-light-purple-600 hover:text-light-purple-700'
               }`}
             >
               Sent ({processedRequests.length})
@@ -221,10 +221,10 @@ export default function TradesPage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between mb-2">
                     <div>
-                      <h3 className="font-coquette font-semibold text-coquette-pink-700 text-lg">
+                      <h3 className="font-elegant font-semibold text-light-purple-800 text-lg">
                         {request.items.name}
                       </h3>
-                      <p className="text-coquette-gold-600 text-sm">{request.items.brand}</p>
+                      <p className="text-light-purple-600 text-sm">{request.items.brand}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       {getStatusIcon(request.status)}
@@ -234,7 +234,7 @@ export default function TradesPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 text-sm text-coquette-pink-600 mb-3">
+                  <div className="flex items-center gap-2 text-sm text-light-purple-600 mb-3">
                     <User className="w-4 h-4" />
                     <span>@{request.profiles.username}</span>
                     <span>•</span>
@@ -291,10 +291,10 @@ export default function TradesPage() {
             <div className="w-24 h-24 bg-coquette-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <MessageCircle className="w-12 h-12 text-coquette-pink-400" />
             </div>
-            <h3 className="text-2xl font-coquette font-semibold text-coquette-pink-700 mb-2">
+            <h3 className="text-2xl font-elegant font-semibold text-light-purple-800 mb-2">
               {activeTab === 'received' ? 'No pending requests' : 'No sent requests'}
             </h3>
-            <p className="text-coquette-pink-600 mb-6">
+            <p className="text-light-purple-700 mb-6">
               {activeTab === 'received' 
                 ? 'You don\'t have any pending trade requests right now.'
                 : 'You haven\'t sent any trade requests yet.'

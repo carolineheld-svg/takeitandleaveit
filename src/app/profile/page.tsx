@@ -93,7 +93,7 @@ export default function ProfilePage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-coquette-pink-600 font-coquette text-xl">Loading...</p>
+          <p className="text-light-blue-700 font-elegant text-xl">Loading...</p>
         </div>
       </div>
     )
@@ -196,7 +196,7 @@ export default function ProfilePage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-coquette-pink-600 font-coquette text-xl">Loading profile...</p>
+          <p className="text-light-blue-700 font-elegant text-xl">Loading profile...</p>
         </div>
       </div>
     )
@@ -234,26 +234,26 @@ export default function ProfilePage() {
                         <User className="w-12 h-12 text-white" />
                       )}
                     </div>
-                    <h2 className="text-2xl font-coquette font-bold text-coquette-pink-700 mb-2">
+                    <h2 className="text-2xl font-elegant font-bold text-light-blue-800 mb-2">
                       {profile?.username || 'User'}
                     </h2>
-                    <p className="text-coquette-pink-600 mb-4">
+                    <p className="text-light-blue-700 mb-4">
                       {profile?.full_name || 'No name set'}
                     </p>
                   </div>
 
                   <div className="space-y-4">
-                    <div className="flex items-center gap-3 text-coquette-pink-600">
+                    <div className="flex items-center gap-3 text-light-blue-600">
                       <Mail className="w-5 h-5" />
                       <span className="text-sm">{user?.email}</span>
                     </div>
-                    <div className="flex items-center gap-3 text-coquette-pink-600">
+                    <div className="flex items-center gap-3 text-light-blue-600">
                       <Calendar className="w-5 h-5" />
                       <span className="text-sm">
                         Joined {profile?.created_at ? new Date(profile.created_at).toLocaleDateString() : 'Recently'}
                       </span>
                     </div>
-                    <div className="flex items-center gap-3 text-coquette-pink-600">
+                    <div className="flex items-center gap-3 text-light-blue-600">
                       <Package className="w-5 h-5" />
                       <span className="text-sm">{userItems.length} items listed</span>
                     </div>
@@ -302,7 +302,7 @@ export default function ProfilePage() {
                         />
                       </label>
                     </div>
-                    <h2 className="text-2xl font-coquette font-bold text-coquette-pink-700 mb-2">
+                    <h2 className="text-2xl font-elegant font-bold text-light-blue-800 mb-2">
                       {profile?.username || 'User'}
                     </h2>
                   </div>
@@ -321,17 +321,17 @@ export default function ProfilePage() {
                       />
                     </div>
 
-                    <div className="flex items-center gap-3 text-coquette-pink-600 text-sm">
+                    <div className="flex items-center gap-3 text-light-blue-600 text-sm">
                       <Mail className="w-4 h-4" />
                       <span>{user?.email}</span>
                     </div>
-                    <div className="flex items-center gap-3 text-coquette-pink-600 text-sm">
+                    <div className="flex items-center gap-3 text-light-blue-600 text-sm">
                       <Calendar className="w-4 h-4" />
                       <span>
                         Joined {profile?.created_at ? new Date(profile.created_at).toLocaleDateString() : 'Recently'}
                       </span>
                     </div>
-                    <div className="flex items-center gap-3 text-coquette-pink-600 text-sm">
+                    <div className="flex items-center gap-3 text-light-blue-600 text-sm">
                       <Package className="w-4 h-4" />
                       <span>{userItems.length} items listed</span>
                     </div>
@@ -362,7 +362,7 @@ export default function ProfilePage() {
           {/* User's Items */}
           <div className="lg:col-span-2">
             <div className="card-coquette p-6">
-              <h3 className="text-2xl font-coquette font-bold text-coquette-pink-700 mb-6">
+              <h3 className="text-2xl font-elegant font-bold text-light-blue-800 mb-6">
                 My Listed Items
               </h3>
 
@@ -374,7 +374,7 @@ export default function ProfilePage() {
                   <h4 className="text-xl font-coquette font-semibold text-coquette-pink-700 mb-2">
                     No items yet
                   </h4>
-                  <p className="text-coquette-pink-600 mb-6">
+                  <p className="text-light-blue-600 mb-6">
                     Start your coquette trading journey by listing your first item!
                   </p>
                   <a href="/list" className="btn-coquette">
@@ -413,8 +413,8 @@ export default function ProfilePage() {
                           )}
                         </div>
                         
-                        <p className="text-coquette-gold-600 font-medium mb-2">{item.brand}</p>
-                        <p className="text-coquette-pink-600 text-sm mb-3">
+                        <p className="text-light-blue-600 font-medium mb-2">{item.brand}</p>
+                        <p className="text-light-blue-600 text-sm mb-3">
                           {item.condition}
                         </p>
                         
@@ -425,7 +425,7 @@ export default function ProfilePage() {
                           {item.is_traded ? (
                             <span className="text-green-600 font-medium">✓ Traded</span>
                           ) : (
-                            <span className="text-coquette-gold-600 font-medium">Available</span>
+                            <span className="text-light-blue-600 font-medium">Available</span>
                           )}
                         </div>
 
@@ -433,7 +433,7 @@ export default function ProfilePage() {
                         <div className="flex gap-2">
                           <Link
                             href={`/edit/${item.id}`}
-                            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-coquette-pink-100 text-coquette-pink-600 rounded-lg hover:bg-coquette-pink-200 transition-colors text-sm font-medium"
+                            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-coquette-pink-100 text-light-blue-600 rounded-lg hover:bg-coquette-pink-200 transition-colors text-sm font-medium"
                           >
                             <Edit3 className="w-4 h-4" />
                             Edit

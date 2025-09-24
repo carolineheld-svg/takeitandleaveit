@@ -126,21 +126,21 @@ export default function BrowsePage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-coquette-pink-600 font-coquette text-xl">Loading items...</p>
+          <p className="text-light-green-700 font-elegant text-xl">Loading items...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-coquette-pink-50 to-coquette-gold-50">
+    <div className="min-h-screen bg-gradient-light-green">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-coquette font-bold text-coquette-pink-700 mb-4">
+          <h1 className="text-4xl md:text-6xl font-elegant font-bold text-light-green-800 mb-4">
             Browse Items
           </h1>
-          <p className="text-xl text-coquette-pink-600 max-w-2xl mx-auto">
+          <p className="text-xl text-light-green-700 max-w-2xl mx-auto">
             Discover pre-loved items from our very own Cate students and faculty
           </p>
         </div>
@@ -152,7 +152,7 @@ export default function BrowsePage() {
             <div className="flex gap-4">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coquette-pink-400 w-5 h-5" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-light-green-500 w-5 h-5" />
                   <input
                     type="text"
                     placeholder="Search items, brands, categories, or descriptions..."
@@ -164,7 +164,7 @@ export default function BrowsePage() {
               </div>
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2 px-4 py-3 bg-coquette-pink-100 text-coquette-pink-600 rounded-lg hover:bg-coquette-pink-200 transition-colors"
+                className="flex items-center gap-2 px-4 py-3 bg-light-green-100 text-light-green-700 rounded-lg hover:bg-light-green-200 transition-colors"
               >
                 <Filter className="w-4 h-4" />
                 Filters
@@ -176,7 +176,7 @@ export default function BrowsePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t border-coquette-pink-100">
                 {/* Category Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-coquette-pink-700 mb-2">Category</label>
+                  <label className="block text-sm font-medium text-light-green-800 mb-2">Category</label>
                   <select
                     value={selectedCategory}
                     onChange={(e) => {
@@ -195,7 +195,7 @@ export default function BrowsePage() {
                 {/* Subcategory Filter */}
                 {selectedCategory && (
                   <div>
-                    <label className="block text-sm font-medium text-coquette-pink-700 mb-2">Subcategory</label>
+                    <label className="block text-sm font-medium text-light-green-800 mb-2">Subcategory</label>
                     <select
                       value={selectedSubcategory}
                       onChange={(e) => setSelectedSubcategory(e.target.value)}
@@ -211,7 +211,7 @@ export default function BrowsePage() {
 
                 {/* Brand Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-coquette-pink-700 mb-2">Brand</label>
+                  <label className="block text-sm font-medium text-light-green-800 mb-2">Brand</label>
                   <select
                     value={selectedBrand}
                     onChange={(e) => setSelectedBrand(e.target.value)}
@@ -226,7 +226,7 @@ export default function BrowsePage() {
 
                 {/* Condition Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-coquette-pink-700 mb-2">Condition</label>
+                  <label className="block text-sm font-medium text-light-green-800 mb-2">Condition</label>
                   <select
                     value={selectedCondition}
                     onChange={(e) => setSelectedCondition(e.target.value)}
@@ -241,7 +241,7 @@ export default function BrowsePage() {
 
                 {/* Size Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-coquette-pink-700 mb-2">Size</label>
+                  <label className="block text-sm font-medium text-light-green-800 mb-2">Size</label>
                   <select
                     value={selectedSize}
                     onChange={(e) => setSelectedSize(e.target.value)}
@@ -256,7 +256,7 @@ export default function BrowsePage() {
 
                 {/* Status Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-coquette-pink-700 mb-2">Status</label>
+                  <label className="block text-sm font-medium text-light-green-800 mb-2">Status</label>
                   <select
                     value={selectedStatus}
                     onChange={(e) => setSelectedStatus(e.target.value)}
@@ -273,7 +273,7 @@ export default function BrowsePage() {
                 <div className="flex items-end">
                   <button
                     onClick={clearFilters}
-                    className="flex items-center gap-2 px-4 py-2 text-coquette-pink-600 hover:text-coquette-pink-700 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 text-light-green-600 hover:text-light-green-700 transition-colors"
                   >
                     <X className="w-4 h-4" />
                     Clear All
@@ -286,7 +286,7 @@ export default function BrowsePage() {
 
         {/* Results Count */}
         <div className="mb-6">
-          <p className="text-coquette-pink-600">
+          <p className="text-light-green-700">
             Showing {filteredItems.length} of {items.length} items
           </p>
         </div>
@@ -320,13 +320,13 @@ export default function BrowsePage() {
                           e.stopPropagation()
                           handleChatRequest(item)
                         }}
-                        className="bg-white/90 backdrop-blur-sm text-coquette-pink-600 px-6 py-2 rounded-full font-medium hover:bg-white transition-colors flex items-center gap-2"
+                        className="bg-white/90 backdrop-blur-sm text-light-green-700 px-6 py-2 rounded-full font-medium hover:bg-white transition-colors flex items-center gap-2"
                       >
                         <Heart className="w-4 h-4" />
                         Send Trade Request
                       </button>
                     ) : (
-                      <div className="bg-white/90 backdrop-blur-sm text-coquette-pink-600 px-6 py-2 rounded-full font-medium flex items-center gap-2">
+                      <div className="bg-white/90 backdrop-blur-sm text-light-green-700 px-6 py-2 rounded-full font-medium flex items-center gap-2">
                         <Tag className="w-4 h-4" />
                         Already Traded
                       </div>
@@ -344,22 +344,22 @@ export default function BrowsePage() {
 
               <div className="p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-coquette font-semibold text-coquette-pink-700 text-lg">
+                  <h3 className="font-elegant font-semibold text-light-green-800 text-lg">
                     {item.name}
                   </h3>
                   {item.size && (
-                    <span className="text-sm text-coquette-pink-500 bg-coquette-pink-100 px-2 py-1 rounded-full">
+                    <span className="text-sm text-light-green-600 bg-light-green-100 px-2 py-1 rounded-full">
                       {item.size}
                     </span>
                   )}
                 </div>
                 
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-xs text-coquette-gold-600 bg-coquette-gold-100 px-2 py-1 rounded-full">
+                  <span className="text-xs text-light-green-600 bg-light-green-100 px-2 py-1 rounded-full">
                     {item.category}
                   </span>
                   {item.subcategory && (
-                    <span className="text-xs text-coquette-pink-500 bg-coquette-pink-100 px-2 py-1 rounded-full">
+                    <span className="text-xs text-light-green-600 bg-light-green-100 px-2 py-1 rounded-full">
                       {item.subcategory}
                     </span>
                   )}
@@ -372,13 +372,13 @@ export default function BrowsePage() {
                   </span>
                 </div>
                 
-                <p className="text-coquette-gold-600 font-medium mb-2">{item.brand}</p>
-                <p className="text-coquette-pink-600 text-sm mb-3 line-clamp-2">
+                <p className="text-light-green-700 font-medium mb-2">{item.brand}</p>
+                <p className="text-light-green-600 text-sm mb-3 line-clamp-2">
                   {item.description}
                 </p>
                 
-                <div className="flex items-center justify-between text-sm text-coquette-pink-500">
-                  <span className="bg-coquette-cream-100 px-2 py-1 rounded-full">
+                <div className="flex items-center justify-between text-sm text-light-green-600">
+                  <span className="bg-light-green-100 px-2 py-1 rounded-full">
                     {item.condition}
                   </span>
                   <span>by @{item.profiles.username}</span>
@@ -394,10 +394,10 @@ export default function BrowsePage() {
             <div className="w-24 h-24 bg-coquette-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Search className="w-12 h-12 text-coquette-pink-400" />
             </div>
-            <h3 className="text-2xl font-coquette font-semibold text-coquette-pink-700 mb-2">
+            <h3 className="text-2xl font-elegant font-semibold text-light-green-800 mb-2">
               No items found
             </h3>
-            <p className="text-coquette-pink-600 mb-6">
+            <p className="text-light-green-700 mb-6">
               Try adjusting your search or filters
             </p>
             <Link href="/list" className="btn-coquette">
