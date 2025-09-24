@@ -69,7 +69,7 @@ export default function MobileNavigation() {
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-2 rounded-lg text-primary-400 hover:bg-primary-50 transition-colors"
+                  className="p-2 rounded-lg text-primary-600 hover:bg-primary-50 transition-colors"
                   aria-label="Close menu"
                 >
                   <X className="w-5 h-5" />
@@ -99,7 +99,7 @@ export default function MobileNavigation() {
                       <p className="font-medium text-gray-900 truncate">
                         {user.user_metadata?.full_name || 'User'}
                       </p>
-                      <p className="text-sm text-gray-500 truncate">
+                      <p className="text-sm text-primary-600 truncate">
                         {user.email}
                       </p>
                     </div>
@@ -118,7 +118,7 @@ export default function MobileNavigation() {
                       onClick={() => setIsOpen(false)}
                       className="flex items-center gap-3 px-4 py-4 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors group touch-manipulation min-h-[48px]"
                     >
-                      <Icon className="w-5 h-5 group-hover:text-coquette-pink-500" />
+                      <Icon className="w-5 h-5 group-hover:text-primary-600" />
                       <span className="font-medium">{item.label}</span>
                     </Link>
                   )

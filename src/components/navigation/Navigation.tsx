@@ -96,7 +96,7 @@ export default function Navigation() {
                 <div className="relative">
                   <button
                     onClick={() => setShowUserMenu(!showUserMenu)}
-                    className="flex items-center space-x-2 text-coquette-pink-600 hover:text-coquette-pink-700 transition-colors"
+                    className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 transition-colors"
                   >
                     <div className="w-8 h-8 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full flex items-center justify-center overflow-hidden">
                       {profile?.avatar_url ? (
@@ -118,7 +118,7 @@ export default function Navigation() {
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-coquette border border-coquette-pink-100 py-1 z-50">
                     <Link
                       href="/profile"
-                      className="flex items-center px-4 py-2 text-sm text-coquette-pink-600 hover:bg-coquette-pink-50 transition-colors"
+                      className="flex items-center px-4 py-2 text-sm text-primary-600 hover:bg-primary-50 transition-colors"
                       onClick={() => setShowUserMenu(false)}
                     >
                       <User className="w-4 h-4 mr-2" />
@@ -126,7 +126,7 @@ export default function Navigation() {
                     </Link>
                     <button
                       onClick={handleSignOut}
-                      className="flex items-center w-full px-4 py-2 text-sm text-coquette-pink-600 hover:bg-coquette-pink-50 transition-colors"
+                      className="flex items-center w-full px-4 py-2 text-sm text-primary-600 hover:bg-primary-50 transition-colors"
                     >
                       <LogOut className="w-4 h-4 mr-2" />
                       Sign Out

@@ -152,7 +152,7 @@ export default function BrowsePage() {
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-light-green-500 w-5 h-5" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-light-green-700 w-5 h-5" />
                   <input
                     type="text"
                     placeholder="Search items, brands, categories..."
@@ -273,7 +273,7 @@ export default function BrowsePage() {
                 <div className="flex items-end">
                   <button
                     onClick={clearFilters}
-                    className="flex items-center gap-2 px-4 py-2 text-light-green-600 hover:text-light-green-700 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 text-light-green-700 hover:text-light-green-800 transition-colors"
                   >
                     <X className="w-4 h-4" />
                     Clear All
@@ -348,18 +348,18 @@ export default function BrowsePage() {
                     {item.name}
                   </h3>
                   {item.size && (
-                    <span className="text-sm text-light-green-600 bg-light-green-100 px-2 py-1 rounded-full">
+                    <span className="text-sm text-light-green-800 bg-light-green-200 px-2 py-1 rounded-full">
                       {item.size}
                     </span>
                   )}
                 </div>
                 
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-xs text-light-green-600 bg-light-green-100 px-2 py-1 rounded-full">
+                  <span className="text-xs text-light-green-800 bg-light-green-200 px-2 py-1 rounded-full">
                     {item.category}
                   </span>
                   {item.subcategory && (
-                    <span className="text-xs text-light-green-600 bg-light-green-100 px-2 py-1 rounded-full">
+                    <span className="text-xs text-light-green-800 bg-light-green-200 px-2 py-1 rounded-full">
                       {item.subcategory}
                     </span>
                   )}
@@ -373,12 +373,12 @@ export default function BrowsePage() {
                 </div>
                 
                 <p className="text-light-green-700 font-medium mb-2">{item.brand}</p>
-                <p className="text-light-green-600 text-sm mb-3 line-clamp-2">
+                <p className="text-light-green-700 text-sm mb-3 line-clamp-2">
                   {item.description}
                 </p>
                 
-                <div className="flex items-center justify-between text-sm text-light-green-600">
-                  <span className="bg-light-green-100 px-2 py-1 rounded-full">
+                <div className="flex items-center justify-between text-sm text-light-green-700">
+                  <span className="bg-light-green-200 px-2 py-1 rounded-full text-light-green-800">
                     {item.condition}
                   </span>
                   <span>by @{item.profiles.username}</span>
@@ -392,7 +392,7 @@ export default function BrowsePage() {
         {filteredItems.length === 0 && (
           <div className="text-center py-12">
             <div className="w-24 h-24 bg-coquette-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Search className="w-12 h-12 text-coquette-pink-400" />
+              <Search className="w-12 h-12 text-light-green-700" />
             </div>
             <h3 className="text-2xl font-elegant font-semibold text-light-green-800 mb-2">
               No items found
