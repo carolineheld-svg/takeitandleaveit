@@ -225,13 +225,13 @@ export default function NotificationBell() {
                           <IconComponent className="w-5 h-5" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 truncate">
+                          <p className="text-sm font-medium text-primary-900 truncate">
                             {notification.title}
                           </p>
-                          <p className="text-sm text-gray-600 mt-1 line-clamp-2">
+                          <p className="text-sm text-primary-700 mt-1 line-clamp-2">
                             {notification.message}
                           </p>
-                          <p className="text-xs text-gray-400 mt-1">
+                          <p className="text-xs text-primary-600 mt-1">
                             {new Date(notification.created_at).toLocaleDateString()} at{' '}
                             {new Date(notification.created_at).toLocaleTimeString([], { 
                               hour: '2-digit', 

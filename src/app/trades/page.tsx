@@ -184,7 +184,7 @@ export default function TradesPage() {
               onClick={() => setActiveTab('received')}
               className={`px-6 py-3 rounded-xl font-medium transition-all ${
                 activeTab === 'received'
-                  ? 'bg-coquette-pink-500 text-white shadow-sm'
+                  ? 'bg-primary-600 text-white shadow-sm'
                   : 'text-light-purple-600 hover:text-light-purple-700'
               }`}
             >
@@ -194,7 +194,7 @@ export default function TradesPage() {
               onClick={() => setActiveTab('sent')}
               className={`px-6 py-3 rounded-xl font-medium transition-all ${
                 activeTab === 'sent'
-                  ? 'bg-coquette-pink-500 text-white shadow-sm'
+                  ? 'bg-primary-600 text-white shadow-sm'
                   : 'text-light-purple-600 hover:text-light-purple-700'
               }`}
             >
@@ -273,7 +273,7 @@ export default function TradesPage() {
                     <div className="flex gap-3">
                       <button
                         onClick={() => handleChat(request)}
-                        className="flex items-center gap-2 px-4 py-2 bg-coquette-pink-500 text-white rounded-lg hover:bg-coquette-pink-600 transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
                       >
                         <MessageCircle className="w-4 h-4" />
                         Chat & Coordinate

@@ -83,10 +83,10 @@ export default function CarbonImpactCard({
               <Leaf className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 className="text-xl font-coquette font-semibold text-gray-800">
+              <h3 className="text-xl font-elegant font-semibold text-primary-800">
                 Your Environmental Impact
               </h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-primary-600">
                 {getImpactLevel(personalData.totalCo2Saved).level}
               </p>
             </div>
@@ -164,10 +164,10 @@ export default function CarbonImpactCard({
               <Leaf className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 className="text-xl font-coquette font-semibold text-gray-800">
+              <h3 className="text-xl font-elegant font-semibold text-primary-800">
                 Campus Environmental Impact
               </h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-primary-600">
                 Collective impact of all Cate traders
               </p>
             </div>

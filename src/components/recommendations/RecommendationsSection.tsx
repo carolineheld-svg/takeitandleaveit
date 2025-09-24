@@ -56,12 +56,12 @@ export default function RecommendationsSection() {
 
         {loading ? (
           <div className="text-center py-12">
-            <div className="w-16 h-16 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
+            <div className="w-16 h-16 border-4 border-primary-200 border-t-primary-500 rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-primary-700 font-elegant text-xl">Finding recommendations...</p>
           </div>
         ) : recommendations.length === 0 ? (
           <div className="text-center py-12">
-            <Package className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <Package className="w-16 h-16 text-primary-400 mx-auto mb-4" />
             <h3 className="text-2xl font-elegant font-semibold text-primary-700 mb-2">
               No recommendations yet
             </h3>
@@ -70,7 +70,7 @@ export default function RecommendationsSection() {
             </p>
             <Link 
               href="/browse" 
-              className="btn-coquette"
+              className="btn-primary"
             >
               Browse Items
             </Link>
@@ -78,7 +78,7 @@ export default function RecommendationsSection() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {recommendations.map((item) => (
-              <div key={item.id} className="card-coquette overflow-hidden group">
+              <div key={item.id} className="card-primary overflow-hidden group">
                 {/* Item Image */}
                 <div className="relative h-48 bg-gray-100">
                   {item.images && item.images.length > 0 ? (
@@ -89,7 +89,7 @@ export default function RecommendationsSection() {
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <Package className="w-12 h-12 text-gray-400" />
+                      <Package className="w-12 h-12 text-primary-400" />
                     </div>
                   )}
                   
@@ -109,18 +109,18 @@ export default function RecommendationsSection() {
                         className="w-6 h-6 rounded-full object-cover"
                       />
                     ) : (
-                      <div className="w-6 h-6 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full"></div>
+                      <div className="w-6 h-6 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"></div>
                     )}
-                    <span className="text-sm text-coquette-pink-600">
+                    <span className="text-sm text-primary-700">
                       {item.profiles?.full_name || item.profiles?.username || 'Unknown'}
                     </span>
                   </div>
 
-                  <h3 className="font-coquette font-semibold text-lg text-coquette-pink-700 mb-2">
+                  <h3 className="font-elegant font-semibold text-lg text-primary-800 mb-2">
                     {item.name}
                   </h3>
                   
-                  <div className="flex items-center gap-4 text-sm text-coquette-pink-600 mb-3">
+                  <div className="flex items-center gap-4 text-sm text-primary-700 mb-3">
                     <span>{item.brand}</span>
                     <span>•</span>
                     <span>{item.condition}</span>
@@ -128,18 +128,18 @@ export default function RecommendationsSection() {
                     <span>{item.size}</span>
                   </div>
 
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  <p className="text-primary-700 text-sm mb-4 line-clamp-2">
                     {item.description}
                   </p>
 
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-primary-600">
                       {item.category}
                     </span>
                     
                     <Link
                       href="/browse"
-                      className="btn-coquette text-sm px-4 py-2"
+                      className="btn-primary text-sm px-4 py-2"
                     >
                       View Item
                     </Link>
@@ -154,7 +154,7 @@ export default function RecommendationsSection() {
           <div className="text-center mt-12">
             <Link 
               href="/browse" 
-              className="btn-coquette-outline"
+              className="btn-outline"
             >
               Browse All Items
             </Link>

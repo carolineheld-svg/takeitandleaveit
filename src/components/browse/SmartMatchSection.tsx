@@ -81,7 +81,7 @@ export default function SmartMatchSection() {
             <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
               <Brain className="w-6 h-6 text-white" />
             </div>
-            <h2 className="text-4xl font-coquette font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <h2 className="text-4xl font-elegant font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
               SmartMatch AI
             </h2>
           </div>
@@ -93,20 +93,20 @@ export default function SmartMatchSection() {
         {loading ? (
           <div className="text-center py-12">
             <div className="w-16 h-16 border-4 border-purple-200 border-t-purple-500 rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-purple-600 font-coquette text-xl">AI is analyzing your preferences...</p>
+            <p className="text-primary-600 font-elegant text-xl">AI is analyzing your preferences...</p>
           </div>
         ) : smartMatchItems.length === 0 ? (
           <div className="text-center py-12">
             <Package className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-2xl font-coquette font-semibold text-gray-600 mb-2">
+            <h3 className="text-2xl font-elegant font-semibold text-primary-700 mb-2">
               No SmartMatch recommendations yet
             </h3>
-            <p className="text-gray-500 mb-6">
+            <p className="text-primary-600 mb-6">
               Start browsing items and setting your preferences to get personalized AI recommendations!
             </p>
-            <Link 
-              href="/browse" 
-              className="btn-coquette"
+            <Link
+              href="/browse"
+              className="btn-primary"
             >
               Start Browsing
             </Link>
@@ -118,7 +118,7 @@ export default function SmartMatchSection() {
               <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-purple-200">
                 <div className="flex items-center gap-3 mb-2">
                   <Brain className="w-6 h-6 text-purple-500" />
-                  <h3 className="font-coquette font-semibold text-gray-700">AI Analysis</h3>
+                  <h3 className="font-elegant font-semibold text-primary-800">AI Analysis</h3>
                 </div>
                 <p className="text-sm text-gray-600">
                   Analyzing your preferences, size, and browsing patterns
@@ -127,7 +127,7 @@ export default function SmartMatchSection() {
               <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-pink-200">
                 <div className="flex items-center gap-3 mb-2">
                   <Star className="w-6 h-6 text-pink-500" />
-                  <h3 className="font-coquette font-semibold text-gray-700">Perfect Matches</h3>
+                  <h3 className="font-elegant font-semibold text-primary-800">Perfect Matches</h3>
                 </div>
                 <p className="text-sm text-gray-600">
                   Items that match your size preferences and style
@@ -136,7 +136,7 @@ export default function SmartMatchSection() {
               <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-indigo-200">
                 <div className="flex items-center gap-3 mb-2">
                   <TrendingUp className="w-6 h-6 text-indigo-500" />
-                  <h3 className="font-coquette font-semibold text-gray-700">Learning System</h3>
+                  <h3 className="font-elegant font-semibold text-primary-800">Learning System</h3>
                 </div>
                 <p className="text-sm text-gray-600">
                   Gets smarter with every interaction and preference update
@@ -151,7 +151,7 @@ export default function SmartMatchSection() {
                 const isExpanded = expandedItem === item.id
 
                 return (
-                  <div key={item.id} className="card-coquette overflow-hidden group relative">
+                  <div key={item.id} className="card-primary overflow-hidden group relative">
                     {/* AI Score Badge */}
                     <div className="absolute top-3 left-3 z-10">
                       <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
@@ -190,18 +190,18 @@ export default function SmartMatchSection() {
                             className="w-6 h-6 rounded-full object-cover"
                           />
                         ) : (
-                          <div className="w-6 h-6 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full"></div>
+                          <div className="w-6 h-6 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"></div>
                         )}
-                        <span className="text-sm text-coquette-pink-600">
+                        <span className="text-sm text-primary-700">
                           {item.profiles?.full_name || item.profiles?.username || 'Unknown'}
                         </span>
                       </div>
 
-                      <h3 className="font-coquette font-semibold text-lg text-coquette-pink-700 mb-2">
+                      <h3 className="font-elegant font-semibold text-lg text-primary-800 mb-2">
                         {item.name}
                       </h3>
                       
-                      <div className="flex items-center gap-4 text-sm text-coquette-pink-600 mb-3">
+                      <div className="flex items-center gap-4 text-sm text-primary-700 mb-3">
                         <span>{item.brand}</span>
                         <span>•</span>
                         <span>{item.condition}</span>
@@ -243,7 +243,7 @@ export default function SmartMatchSection() {
                       <Link
                         href="/browse"
                         onClick={() => handleItemClick(item)}
-                        className="w-full btn-coquette text-sm px-4 py-2 text-center block"
+                        className="w-full btn-primary text-sm px-4 py-2 text-center block"
                       >
                         View Item
                       </Link>
@@ -257,7 +257,7 @@ export default function SmartMatchSection() {
             <div className="text-center mt-12">
               <Link 
                 href="/browse" 
-                className="btn-coquette-outline"
+                className="btn-outline"
               >
                 Browse All Items
               </Link>
