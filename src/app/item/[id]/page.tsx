@@ -100,8 +100,8 @@ export default function ItemDetailPage() {
     return (
       <div className="min-h-screen bg-gradient-light-green flex items-center justify-center">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-coquette-pink-200 border-t-coquette-pink-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-light-green-700">Loading item details...</p>
+          <div className="w-12 h-12 border-4 border-primary-200 border-t-primary-500 rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-pink-800">Loading item details...</p>
         </div>
       </div>
     )
@@ -109,14 +109,14 @@ export default function ItemDetailPage() {
 
   if (error || !item) {
     return (
-      <div className="min-h-screen bg-gradient-light-green flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-50 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-coquette font-bold text-coquette-pink-700 mb-4">
+          <h1 className="text-2xl font-elegant font-bold text-pink-800 mb-4">
             {error || 'Item not found'}
           </h1>
           <Link
             href="/browse"
-            className="btn-coquette inline-flex items-center gap-2"
+            className="btn-primary inline-flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Browse
@@ -127,7 +127,7 @@ export default function ItemDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-coquette-pink-50 to-coquette-gold-50">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-50">
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
@@ -135,9 +135,9 @@ export default function ItemDetailPage() {
             onClick={() => router.back()}
             className="p-2 hover:bg-white/50 rounded-lg transition-colors"
           >
-            <ArrowLeft className="w-6 h-6 text-coquette-pink-600" />
+            <ArrowLeft className="w-6 h-6 text-pink-700" />
           </button>
-          <h1 className="text-2xl font-coquette font-bold text-coquette-pink-700">
+          <h1 className="text-2xl font-elegant font-bold text-pink-800">
             Item Details
           </h1>
         </div>
@@ -153,8 +153,8 @@ export default function ItemDetailPage() {
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-coquette-pink-100 to-coquette-gold-100 flex items-center justify-center">
-                  <span className="text-coquette-pink-400 text-lg">No Image</span>
+                <div className="w-full h-full bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center">
+                  <span className="text-pink-600 text-lg">No Image</span>
                 </div>
               )}
             </div>
@@ -181,10 +181,10 @@ export default function ItemDetailPage() {
             <div>
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h2 className="text-3xl font-coquette font-bold text-coquette-pink-700 mb-2">
+                  <h2 className="text-3xl font-elegant font-bold text-pink-800 mb-2">
                     {item.name}
                   </h2>
-                  <p className="text-xl text-coquette-gold-600 font-medium">
+                  <p className="text-xl text-pink-700 font-medium">
                     {item.brand}
                   </p>
                 </div>
@@ -195,13 +195,13 @@ export default function ItemDetailPage() {
                     disabled={wishlistLoading}
                     className={`p-2 rounded-lg transition-colors ${
                       isInWishlist 
-                        ? 'bg-coquette-pink-100 text-coquette-pink-600' 
-                        : 'bg-white/50 hover:bg-white text-coquette-pink-400 hover:text-coquette-pink-600'
+                        ? 'bg-pink-200 text-pink-700' 
+                        : 'bg-white/50 hover:bg-white text-pink-500 hover:text-pink-700'
                     }`}
                   >
                     <Heart className={`w-5 h-5 ${isInWishlist ? 'fill-current' : ''}`} />
                   </button>
-                  <button className="p-2 bg-white/50 hover:bg-white text-coquette-pink-400 hover:text-coquette-pink-600 rounded-lg transition-colors">
+                  <button className="p-2 bg-white/50 hover:bg-white text-pink-500 hover:text-pink-700 rounded-lg transition-colors">
                     <Share2 className="w-5 h-5" />
                   </button>
                 </div>
@@ -209,11 +209,11 @@ export default function ItemDetailPage() {
 
               {/* Tags */}
               <div className="flex flex-wrap gap-2 mb-4">
-                <span className="text-xs text-coquette-gold-600 bg-coquette-gold-100 px-3 py-1 rounded-full">
+                <span className="text-xs text-pink-700 bg-pink-200 px-3 py-1 rounded-full">
                   {item.category}
                 </span>
                 {item.subcategory && (
-                  <span className="text-xs text-coquette-pink-500 bg-coquette-pink-100 px-3 py-1 rounded-full">
+                  <span className="text-xs text-pink-600 bg-pink-200 px-3 py-1 rounded-full">
                     {item.subcategory}
                   </span>
                 )}
@@ -230,17 +230,17 @@ export default function ItemDetailPage() {
 
             {/* Description */}
             <div>
-              <h3 className="text-lg font-coquette font-semibold text-coquette-pink-700 mb-3">
+              <h3 className="text-lg font-elegant font-semibold text-pink-800 mb-3">
                 Description
               </h3>
-              <p className="text-coquette-pink-600 leading-relaxed">
+              <p className="text-pink-700 leading-relaxed">
                 {item.description}
               </p>
             </div>
 
             {/* Lister Info */}
             <div className="bg-white/50 backdrop-blur-sm rounded-xl p-4">
-              <h3 className="text-lg font-coquette font-semibold text-coquette-pink-700 mb-3">
+              <h3 className="text-lg font-elegant font-semibold text-pink-800 mb-3">
                 Listed by
               </h3>
               <div className="flex items-center gap-3">
@@ -251,15 +251,15 @@ export default function ItemDetailPage() {
                     className="w-12 h-12 rounded-full object-cover"
                   />
                 ) : (
-                  <div className="w-12 h-12 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center">
                     <User className="w-6 h-6 text-white" />
                   </div>
                 )}
                 <div>
-                  <p className="font-medium text-coquette-pink-700">
+                  <p className="font-medium text-pink-700">
                     {item.profiles?.full_name || item.profiles?.username || 'Unknown User'}
                   </p>
-                  <p className="text-sm text-coquette-pink-500">
+                  <p className="text-sm text-pink-600">
                     @{item.profiles?.username}
                   </p>
                 </div>
@@ -271,14 +271,14 @@ export default function ItemDetailPage() {
               <div className="space-y-3">
                 <button
                   onClick={handleSendTradeRequest}
-                  className="w-full btn-coquette flex items-center justify-center gap-2 py-4 text-lg"
+                  className="w-full btn-primary flex items-center justify-center gap-2 py-4 text-lg"
                 >
                   <MessageCircle className="w-5 h-5" />
                   Send Trade Request
                 </button>
                 
                 <div className="text-center">
-                  <p className="text-sm text-coquette-pink-600">
+                  <p className="text-sm text-pink-700">
                     Interested in this item? Send a trade request to coordinate a meeting!
                   </p>
                 </div>
@@ -287,18 +287,18 @@ export default function ItemDetailPage() {
 
             {/* Item Stats */}
             <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4">
-              <h3 className="text-lg font-coquette font-semibold text-coquette-pink-700 mb-3">
+              <h3 className="text-lg font-elegant font-semibold text-pink-800 mb-3">
                 Item Information
               </h3>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <span className="text-coquette-pink-500">Listed:</span>
-                  <p className="font-medium text-coquette-pink-700">
+                  <span className="text-pink-600">Listed:</span>
+                  <p className="font-medium text-pink-700">
                     {new Date(item.created_at).toLocaleDateString()}
                   </p>
                 </div>
                 <div>
-                  <span className="text-coquette-pink-500">Status:</span>
+                  <span className="text-pink-600">Status:</span>
                   <p className={`font-medium ${
                     item.status === 'available' ? 'text-green-600' :
                     item.status === 'pending' ? 'text-yellow-600' :
