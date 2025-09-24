@@ -86,7 +86,7 @@ export default function TradeRequestModal({
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   rows={4}
-                  className="w-full pl-10 pr-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors resize-none"
+                  className="w-full pl-10 pr-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors resize-none"
                   placeholder="Tell them why you'd love to trade for this item..."
                 />
               </div>
@@ -94,7 +94,7 @@ export default function TradeRequestModal({
 
             {/* Meeting Location */}
             <div>
-              <label htmlFor="meetingLocation" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+              <label htmlFor="meetingLocation" className="block text-sm font-medium text-primary-800 mb-2">
                 <MapPin className="w-4 h-4 inline mr-1" />
                 Preferred Meeting Location (Optional)
               </label>
@@ -102,7 +102,7 @@ export default function TradeRequestModal({
                 id="meetingLocation"
                 value={meetingLocation}
                 onChange={(e) => setMeetingLocation(e.target.value)}
-                className="w-full px-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
               >
                 <option value="">Select a campus location</option>
                 {CAMPUS_LOCATIONS.map(location => (
@@ -115,14 +115,14 @@ export default function TradeRequestModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 px-4 py-3 border border-coquette-pink-200 text-coquette-pink-600 rounded-lg hover:bg-coquette-pink-50 transition-colors"
+                className="flex-1 px-4 py-3 border border-primary-200 text-primary-600 rounded-lg hover:bg-primary-50 transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 btn-coquette disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                className="flex-1 btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
               >
                 {loading ? (
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -137,7 +137,7 @@ export default function TradeRequestModal({
           </form>
 
           <div className="mt-4 text-center">
-            <p className="text-xs text-coquette-pink-500">
+            <p className="text-xs text-primary-500">
               The user will receive a notification and can accept or decline your request
             </p>
           </div>

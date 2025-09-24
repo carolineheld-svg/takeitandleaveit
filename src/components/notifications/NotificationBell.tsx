@@ -158,7 +158,7 @@ export default function NotificationBell() {
           setIsOpen(!isOpen)
           requestNotificationPermission()
         }}
-        className="relative p-2 text-coquette-pink-600 hover:text-coquette-pink-700 transition-colors"
+        className="relative p-2 text-primary-600 hover:text-primary-700 transition-colors"
         aria-label="Notifications"
       >
         <Bell className="w-6 h-6" />
@@ -176,16 +176,16 @@ export default function NotificationBell() {
             className="fixed inset-0 z-40" 
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-coquette border border-coquette-pink-100 py-2 z-50 max-h-96 overflow-y-auto">
+          <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-primary-100 py-2 z-50 max-h-96 overflow-y-auto">
             {/* Header */}
-            <div className="px-4 py-2 border-b border-coquette-pink-100 flex items-center justify-between">
-              <h3 className="font-coquette font-semibold text-coquette-pink-700">
+            <div className="px-4 py-2 border-b border-primary-100 flex items-center justify-between">
+              <h3 className="font-elegant font-semibold text-primary-800">
                 Notifications
               </h3>
               {unreadCount > 0 && (
                 <button
                   onClick={markAllAsRead}
-                  className="text-xs text-coquette-pink-500 hover:text-coquette-pink-700 transition-colors"
+                  className="text-xs text-primary-500 hover:text-primary-700 transition-colors"
                 >
                   Mark all read
                 </button>
@@ -195,11 +195,11 @@ export default function NotificationBell() {
             {/* Notifications List */}
             <div className="max-h-80 overflow-y-auto">
               {loading ? (
-                <div className="px-4 py-8 text-center text-coquette-pink-500">
+                <div className="px-4 py-8 text-center text-primary-500">
                   Loading notifications...
                 </div>
               ) : notifications.length === 0 ? (
-                <div className="px-4 py-8 text-center text-coquette-pink-500">
+                <div className="px-4 py-8 text-center text-primary-500">
                   No notifications yet
                 </div>
               ) : (
@@ -216,7 +216,7 @@ export default function NotificationBell() {
                           window.location.href = notification.action_url
                         }
                       }}
-                      className={`px-4 py-3 hover:bg-coquette-pink-50 cursor-pointer border-b border-coquette-pink-50 last:border-b-0 ${
+                      className={`px-4 py-3 hover:bg-primary-50 cursor-pointer border-b border-primary-50 last:border-b-0 ${
                         !notification.is_read ? 'bg-blue-50' : ''
                       }`}
                     >
