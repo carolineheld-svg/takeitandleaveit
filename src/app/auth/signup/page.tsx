@@ -36,21 +36,21 @@ export default function SignupPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-periwinkle py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-gradient-to-r from-coquette-pink-400 to-coquette-gold-400 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-white font-bold text-2xl">C</span>
+          <div className="w-16 h-16 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span className="text-white font-bold text-2xl">✓</span>
           </div>
-          <h2 className="text-3xl font-coquette font-bold text-coquette-pink-700 mb-2">
+          <h2 className="text-3xl font-elegant font-bold text-primary-800 mb-2">
             Join the Community
           </h2>
-          <p className="text-coquette-pink-600">
+          <p className="text-primary-600">
             Create your TakeItAndLeaveIt account
           </p>
-          <p className="text-sm text-coquette-pink-500 mt-2">
+          <p className="text-sm text-primary-500 mt-2">
             Only @cate.org email addresses are allowed
           </p>
         </div>
 
-        <div className="card-coquette p-8">
+        <div className="card-primary p-8">
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-6">
               {error}
