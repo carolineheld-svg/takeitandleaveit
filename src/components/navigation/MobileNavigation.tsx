@@ -43,15 +43,15 @@ export default function MobileNavigation() {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 md:hidden">
+        <div className="fixed inset-0 z-[99999] md:hidden">
           {/* Backdrop */}
           <div 
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[99998]"
             onClick={() => setIsOpen(false)}
           />
           
           {/* Menu Panel */}
-          <div className="fixed right-0 top-0 h-full w-80 max-w-[90vw] sm:max-w-[85vw] bg-white shadow-2xl transform transition-transform overflow-y-auto">
+          <div className="fixed right-0 top-0 h-full w-80 max-w-[90vw] sm:max-w-[85vw] bg-white shadow-2xl transform transition-transform overflow-y-auto z-[99999]">
             <div className="flex flex-col h-full">
               {/* Header */}
               <div className="flex items-center justify-between p-6 border-b border-secondary-200">

@@ -176,7 +176,7 @@ export default function NotificationBell() {
             className="fixed inset-0 z-40" 
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-primary-100 py-2 z-50 max-h-96 overflow-y-auto">
+          <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-primary-100 py-2 z-[60] max-h-96 overflow-y-auto">
             {/* Header */}
             <div className="px-4 py-2 border-b border-primary-100 flex items-center justify-between">
               <h3 className="font-elegant font-semibold text-primary-800">
