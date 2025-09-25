@@ -182,7 +182,7 @@ export default function EditItemPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-light-purple">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-rose-50">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary-200 border-t-primary-500 rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-light-purple-700 font-elegant text-xl">Loading item...</p>
@@ -193,7 +193,7 @@ export default function EditItemPage() {
 
   if (error && !item) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-light-purple">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-rose-50">
         <div className="max-w-md mx-auto text-center">
           <div className="card-primary p-8">
             <h2 className="text-2xl font-elegant font-bold text-primary-800 mb-4">
@@ -211,7 +211,7 @@ export default function EditItemPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-light-purple">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-rose-50">
         <div className="max-w-md mx-auto text-center">
           <div className="card-primary p-8">
             <div className="w-20 h-20 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -238,13 +238,13 @@ export default function EditItemPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-coquette-pink-50 to-coquette-gold-50 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-50 py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
           <Link 
             href="/profile" 
-            className="flex items-center gap-2 text-coquette-pink-600 hover:text-coquette-pink-700 transition-colors"
+            className="flex items-center gap-2 text-pink-700 hover:text-pink-800 transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
             Back to Profile
@@ -252,10 +252,10 @@ export default function EditItemPage() {
         </div>
 
         <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-6xl font-coquette font-bold text-coquette-pink-700 mb-4">
+          <h1 className="text-4xl md:text-6xl font-elegant font-bold text-pink-800 mb-4">
             Edit Item
           </h1>
-          <p className="text-xl text-coquette-pink-600">
+          <p className="text-xl text-pink-700">
             Update your item details
           </p>
         </div>
@@ -263,7 +263,7 @@ export default function EditItemPage() {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Form */}
           <div className="lg:col-span-2">
-            <div className="card-coquette p-8">
+            <div className="card-primary p-8">
               {error && (
                 <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-6">
                   {error}
@@ -273,11 +273,11 @@ export default function EditItemPage() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Item Name */}
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-primary-800 mb-2">
                     Item Name *
                   </label>
                   <div className="relative">
-                    <Tag className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coquette-pink-400 w-5 h-5" />
+                    <Tag className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-500 w-5 h-5" />
                     <input
                       id="name"
                       name="name"
@@ -285,7 +285,7 @@ export default function EditItemPage() {
                       required
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full pl-10 pr-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                      className="w-full pl-10 pr-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                       placeholder="e.g., Vintage Pink Blouse"
                     />
                   </div>
@@ -293,11 +293,11 @@ export default function EditItemPage() {
 
                 {/* Brand */}
                 <div>
-                  <label htmlFor="brand" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+                  <label htmlFor="brand" className="block text-sm font-medium text-primary-800 mb-2">
                     Brand *
                   </label>
                   <div className="relative">
-                    <Hash className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coquette-pink-400 w-5 h-5" />
+                    <Hash className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-500 w-5 h-5" />
                     <input
                       id="brand"
                       name="brand"
@@ -305,7 +305,7 @@ export default function EditItemPage() {
                       required
                       value={formData.brand}
                       onChange={handleInputChange}
-                      className="w-full pl-10 pr-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                      className="w-full pl-10 pr-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                       placeholder="e.g., Zara, H&M, Forever 21"
                     />
                   </div>
@@ -313,7 +313,7 @@ export default function EditItemPage() {
 
                 {/* Category */}
                 <div>
-                  <label htmlFor="category" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+                  <label htmlFor="category" className="block text-sm font-medium text-primary-800 mb-2">
                     Category *
                   </label>
                   <select
@@ -322,7 +322,7 @@ export default function EditItemPage() {
                     required
                     value={formData.category}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                   >
                     <option value="">Select category</option>
                     {Object.keys(CATEGORIES).map(category => (
@@ -334,7 +334,7 @@ export default function EditItemPage() {
                 {/* Subcategory */}
                 {formData.category && (
                   <div>
-                    <label htmlFor="subcategory" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+                    <label htmlFor="subcategory" className="block text-sm font-medium text-primary-800 mb-2">
                       Subcategory
                     </label>
                     <select
@@ -342,7 +342,7 @@ export default function EditItemPage() {
                       name="subcategory"
                       value={formData.subcategory}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                     >
                       <option value="">Select subcategory (optional)</option>
                       {CATEGORIES[formData.category as keyof typeof CATEGORIES]?.map(subcategory => (
@@ -355,7 +355,7 @@ export default function EditItemPage() {
                 {/* Condition and Size */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="condition" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+                    <label htmlFor="condition" className="block text-sm font-medium text-primary-800 mb-2">
                       Condition *
                     </label>
                     <select
@@ -364,7 +364,7 @@ export default function EditItemPage() {
                       required
                       value={formData.condition}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                     >
                       <option value="">Select condition</option>
                       {CONDITIONS.map(condition => (
@@ -376,7 +376,7 @@ export default function EditItemPage() {
                   {/* Size - Only show for clothing items */}
                   {CLOTHING_CATEGORIES.includes(formData.category) && (
                     <div>
-                      <label htmlFor="size" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+                      <label htmlFor="size" className="block text-sm font-medium text-primary-800 mb-2">
                         Size *
                       </label>
                       <select
@@ -385,7 +385,7 @@ export default function EditItemPage() {
                         required
                         value={formData.size}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors"
+                        className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
                       >
                         <option value="">Select size</option>
                         {formData.subcategory && SIZE_PREFERENCES[formData.subcategory as keyof typeof SIZE_PREFERENCES] ? (
@@ -404,11 +404,11 @@ export default function EditItemPage() {
 
                 {/* Description */}
                 <div>
-                  <label htmlFor="description" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+                  <label htmlFor="description" className="block text-sm font-medium text-primary-800 mb-2">
                     Description *
                   </label>
                   <div className="relative">
-                    <FileText className="absolute left-3 top-3 text-coquette-pink-400 w-5 h-5" />
+                    <FileText className="absolute left-3 top-3 text-primary-500 w-5 h-5" />
                     <textarea
                       id="description"
                       name="description"
@@ -416,7 +416,7 @@ export default function EditItemPage() {
                       rows={4}
                       value={formData.description}
                       onChange={handleInputChange}
-                      className="w-full pl-10 pr-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors resize-none"
+                      className="w-full pl-10 pr-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors resize-none"
                       placeholder="Describe your item in detail..."
                     />
                   </div>
@@ -424,21 +424,21 @@ export default function EditItemPage() {
 
                 {/* Additional Images */}
                 <div>
-                  <label htmlFor="images" className="block text-sm font-medium text-coquette-pink-700 mb-2">
+                  <label htmlFor="images" className="block text-sm font-medium text-primary-800 mb-2">
                     Add More Images
                   </label>
                   <div className="relative">
-                    <Camera className="absolute left-3 top-1/2 transform -translate-y-1/2 text-coquette-pink-400 w-5 h-5" />
+                    <Camera className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-500 w-5 h-5" />
                     <input
                       id="images"
                       type="file"
                       multiple
                       accept="image/*"
                       onChange={handleImageChange}
-                      className="w-full pl-10 pr-4 py-3 border border-coquette-pink-200 rounded-lg focus:ring-2 focus:ring-coquette-pink-400 focus:border-transparent transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-coquette-pink-100 file:text-coquette-pink-700 hover:file:bg-coquette-pink-200"
+                      className="w-full pl-10 pr-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-100 file:text-primary-800 hover:file:bg-primary-200"
                     />
                   </div>
-                  <p className="text-sm text-coquette-pink-500 mt-2">
+                  <p className="text-sm text-primary-600 mt-2">
                     You can add up to 4 additional images. Existing images will be kept.
                   </p>
                 </div>
@@ -446,7 +446,7 @@ export default function EditItemPage() {
                 {/* Image Previews */}
                 {formData.images.length > 0 && (
                   <div>
-                    <label className="block text-sm font-medium text-coquette-pink-700 mb-2">
+                    <label className="block text-sm font-medium text-primary-800 mb-2">
                       New Images to Add
                     </label>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -475,7 +475,7 @@ export default function EditItemPage() {
                   <button
                     type="submit"
                     disabled={saving}
-                    className="flex-1 btn-coquette disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {saving ? 'Updating...' : 'Update Item'}
                   </button>
@@ -494,25 +494,25 @@ export default function EditItemPage() {
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div className="card-coquette p-6 sticky top-8">
-              <h3 className="text-xl font-coquette font-semibold text-coquette-pink-700 mb-4">
+            <div className="card-primary p-6 sticky top-8">
+              <h3 className="text-xl font-elegant font-semibold text-primary-800 mb-4">
                 Editing Tips
               </h3>
-              <ul className="space-y-3 text-sm text-coquette-pink-600">
+              <ul className="space-y-3 text-sm text-primary-700">
                 <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-coquette-pink-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></span>
                   Be specific about the item&apos;s condition and any wear
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-coquette-pink-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></span>
                   Include the brand and size for better searchability
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-coquette-pink-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></span>
                   Add more photos to show different angles
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="w-2 h-2 bg-coquette-pink-400 rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></span>
                   Keep your description honest and detailed
                 </li>
               </ul>
