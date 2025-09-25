@@ -52,12 +52,14 @@ export default function SizePreferencesModal({ isOpen, onClose, userId, onSave }
   const handleSave = async () => {
     setSaving(true)
     try {
+      console.log('Saving size preferences:', { userId, sizePreferences })
       await smartMatchAI.updateSizePreferences(userId, sizePreferences)
+      console.log('Size preferences saved successfully')
       onSave()
       onClose()
     } catch (error) {
       console.error('Failed to save size preferences:', error)
-      alert('Failed to save size preferences. Please try again.')
+      alert(`Failed to save size preferences: ${error instanceof Error ? error.message : 'Unknown error'}`)
     } finally {
       setSaving(false)
     }

@@ -292,13 +292,50 @@ export class SmartMatchAI {
   // Update user size preferences
   async updateSizePreferences(userId: string, _sizePreferences: Record<string, string[]>): Promise<void> {
     try {
-      await this.supabase
+      console.log('SmartMatchAI: Updating size preferences for user:', userId, _sizePreferences)
+      
+      // First, try to get existing preferences
+      const { data: existing } = await this.supabase
         .from('user_preferences')
-        .upsert({
-          user_id: userId,
-          size_preferences: _sizePreferences,
-          updated_at: new Date().toISOString()
-        })
+        .select('*')
+        .eq('user_id', userId)
+        .single()
+
+      if (existing) {
+        // Update existing record
+        const { data, error } = await this.supabase
+          .from('user_preferences')
+          .update({
+            size_preferences: _sizePreferences,
+            updated_at: new Date().toISOString()
+          })
+          .eq('user_id', userId)
+          .select()
+
+        if (error) {
+          console.error('Database error updating size preferences:', error)
+          throw error
+        }
+
+        console.log('SmartMatchAI: Size preferences updated successfully:', data)
+      } else {
+        // Insert new record
+        const { data, error } = await this.supabase
+          .from('user_preferences')
+          .insert({
+            user_id: userId,
+            size_preferences: _sizePreferences,
+            updated_at: new Date().toISOString()
+          })
+          .select()
+
+        if (error) {
+          console.error('Database error inserting size preferences:', error)
+          throw error
+        }
+
+        console.log('SmartMatchAI: Size preferences inserted successfully:', data)
+      }
     } catch (error) {
       console.error('Failed to update size preferences:', error)
       throw error

@@ -310,6 +310,12 @@ CREATE POLICY "Users can manage their own wishlist" ON public.wishlist
 CREATE POLICY "Users can view their own preferences" ON public.user_preferences
   FOR SELECT USING (auth.uid() = user_id);
 
+CREATE POLICY "Users can insert their own preferences" ON public.user_preferences
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update their own preferences" ON public.user_preferences
+  FOR UPDATE USING (auth.uid() = user_id);
+
 CREATE POLICY "Users can manage their own preferences" ON public.user_preferences
   FOR ALL USING (auth.uid() = user_id);
 
