@@ -59,7 +59,8 @@ export default function SizePreferencesModal({ isOpen, onClose, userId, onSave }
       onClose()
     } catch (error) {
       console.error('Failed to save size preferences:', error)
-      alert(`Failed to save size preferences: ${error instanceof Error ? error.message : 'Unknown error'}`)
+      console.error('Error details:', JSON.stringify(error, null, 2))
+      alert(`Failed to save size preferences: ${error instanceof Error ? error.message : JSON.stringify(error)}`)
     } finally {
       setSaving(false)
     }
