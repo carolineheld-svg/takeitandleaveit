@@ -49,16 +49,16 @@ export default function Navigation() {
     <header className="bg-white/80 backdrop-blur-sm border-b border-secondary-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-3">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 flex items-center justify-center">
+          <div className="flex items-center space-x-3 min-w-0 flex-1">
+            <Link href="/" className="flex items-center space-x-3 min-w-0">
+              <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
                 <img 
                   src="/cate-logo.svg" 
                   alt="Cate School Logo" 
                   className="w-8 h-8 object-contain"
                 />
               </div>
-              <h1 className="text-2xl font-elegant font-semibold text-primary-700">
+              <h1 className="text-xl md:text-2xl font-elegant font-semibold text-primary-700 truncate">
                 TakeItAndLeaveIt
               </h1>
             </Link>
@@ -89,10 +89,12 @@ export default function Navigation() {
             )}
           </nav>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 md:space-x-4 flex-shrink-0">
             {user ? (
               <>
-                <NotificationBell />
+                <div className="hidden sm:block">
+                  <NotificationBell />
+                </div>
                 <div className="relative">
                   <button
                     onClick={() => setShowUserMenu(!showUserMenu)}
@@ -109,7 +111,7 @@ export default function Navigation() {
                         <User className="w-4 h-4 text-white" />
                       )}
                     </div>
-                    <span className="hidden md:block text-sm font-medium">
+                    <span className="hidden lg:block text-sm font-medium">
                       {profile?.full_name || user.email?.split('@')[0]}
                     </span>
                   </button>

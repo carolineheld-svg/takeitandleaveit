@@ -35,7 +35,7 @@ export default function MobileNavigation() {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="md:hidden p-3 rounded-lg text-primary-600 hover:bg-primary-50 transition-colors touch-manipulation"
+        className="md:hidden p-3 rounded-lg text-primary-600 hover:bg-primary-50 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center ml-2"
         aria-label="Open menu"
       >
         <Menu className="w-6 h-6" />
@@ -51,7 +51,7 @@ export default function MobileNavigation() {
           />
           
           {/* Menu Panel */}
-          <div className="fixed right-0 top-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl transform transition-transform">
+          <div className="fixed right-0 top-0 h-full w-80 max-w-[90vw] sm:max-w-[85vw] bg-white shadow-2xl transform transition-transform overflow-y-auto">
             <div className="flex flex-col h-full">
               {/* Header */}
               <div className="flex items-center justify-between p-6 border-b border-secondary-200">
@@ -63,13 +63,13 @@ export default function MobileNavigation() {
                       className="w-6 h-6 object-contain"
                     />
                   </div>
-                  <h1 className="text-xl font-elegant font-semibold text-primary-700">
+                  <h1 className="text-lg font-elegant font-semibold text-primary-700 truncate">
                     TakeItAndLeaveIt
                   </h1>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-2 rounded-lg text-primary-600 hover:bg-primary-50 transition-colors"
+                  className="p-2 rounded-lg text-primary-600 hover:bg-primary-50 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                   aria-label="Close menu"
                 >
                   <X className="w-5 h-5" />
@@ -96,10 +96,10 @@ export default function MobileNavigation() {
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-gray-900 truncate">
+                      <p className="font-medium text-primary-900 truncate">
                         {user.user_metadata?.full_name || 'User'}
                       </p>
-                      <p className="text-sm text-primary-600 truncate">
+                      <p className="text-sm text-primary-700 truncate">
                         {user.email}
                       </p>
                     </div>
@@ -108,7 +108,7 @@ export default function MobileNavigation() {
               )}
 
               {/* Navigation Links */}
-              <nav className="flex-1 px-6 py-4 space-y-2">
+              <nav className="flex-1 px-4 py-4 space-y-1">
                 {navItems.map((item) => {
                   const Icon = item.icon
                   return (
@@ -116,10 +116,10 @@ export default function MobileNavigation() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center gap-3 px-4 py-4 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors group touch-manipulation min-h-[48px]"
+                      className="flex items-center gap-3 px-4 py-4 rounded-lg text-primary-700 hover:bg-primary-50 hover:text-primary-800 transition-colors group touch-manipulation min-h-[48px] text-base"
                     >
-                      <Icon className="w-5 h-5 group-hover:text-primary-600" />
-                      <span className="font-medium">{item.label}</span>
+                      <Icon className="w-5 h-5 group-hover:text-primary-800 flex-shrink-0" />
+                      <span className="font-medium truncate">{item.label}</span>
                     </Link>
                   )
                 })}
@@ -130,9 +130,9 @@ export default function MobileNavigation() {
                 {user ? (
                   <button
                     onClick={handleSignOut}
-                    className="w-full flex items-center gap-3 px-4 py-4 rounded-lg text-red-600 hover:bg-red-50 transition-colors group touch-manipulation min-h-[48px]"
+                    className="w-full flex items-center gap-3 px-4 py-4 rounded-lg text-red-600 hover:bg-red-50 transition-colors group touch-manipulation min-h-[48px] text-base"
                   >
-                    <LogOut className="w-5 h-5" />
+                    <LogOut className="w-5 h-5 flex-shrink-0" />
                     <span className="font-medium">Sign Out</span>
                   </button>
                 ) : (
@@ -140,14 +140,14 @@ export default function MobileNavigation() {
                     <Link
                       href="/auth/signup"
                       onClick={() => setIsOpen(false)}
-                      className="w-full btn-primary text-center block"
+                      className="w-full btn-primary text-center block min-h-[48px] flex items-center justify-center"
                     >
                       Sign Up
                     </Link>
                     <Link
                       href="/auth/login"
                       onClick={() => setIsOpen(false)}
-                      className="w-full btn-outline text-center block"
+                      className="w-full btn-outline text-center block min-h-[48px] flex items-center justify-center"
                     >
                       Sign In
                     </Link>
