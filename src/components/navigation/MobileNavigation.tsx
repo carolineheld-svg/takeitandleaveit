@@ -51,10 +51,10 @@ export default function MobileNavigation() {
           />
           
           {/* Menu Panel */}
-          <div className="fixed right-0 top-0 h-full w-80 max-w-[90vw] sm:max-w-[85vw] bg-white shadow-2xl transform transition-transform overflow-y-auto z-[99999]">
-            <div className="flex flex-col h-full">
+          <div className="fixed right-0 top-0 h-full w-80 max-w-[90vw] sm:max-w-[85vw] bg-white shadow-2xl transform transition-transform overflow-y-auto z-[99999] relative">
+            <div className="flex flex-col h-full relative z-[99999]">
               {/* Header */}
-              <div className="flex items-center justify-between p-6 border-b border-secondary-200">
+              <div className="flex items-center justify-between p-6 border-b border-secondary-200 relative z-[99999]">
                 <div className="flex items-center space-x-3">
                   <div className="w-8 h-8 flex items-center justify-center">
                     <img 
@@ -78,7 +78,7 @@ export default function MobileNavigation() {
 
               {/* User Info */}
               {user && (
-                <div className="p-6 border-b border-primary-100">
+                <div className="p-6 border-b border-primary-100 relative z-[99999]">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-r from-primary-500 to-secondary-500">
                       {user.user_metadata?.avatar_url ? (
@@ -108,7 +108,7 @@ export default function MobileNavigation() {
               )}
 
               {/* Navigation Links */}
-              <nav className="flex-1 px-4 py-4 space-y-1">
+              <nav className="flex-1 px-4 py-4 space-y-1 relative z-[99999]">
                 {navItems.map((item) => {
                   const Icon = item.icon
                   return (
@@ -116,7 +116,7 @@ export default function MobileNavigation() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center gap-3 px-4 py-4 rounded-lg text-primary-700 hover:bg-primary-50 hover:text-primary-800 transition-colors group touch-manipulation min-h-[48px] text-base"
+                      className="flex items-center gap-3 px-4 py-4 rounded-lg text-primary-700 hover:bg-primary-50 hover:text-primary-800 transition-colors group touch-manipulation min-h-[48px] text-base relative z-[99999]"
                     >
                       <Icon className="w-5 h-5 group-hover:text-primary-800 flex-shrink-0" />
                       <span className="font-medium truncate">{item.label}</span>
@@ -126,11 +126,11 @@ export default function MobileNavigation() {
               </nav>
 
               {/* Auth Section */}
-              <div className="p-6 border-t border-primary-100">
+              <div className="p-6 border-t border-primary-100 relative z-[99999]">
                 {user ? (
                   <button
                     onClick={handleSignOut}
-                    className="w-full flex items-center gap-3 px-4 py-4 rounded-lg text-red-600 hover:bg-red-50 transition-colors group touch-manipulation min-h-[48px] text-base"
+                    className="w-full flex items-center gap-3 px-4 py-4 rounded-lg text-red-600 hover:bg-red-50 transition-colors group touch-manipulation min-h-[48px] text-base relative z-[99999]"
                   >
                     <LogOut className="w-5 h-5 flex-shrink-0" />
                     <span className="font-medium">Sign Out</span>
@@ -140,14 +140,14 @@ export default function MobileNavigation() {
                     <Link
                       href="/auth/signup"
                       onClick={() => setIsOpen(false)}
-                      className="w-full btn-primary text-center block min-h-[48px] flex items-center justify-center"
+                      className="w-full btn-primary text-center block min-h-[48px] flex items-center justify-center relative z-[99999]"
                     >
                       Sign Up
                     </Link>
                     <Link
                       href="/auth/login"
                       onClick={() => setIsOpen(false)}
-                      className="w-full btn-outline text-center block min-h-[48px] flex items-center justify-center"
+                      className="w-full btn-outline text-center block min-h-[48px] flex items-center justify-center relative z-[99999]"
                     >
                       Sign In
                     </Link>
