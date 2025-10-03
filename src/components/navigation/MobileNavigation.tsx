@@ -1,15 +1,21 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { createPortal } from 'react-dom'
 import { Menu, X, Home, Search, Plus, MessageSquare, Heart, User, LogOut } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 
 export default function MobileNavigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const { user, signOut } = useAuth()
   const router = useRouter()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleSignOut = async () => {
     try {
@@ -41,20 +47,47 @@ export default function MobileNavigation() {
         <Menu className="w-6 h-6" />
       </button>
 
-      {/* Mobile Menu Overlay */}
-      {isOpen && (
-        <div className="fixed inset-0 md:hidden" style={{ zIndex: 999999 }}>
+      {/* Mobile Menu Overlay - Rendered via Portal */}
+      {mounted && isOpen && createPortal((
+        <div 
+          className="md:hidden"
+          style={{ 
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 999999
+          }}
+        >
           {/* Backdrop */}
           <div 
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm"
-            style={{ zIndex: 999998 }}
+            style={{ 
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              zIndex: 999998
+            }}
             onClick={() => setIsOpen(false)}
           />
           
           {/* Menu Panel */}
           <div 
-            className="fixed right-0 top-0 h-full w-80 max-w-[90vw] sm:max-w-[85vw] bg-white shadow-2xl overflow-y-auto"
-            style={{ zIndex: 999999 }}
+            style={{ 
+              position: 'fixed',
+              top: 0,
+              right: 0,
+              height: '100vh',
+              width: '320px',
+              maxWidth: '90vw',
+              backgroundColor: 'white',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+              overflowY: 'auto',
+              zIndex: 999999
+            }}
           >
             <div className="flex flex-col h-full relative z-[99999]">
               {/* Header */}
@@ -110,7 +143,7 @@ export default function MobileNavigation() {
               )}
 
               {/* Navigation Links */}
-              <nav className="flex-1 px-4 py-4 space-y-1 relative z-[9999]">
+              <nav className="flex-1 px-4 py-4 space-y-1 relative z-[99999]">
                 {navItems.map((item) => {
                   const Icon = item.icon
                   return (
@@ -159,7 +192,7 @@ export default function MobileNavigation() {
             </div>
           </div>
         </div>
-      )}
+      ), document.body)}
     </>
   )
 }
