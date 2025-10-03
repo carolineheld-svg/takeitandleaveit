@@ -21,6 +21,13 @@ export default function LoginPage() {
     setLoading(true)
     setError('')
 
+    // Validate email domain
+    if (!email.endsWith('@cate.org')) {
+      setError('Only @cate.org email addresses are allowed')
+      setLoading(false)
+      return
+    }
+
     try {
       await signIn(email, password)
       router.push('/')
