@@ -47,7 +47,7 @@ export default function SignupForm() {
             Welcome to TakeItAndLeaveIt!
           </h2>
           <p className="text-primary-600 mb-6">
-            Please check your email to verify your account and start trading.
+            Your account has been created successfully. You can now sign in and start trading!
           </p>
           <button
             onClick={() => setSuccess(false)}
