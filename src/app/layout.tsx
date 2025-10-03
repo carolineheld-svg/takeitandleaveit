@@ -16,7 +16,7 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "TakeItAndLeaveIt - Sustainable Trading for Cate Students",
-  description: "Take it or leave it has come to the web! Connect with fellow Cate students, trade items locally, and reduce waste all on campus",
+  description: "Take It Or Leave It has come to the web! Connect with Cate students, trade items locally, and reduce waste---all on campus",
 };
 
 export default function RootLayout({
@@ -35,14 +35,17 @@ export default function RootLayout({
             {children}
           </main>
           
-          <footer className="bg-white/80 backdrop-blur-sm border-t border-coquette-pink-100 mt-auto">
+          <footer className="bg-white/80 backdrop-blur-sm border-t border-primary-100 mt-auto">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
               <div className="text-center">
-                <p className="text-coquette-pink-600 font-coquette text-lg mb-2">
+                <p className="text-primary-700 font-elegant text-lg mb-2">
                   TakeItAndLeaveIt
                 </p>
-                <p className="text-coquette-pink-500 text-sm">
+                <p className="text-primary-600 text-sm">
                   Sustainable trading for students AND faculty!
+                </p>
+                <p className="text-primary-500 text-xs mt-2">
+                  Not affiliated with Cate School
                 </p>
               </div>
             </div>

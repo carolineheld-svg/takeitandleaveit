@@ -22,8 +22,8 @@ export default function Home() {
               </span>
             </h1>
             <p className="text-lg sm:text-xl text-primary-700 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed font-medium px-4">
-              Take it or leave it has come to the web! Connect with fellow Cate students, trade items locally, and reduce waste all on campus.
-              Sustainable, convenient, and 100% free!
+              Take It Or Leave It has come to the web! Connect with fellow Cate students, trade items locally, and reduce waste---all on campus.
+              Convenient and 100% free!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center px-4">
               {user ? (
@@ -62,7 +62,7 @@ export default function Home() {
               How It Works
             </h2>
             <p className="text-lg text-primary-700 max-w-2xl mx-auto font-medium px-4">
-              Sustainable, convenient, and community-focused campus trading
+              Convenient and community-focused campus trading
             </p>
           </div>
           
@@ -89,7 +89,7 @@ export default function Home() {
               </h3>
               <p className="text-primary-700 leading-relaxed font-medium">
                 Explore items from fellow Cate students and faculty right on campus.
-                Find pre-loved pieces that fit your style and budget.
+                Find pre-loved items that fit your preferences.
               </p>
             </div>
             
@@ -114,7 +114,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-elegant font-bold text-primary-900 mb-6">
             Ready to Start Your
-            <span className="block bg-gradient-to-r from-rose-500 to-lavender-500 bg-clip-text text-transparent">Sustainable Journey?</span>
+            <span className="block bg-gradient-to-r from-rose-500 to-lavender-500 bg-clip-text text-transparent">Journey?</span>
           </h2>
           <p className="text-xl text-primary-700 mb-12 font-medium">
             Join the Cate community and start reducing waste while discovering amazing pre-loved items.

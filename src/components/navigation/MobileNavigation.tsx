@@ -43,25 +43,27 @@ export default function MobileNavigation() {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 z-[99999] md:hidden">
+        <div className="fixed inset-0 md:hidden" style={{ zIndex: 999999 }}>
           {/* Backdrop */}
           <div 
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[99998]"
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+            style={{ zIndex: 999998 }}
             onClick={() => setIsOpen(false)}
           />
           
           {/* Menu Panel */}
-          <div className="fixed right-0 top-0 h-full w-80 max-w-[90vw] sm:max-w-[85vw] bg-white shadow-2xl transform transition-transform overflow-y-auto z-[99999] relative">
+          <div 
+            className="fixed right-0 top-0 h-full w-80 max-w-[90vw] sm:max-w-[85vw] bg-white shadow-2xl overflow-y-auto"
+            style={{ zIndex: 999999 }}
+          >
             <div className="flex flex-col h-full relative z-[99999]">
               {/* Header */}
               <div className="flex items-center justify-between p-6 border-b border-secondary-200 relative z-[99999]">
                 <div className="flex items-center space-x-3">
                   <div className="w-8 h-8 flex items-center justify-center">
-                    <img 
-                      src="/cate-logo.svg" 
-                      alt="Cate School Logo" 
-                      className="w-6 h-6 object-contain"
-                    />
+                    <div className="w-6 h-6 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">🐏</span>
+                    </div>
                   </div>
                   <h1 className="text-lg font-elegant font-semibold text-primary-700 truncate">
                     TakeItAndLeaveIt
@@ -108,7 +110,7 @@ export default function MobileNavigation() {
               )}
 
               {/* Navigation Links */}
-              <nav className="flex-1 px-4 py-4 space-y-1 relative z-[99999]">
+              <nav className="flex-1 px-4 py-4 space-y-1 relative z-[9999]">
                 {navItems.map((item) => {
                   const Icon = item.icon
                   return (
