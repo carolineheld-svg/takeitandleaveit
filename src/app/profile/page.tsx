@@ -196,9 +196,12 @@ export default function ProfilePage() {
       setProfilePictureFile(null)
       setProfilePicturePreview(null)
       
+      alert('Profile updated successfully!')
+      
     } catch (error) {
       console.error('Failed to update profile:', error)
-      alert('Failed to update profile. Please try again.')
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+      alert(`Failed to update profile: ${errorMessage}\n\nMake sure you've run the database migration!`)
     } finally {
       setUpdating(false)
     }
