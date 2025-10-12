@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useAuth } from '@/components/auth/AuthProvider'
 import MobileNavigation from './MobileNavigation'
 import { getProfile } from '@/lib/database'
@@ -18,6 +19,7 @@ interface Profile {
 
 export default function Navigation() {
   const { user, signOut } = useAuth()
+  const router = useRouter()
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [profile, setProfile] = useState<Profile | null>(null)
 
@@ -40,8 +42,11 @@ export default function Navigation() {
       await signOut()
       setShowUserMenu(false)
       setProfile(null) // Clear profile data on sign out
+      router.push('/') // Redirect to home page after sign out
+      router.refresh() // Refresh to update all components
     } catch (error) {
       console.error('Error signing out:', error)
+      alert('Failed to sign out. Please try again.')
     }
   }
 
