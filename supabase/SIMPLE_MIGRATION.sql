@@ -3,7 +3,13 @@
 -- This adds selling features and unified messaging to your database
 -- ================================================================
 
--- STEP 1: Add Selling Features to Items
+-- STEP 1: Add Payment Preferences to Profiles
+-- ================================================================
+ALTER TABLE public.profiles
+ADD COLUMN IF NOT EXISTS venmo_username TEXT,
+ADD COLUMN IF NOT EXISTS zelle_username TEXT;
+
+-- STEP 2: Add Selling Features to Items
 -- ================================================================
 ALTER TABLE public.items
 ADD COLUMN IF NOT EXISTS listing_type TEXT DEFAULT 'free',
@@ -32,7 +38,7 @@ WHERE listing_type IS NULL;
 CREATE INDEX IF NOT EXISTS idx_items_listing_type ON public.items(listing_type);
 
 
--- STEP 2: Create Direct Messages Table
+-- STEP 3: Create Direct Messages Table
 -- ================================================================
 CREATE TABLE IF NOT EXISTS public.direct_messages (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -55,7 +61,7 @@ CREATE INDEX IF NOT EXISTS idx_direct_messages_created_at ON public.direct_messa
 ALTER TABLE public.direct_messages ENABLE ROW LEVEL SECURITY;
 
 
--- STEP 3: Add RLS Policies for Direct Messages
+-- STEP 4: Add RLS Policies for Direct Messages
 -- ================================================================
 
 -- Drop existing policies if they exist (to avoid errors)
@@ -103,6 +109,7 @@ CREATE POLICY "Admin can delete any direct message" ON public.direct_messages
 -- MIGRATION COMPLETE!
 -- ================================================================
 -- Your database now supports:
+-- ✅ User payment preferences (Venmo, Zelle usernames in profile)
 -- ✅ Selling feature (free or for sale items with pricing)
 -- ✅ Unified messaging system (one inbox for all conversations)
 -- ✅ Trade requests still work (accept/decline + mark as traded)

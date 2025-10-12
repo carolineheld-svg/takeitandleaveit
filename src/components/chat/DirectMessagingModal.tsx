@@ -75,32 +75,33 @@ export default function DirectMessagingModal({
     }
   }, [user, recipientId, item?.id])
 
-  // Check for existing trade request
-  useEffect(() => {
-    const checkTradeRequest = async () => {
-      if (!user || !item) return
+  // Check for existing trade request (from either user)
+  const checkTradeRequest = useCallback(async () => {
+    if (!user || !item) return
 
-      try {
-        const { data } = await supabase
-          .from('trade_requests')
-          .select('status')
-          .eq('item_id', item.id)
-          .eq('from_user_id', user.id)
-          .order('created_at', { ascending: false })
-          .limit(1)
-          .maybeSingle()
+    try {
+      // Check if there's a trade request between these users for this item
+      const { data } = await supabase
+        .from('trade_requests')
+        .select('status')
+        .eq('item_id', item.id)
+        .or(`and(from_user_id.eq.${user.id},to_user_id.eq.${recipientId}),and(from_user_id.eq.${recipientId},to_user_id.eq.${user.id})`)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle()
 
-        setExistingTradeRequest(data)
-      } catch (error) {
-        console.error('Failed to check trade request:', error)
-      }
+      setExistingTradeRequest(data)
+    } catch (error) {
+      console.error('Failed to check trade request:', error)
     }
+  }, [user, item, recipientId, supabase])
 
+  useEffect(() => {
     if (isOpen) {
       fetchMessages()
       checkTradeRequest()
     }
-  }, [isOpen, fetchMessages, user, item, supabase])
+  }, [isOpen, fetchMessages, checkTradeRequest])
 
   useEffect(() => {
     scrollToBottom()
@@ -167,7 +168,7 @@ export default function DirectMessagingModal({
       
       setExistingTradeRequest(data)
       
-      alert('Trade request sent! The seller will be notified and can accept or decline. Check the Trades page to track its status.')
+      alert('Trade request sent! The seller will be notified and can accept or decline.')
     } catch (error) {
       console.error('Failed to send trade request:', error)
       alert('Failed to send trade request. Please try again.')
@@ -229,54 +230,63 @@ export default function DirectMessagingModal({
             </div>
           )}
 
-          <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-sm text-blue-700">
-              💬 This is a casual conversation. You&apos;re not committed to any trade or purchase.
-            </p>
-          </div>
-
-          {/* Send Trade Request Button */}
-          {item && (
+          {/* Trade Request Status & Action */}
+          {item && existingTradeRequest && (
             <div className="mt-3">
-              {existingTradeRequest ? (
-                <div className={`w-full py-3 px-4 rounded-lg border-2 flex items-center justify-center gap-2 ${
-                  existingTradeRequest.status === 'pending' ? 'bg-yellow-50 border-yellow-300' :
-                  existingTradeRequest.status === 'accepted' ? 'bg-green-50 border-green-300' :
-                  'bg-gray-50 border-gray-300'
-                }`}>
-                  {existingTradeRequest.status === 'pending' && (
-                    <>
-                      <Clock className="w-5 h-5 text-yellow-600" />
-                      <span className="text-yellow-800 font-semibold">Trade Request Pending</span>
-                    </>
-                  )}
-                  {existingTradeRequest.status === 'accepted' && (
-                    <>
-                      <Check className="w-5 h-5 text-green-600" />
-                      <span className="text-green-800 font-semibold">Trade Request Accepted!</span>
-                    </>
-                  )}
-                  {existingTradeRequest.status === 'declined' && (
-                    <>
-                      <X className="w-5 h-5 text-gray-600" />
-                      <span className="text-gray-800 font-semibold">Request Declined</span>
-                    </>
-                  )}
-                </div>
-              ) : (
-                <>
-                  <button
-                    onClick={handleSendTradeRequest}
-                    className="w-full bg-gradient-to-r from-rose-400 to-lavender-400 text-white font-semibold py-3 px-4 rounded-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
-                  >
-                    <CheckCircle className="w-5 h-5" />
-                    {item.listing_type === 'for_sale' ? 'Send Purchase Offer' : 'Send Trade Request'}
-                  </button>
-                  <p className="text-xs text-center text-primary-600 mt-2">
-                    Ready to {item.listing_type === 'for_sale' ? 'buy' : 'trade'}? Send a formal request that the seller can accept or decline.
+              {existingTradeRequest.status === 'pending' && (
+                <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-3">
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <Clock className="w-5 h-5 text-yellow-600" />
+                    <span className="text-yellow-800 font-semibold">Trade Request Pending</span>
+                  </div>
+                  <p className="text-xs text-center text-yellow-700">
+                    Waiting for seller to accept or decline your request.
                   </p>
-                </>
+                </div>
               )}
+              {existingTradeRequest.status === 'accepted' && (
+                <div className="bg-green-50 border-2 border-green-300 rounded-lg p-3">
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <Check className="w-5 h-5 text-green-600" />
+                    <span className="text-green-800 font-semibold">Trade Accepted! 🎉</span>
+                  </div>
+                  <p className="text-xs text-center text-green-700">
+                    Coordinate payment and pickup details below. Item will be marked as traded.
+                  </p>
+                </div>
+              )}
+              {existingTradeRequest.status === 'declined' && (
+                <div className="bg-gray-50 border-2 border-gray-300 rounded-lg p-3">
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <X className="w-5 h-5 text-gray-600" />
+                    <span className="text-gray-800 font-semibold">Request Declined</span>
+                  </div>
+                  <p className="text-xs text-center text-gray-600">
+                    The seller declined your trade request.
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Casual Chat Notice (only if no trade request) */}
+          {item && !existingTradeRequest && (
+            <div className="mt-3">
+              <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg mb-3">
+                <p className="text-sm text-blue-700">
+                  💬 Chat casually with the seller. No commitment yet!
+                </p>
+              </div>
+              <button
+                onClick={handleSendTradeRequest}
+                className="w-full bg-gradient-to-r from-rose-400 to-lavender-400 text-white font-semibold py-3 px-4 rounded-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
+              >
+                <CheckCircle className="w-5 h-5" />
+                {item.listing_type === 'for_sale' ? 'Send Purchase Offer' : 'Send Trade Request'}
+              </button>
+              <p className="text-xs text-center text-primary-600 mt-2">
+                Ready to {item.listing_type === 'for_sale' ? 'buy' : 'trade'}? Send a formal request that the seller can accept or decline.
+              </p>
             </div>
           )}
         </div>

@@ -16,6 +16,8 @@ interface Profile {
   full_name: string | null
   avatar_url: string | null
   created_at: string
+  venmo_username: string | null
+  zelle_username: string | null
 }
 
 interface UserItem {
@@ -47,7 +49,9 @@ export default function ProfilePage() {
   const [sizePreferencesModal, setSizePreferencesModal] = useState(false)
   const [editForm, setEditForm] = useState({
     full_name: '',
-    avatar_url: ''
+    avatar_url: '',
+    venmo_username: '',
+    zelle_username: ''
   })
   const [profilePictureFile, setProfilePictureFile] = useState<File | null>(null)
   const [profilePicturePreview, setProfilePicturePreview] = useState<string | null>(null)
@@ -77,7 +81,9 @@ export default function ProfilePage() {
         if (profileData) {
           setEditForm({
             full_name: profileData.full_name || '',
-            avatar_url: profileData.avatar_url || ''
+            avatar_url: profileData.avatar_url || '',
+            venmo_username: profileData.venmo_username || '',
+            zelle_username: profileData.zelle_username || ''
           })
         }
       } catch (error) {
@@ -138,7 +144,9 @@ export default function ProfilePage() {
     if (profile) {
       setEditForm({
         full_name: profile.full_name || '',
-        avatar_url: profile.avatar_url || ''
+        avatar_url: profile.avatar_url || '',
+        venmo_username: profile.venmo_username || '',
+        zelle_username: profile.zelle_username || ''
       })
     }
   }
@@ -178,7 +186,9 @@ export default function ProfilePage() {
       // Update profile in database
       const updatedProfile = await updateProfile(user.id, {
         full_name: editForm.full_name || null,
-        avatar_url: avatarUrl
+        avatar_url: avatarUrl,
+        venmo_username: editForm.venmo_username || null,
+        zelle_username: editForm.zelle_username || null
       })
       
       setProfile(updatedProfile)
@@ -260,6 +270,22 @@ export default function ProfilePage() {
                       <Package className="w-5 h-5" />
                       <span className="text-sm">{userItems.length} items listed</span>
                     </div>
+                    
+                    {(profile?.venmo_username || profile?.zelle_username) && (
+                      <div className="pt-3 border-t border-primary-200">
+                        <p className="text-sm font-semibold text-primary-700 mb-2">Payment Info:</p>
+                        {profile.venmo_username && (
+                          <div className="text-sm text-light-blue-600 mb-1">
+                            <span className="font-medium">Venmo:</span> {profile.venmo_username}
+                          </div>
+                        )}
+                        {profile.zelle_username && (
+                          <div className="text-sm text-light-blue-600">
+                            <span className="font-medium">Zelle:</span> {profile.zelle_username}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex gap-3 mt-6">
@@ -324,7 +350,35 @@ export default function ProfilePage() {
                       />
                     </div>
 
-                    <div className="flex items-center gap-3 text-light-blue-600 text-sm">
+                    <div>
+                      <label className="block text-sm font-medium text-primary-800 mb-2">
+                        Venmo Username (Optional)
+                      </label>
+                      <input
+                        type="text"
+                        value={editForm.venmo_username}
+                        onChange={(e) => setEditForm(prev => ({ ...prev, venmo_username: e.target.value }))}
+                        placeholder="@your-venmo"
+                        className="w-full px-3 py-2 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                      <p className="text-xs text-primary-600 mt-1">For accepting Venmo payments</p>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-primary-800 mb-2">
+                        Zelle Email/Phone (Optional)
+                      </label>
+                      <input
+                        type="text"
+                        value={editForm.zelle_username}
+                        onChange={(e) => setEditForm(prev => ({ ...prev, zelle_username: e.target.value }))}
+                        placeholder="your@email.com or 123-456-7890"
+                        className="w-full px-3 py-2 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                      <p className="text-xs text-primary-600 mt-1">For accepting Zelle payments</p>
+                    </div>
+
+                    <div className="flex items-center gap-3 text-light-blue-600 text-sm pt-2 border-t border-primary-100">
                       <Mail className="w-4 h-4" />
                       <span>{user?.email}</span>
                     </div>

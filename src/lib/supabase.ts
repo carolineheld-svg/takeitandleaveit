@@ -15,6 +15,8 @@ export type Database = {
           username: string
           full_name: string | null
           avatar_url: string | null
+          venmo_username: string | null
+          zelle_username: string | null
         }
         Insert: {
           id: string
@@ -22,6 +24,8 @@ export type Database = {
           username: string
           full_name?: string | null
           avatar_url?: string | null
+          venmo_username?: string | null
+          zelle_username?: string | null
         }
         Update: {
           id?: string
@@ -29,6 +33,8 @@ export type Database = {
           username?: string
           full_name?: string | null
           avatar_url?: string | null
+          venmo_username?: string | null
+          zelle_username?: string | null
         }
       }
       items: {

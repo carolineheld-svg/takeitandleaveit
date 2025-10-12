@@ -7,7 +7,9 @@ CREATE TABLE public.profiles (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   username TEXT UNIQUE NOT NULL,
   full_name TEXT,
-  avatar_url TEXT
+  avatar_url TEXT,
+  venmo_username TEXT,
+  zelle_username TEXT
 );
 
 -- Create items table
