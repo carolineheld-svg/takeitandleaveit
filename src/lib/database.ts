@@ -674,6 +674,12 @@ export async function getDirectMessages(userId: string, otherUserId: string, ite
   return data || []
 }
 
+type DirectMessageWithProfiles = DirectMessage & {
+  sender_profile: Profile
+  recipient_profile: Profile
+  items?: { id: string; name: string; images: string[] } | null
+}
+
 export async function getDirectMessageConversations(userId: string): Promise<{
   otherUserId: string
   otherUser: Profile
@@ -716,9 +722,9 @@ export async function getDirectMessageConversations(userId: string): Promise<{
   }
 
   // Group messages by conversation (sender + recipient pair + item)
-  const conversationMap = new Map<string, typeof messages>()
+  const conversationMap = new Map<string, DirectMessageWithProfiles[]>()
 
-  messages.forEach((msg: any) => {
+  messages.forEach((msg: DirectMessageWithProfiles) => {
     const otherUserId = msg.sender_id === userId ? msg.recipient_id : msg.sender_id
     const key = `${otherUserId}-${msg.item_id || 'general'}`
     
@@ -742,7 +748,7 @@ export async function getDirectMessageConversations(userId: string): Promise<{
     const otherUserId = latestMsg.sender_id === userId ? latestMsg.recipient_id : latestMsg.sender_id
     const otherUser = latestMsg.sender_id === userId ? latestMsg.recipient_profile : latestMsg.sender_profile
     
-    const unreadCount = msgs.filter((m: any) => 
+    const unreadCount = msgs.filter((m: DirectMessageWithProfiles) => 
       m.recipient_id === userId && !m.is_read
     ).length
 
