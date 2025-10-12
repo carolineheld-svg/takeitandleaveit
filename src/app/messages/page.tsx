@@ -26,7 +26,10 @@ interface Conversation {
   item?: {
     id: string
     name: string
+    brand: string
     images: string[]
+    listing_type: 'free' | 'for_sale'
+    price: number | null
   }
 }
 
@@ -201,14 +204,7 @@ export default function MessagesPage() {
           onClose={handleCloseModal}
           recipientId={selectedConversation.otherUserId}
           recipientUsername={selectedConversation.otherUser.username}
-          item={selectedConversation.item ? {
-            id: selectedConversation.item.id,
-            name: selectedConversation.item.name,
-            brand: '',
-            images: selectedConversation.item.images,
-            listing_type: 'free',
-            price: null
-          } : undefined}
+          item={selectedConversation.item}
         />
       )}
     </div>

@@ -677,7 +677,7 @@ export async function getDirectMessages(userId: string, otherUserId: string, ite
 type DirectMessageWithProfiles = DirectMessage & {
   sender_profile: Profile
   recipient_profile: Profile
-  items?: { id: string; name: string; images: string[] } | null
+  items?: { id: string; name: string; brand: string; images: string[]; listing_type: 'free' | 'for_sale'; price: number | null } | null
 }
 
 export async function getDirectMessageConversations(userId: string): Promise<{
@@ -685,7 +685,7 @@ export async function getDirectMessageConversations(userId: string): Promise<{
   otherUser: Profile
   latestMessage: DirectMessage
   unreadCount: number
-  item?: { id: string; name: string; images: string[] }
+  item?: { id: string; name: string; brand: string; images: string[]; listing_type: 'free' | 'for_sale'; price: number | null }
 }[]> {
   // Get all messages involving this user
   const { data: messages, error } = await supabase
@@ -707,7 +707,10 @@ export async function getDirectMessageConversations(userId: string): Promise<{
       items:item_id (
         id,
         name,
-        images
+        brand,
+        images,
+        listing_type,
+        price
       )
     `)
     .or(`sender_id.eq.${userId},recipient_id.eq.${userId}`)
@@ -740,7 +743,7 @@ export async function getDirectMessageConversations(userId: string): Promise<{
     otherUser: Profile
     latestMessage: DirectMessage
     unreadCount: number
-    item?: { id: string; name: string; images: string[] }
+    item?: { id: string; name: string; brand: string; images: string[]; listing_type: 'free' | 'for_sale'; price: number | null }
   }[] = []
 
   conversationMap.forEach((msgs) => {
