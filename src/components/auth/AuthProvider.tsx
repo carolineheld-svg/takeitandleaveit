@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react'
 import { User, Session, AuthChangeEvent } from '@supabase/supabase-js'
-import { createClient } from '@/lib/supabase-client'
+import { createClient, resetClient } from '@/lib/supabase-client'
 
 type AuthContextType = {
   user: User | null
@@ -59,8 +59,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut()
-    if (error) throw error
+    // Clear all local storage and session storage
+    const { error } = await supabase.auth.signOut({ scope: 'local' })
+    
+    // Force clear any remaining auth data
+    if (typeof window !== 'undefined') {
+      // Clear all Supabase-related items from storage
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('sb-')) {
+          localStorage.removeItem(key)
+        }
+      })
+      Object.keys(sessionStorage).forEach(key => {
+        if (key.startsWith('sb-')) {
+          sessionStorage.removeItem(key)
+        }
+      })
+    }
+    
+    // Reset the Supabase client singleton
+    resetClient()
+    
+    // Clear the user state
+    setUser(null)
+    
+    if (error && error.message !== 'Auth session missing!') {
+      throw error
+    }
   }
 
   const value = {

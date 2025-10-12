@@ -12,10 +12,17 @@ export function createClient() {
         auth: {
           persistSession: true,
           autoRefreshToken: true,
-          detectSessionInUrl: false
+          detectSessionInUrl: false,
+          storageKey: 'sb-auth-token',
+          storage: typeof window !== 'undefined' ? window.localStorage : undefined
         }
       }
     )
   }
   return supabaseInstance
+}
+
+// Reset the singleton instance (useful for sign out)
+export function resetClient() {
+  supabaseInstance = null
 }

@@ -43,16 +43,18 @@ export default function Navigation() {
     
     try {
       await signOut()
+      
+      // Clear all state and force reload
+      if (typeof window !== 'undefined') {
+        // Use replace instead of href to prevent back button from going to authenticated state
+        window.location.replace('/')
+      }
     } catch (error) {
       console.error('Error signing out:', error)
-      // Even if signOut fails, we still want to redirect since we cleared local state
-    } finally {
-      // Always redirect to home and refresh, even if signOut had an error
-      router.push('/')
-      // Use window.location to force a full page refresh and clear all state
-      setTimeout(() => {
-        window.location.href = '/'
-      }, 100)
+      // Even if signOut fails, force reload to clear state
+      if (typeof window !== 'undefined') {
+        window.location.replace('/')
+      }
     }
   }
 
