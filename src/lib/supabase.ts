@@ -131,32 +131,6 @@ export type Database = {
           meeting_location?: string | null
         }
       }
-      chat_messages: {
-        Row: {
-          id: string
-          created_at: string
-          trade_request_id: string
-          sender_id: string
-          message: string
-          is_read: boolean
-        }
-        Insert: {
-          id?: string
-          created_at?: string
-          trade_request_id: string
-          sender_id: string
-          message: string
-          is_read?: boolean
-        }
-        Update: {
-          id?: string
-          created_at?: string
-          trade_request_id?: string
-          sender_id?: string
-          message?: string
-          is_read?: boolean
-        }
-      }
       direct_messages: {
         Row: {
           id: string

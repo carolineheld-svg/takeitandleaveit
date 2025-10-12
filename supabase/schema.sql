@@ -126,17 +126,7 @@ INSERT INTO public.campus_locations (name) VALUES
 ('Senior Lawn'),
 ('Pizza Lawn');
 
--- Create chat_messages table
-CREATE TABLE public.chat_messages (
-  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  trade_request_id UUID REFERENCES public.trade_requests(id) ON DELETE CASCADE NOT NULL,
-  sender_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
-  message TEXT NOT NULL,
-  is_read BOOLEAN DEFAULT FALSE
-);
-
--- Create direct_messages table for user-to-user messaging
+-- Create direct_messages table for user-to-user messaging (unified messaging system)
 CREATE TABLE public.direct_messages (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -156,9 +146,6 @@ CREATE INDEX idx_trade_requests_from_user ON public.trade_requests(from_user_id)
 CREATE INDEX idx_trade_requests_to_user ON public.trade_requests(to_user_id);
 CREATE INDEX idx_trade_requests_item_id ON public.trade_requests(item_id);
 CREATE INDEX idx_trade_requests_status ON public.trade_requests(status);
-CREATE INDEX idx_chat_messages_trade_request ON public.chat_messages(trade_request_id);
-CREATE INDEX idx_chat_messages_sender ON public.chat_messages(sender_id);
-CREATE INDEX idx_chat_messages_created_at ON public.chat_messages(created_at DESC);
 CREATE INDEX idx_direct_messages_sender ON public.direct_messages(sender_id);
 CREATE INDEX idx_direct_messages_recipient ON public.direct_messages(recipient_id);
 CREATE INDEX idx_direct_messages_item ON public.direct_messages(item_id);
@@ -168,7 +155,6 @@ CREATE INDEX idx_direct_messages_created_at ON public.direct_messages(created_at
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.trade_requests ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.chat_messages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.direct_messages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.notifications ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.wishlist ENABLE ROW LEVEL SECURITY;
@@ -209,27 +195,7 @@ CREATE POLICY "Users can create trade requests" ON public.trade_requests
 CREATE POLICY "Users can update trade requests they received" ON public.trade_requests
   FOR UPDATE USING (auth.uid() = to_user_id);
 
--- Chat messages policies
-CREATE POLICY "Users can view messages for their trade requests" ON public.chat_messages
-  FOR SELECT USING (
-    EXISTS (
-      SELECT 1 FROM public.trade_requests 
-      WHERE id = trade_request_id 
-      AND (from_user_id = auth.uid() OR to_user_id = auth.uid())
-    )
-  );
-
-CREATE POLICY "Users can create messages for their trade requests" ON public.chat_messages
-  FOR INSERT WITH CHECK (
-    auth.uid() = sender_id AND
-    EXISTS (
-      SELECT 1 FROM public.trade_requests 
-      WHERE id = trade_request_id 
-      AND (from_user_id = auth.uid() OR to_user_id = auth.uid())
-    )
-  );
-
--- Direct messages policies
+-- Direct messages policies (unified messaging system)
 CREATE POLICY "Users can view their own direct messages" ON public.direct_messages
   FOR SELECT USING (
     auth.uid() = sender_id OR auth.uid() = recipient_id

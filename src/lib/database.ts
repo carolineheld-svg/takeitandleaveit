@@ -12,9 +12,6 @@ type TradeRequest = Database['public']['Tables']['trade_requests']['Row']
 type TradeRequestInsert = Database['public']['Tables']['trade_requests']['Insert']
 type TradeRequestUpdate = Database['public']['Tables']['trade_requests']['Update']
 
-type ChatMessage = Database['public']['Tables']['chat_messages']['Row']
-type ChatMessageInsert = Database['public']['Tables']['chat_messages']['Insert']
-
 type DirectMessage = Database['public']['Tables']['direct_messages']['Row']
 type DirectMessageInsert = Database['public']['Tables']['direct_messages']['Insert']
 
@@ -239,76 +236,6 @@ export async function updateTradeRequest(id: string, updates: TradeRequestUpdate
   } catch (notificationError) {
     console.error('Failed to create trade status notification:', notificationError)
     // Don't fail the trade request update if notification fails
-  }
-
-  return data
-}
-
-// Chat Messages
-export async function getChatMessages(tradeRequestId: string): Promise<(ChatMessage & { profiles: Profile })[]> {
-  const { data, error } = await supabase
-    .from('chat_messages')
-    .select(`
-      *,
-      profiles:sender_id (
-        id,
-        username,
-        full_name,
-        avatar_url
-      )
-    `)
-    .eq('trade_request_id', tradeRequestId)
-    .order('created_at', { ascending: true })
-
-  if (error) {
-    throw new Error(`Failed to fetch chat messages: ${error.message}`)
-  }
-
-  return data || []
-}
-
-export async function createChatMessage(message: Omit<ChatMessageInsert, 'id' | 'created_at'>): Promise<ChatMessage> {
-  const { data, error } = await supabase
-    .from('chat_messages')
-    .insert(message)
-    .select()
-    .single()
-
-  if (error) {
-    throw new Error(`Failed to create chat message: ${error.message}`)
-  }
-
-  // Get trade request to find the recipient
-  try {
-    const { data: tradeRequest } = await supabase
-      .from('trade_requests')
-      .select('from_user_id, to_user_id')
-      .eq('id', message.trade_request_id)
-      .single()
-
-    if (tradeRequest) {
-      // Create notification for the recipient (not the sender)
-      const recipientId = tradeRequest.from_user_id === message.sender_id 
-        ? tradeRequest.to_user_id 
-        : tradeRequest.from_user_id
-
-      await createNotification({
-        user_id: recipientId,
-        type: 'chat_message',
-        title: 'New Message',
-        message: `You received a new message about your trade.`,
-        is_read: false,
-        read_at: null,
-        related_item_id: tradeRequest.item_id,
-        related_trade_request_id: message.trade_request_id,
-        related_chat_message_id: data.id,
-        action_url: '/trades',
-        metadata: {}
-      })
-    }
-  } catch (notificationError) {
-    console.error('Failed to create chat message notification:', notificationError)
-    // Don't fail the chat message if notification fails
   }
 
   return data

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Check, X, Clock, MessageCircle, User } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { getTradeRequestsForUser, updateTradeRequest, updateItem } from '@/lib/database'
-import ChatModal from '@/components/chat/ChatModal'
+import DirectMessagingModal from '@/components/chat/DirectMessagingModal'
 
 interface TradeRequest {
   id: string
@@ -18,11 +18,22 @@ interface TradeRequest {
   to_user_id: string
   item_id: string
   items: {
+    id: string
     name: string
     brand: string
     images: string[]
+    listing_type: 'free' | 'for_sale'
+    price: number | null
+    user_id: string
+    profiles: {
+      id: string
+      username: string
+      full_name: string | null
+      avatar_url: string | null
+    }
   }
   profiles: {
+    id: string
     username: string
     full_name: string | null
     avatar_url: string | null
@@ -120,6 +131,7 @@ export default function TradesPage() {
   }
 
   const handleChat = (request: TradeRequest) => {
+    if (!user) return
     setSelectedTradeRequest(request)
     setShowChatModal(true)
   }
@@ -307,15 +319,32 @@ export default function TradesPage() {
         )}
       </div>
 
-      {/* Chat Modal */}
-      {selectedTradeRequest && (
-        <ChatModal
+      {/* Direct Messaging Modal */}
+      {selectedTradeRequest && user && (
+        <DirectMessagingModal
           isOpen={showChatModal}
           onClose={() => {
             setShowChatModal(false)
             setSelectedTradeRequest(null)
           }}
-          tradeRequest={selectedTradeRequest}
+          recipientId={
+            selectedTradeRequest.from_user_id === user.id 
+              ? selectedTradeRequest.items.profiles.id  // If I sent request, chat with item owner
+              : selectedTradeRequest.from_user_id        // If I received request, chat with requester
+          }
+          recipientUsername={
+            selectedTradeRequest.from_user_id === user.id
+              ? selectedTradeRequest.items.profiles.username
+              : selectedTradeRequest.profiles.username
+          }
+          item={{
+            id: selectedTradeRequest.items.id,
+            name: selectedTradeRequest.items.name,
+            brand: selectedTradeRequest.items.brand,
+            images: selectedTradeRequest.items.images,
+            listing_type: selectedTradeRequest.items.listing_type,
+            price: selectedTradeRequest.items.price
+          }}
         />
       )}
     </div>
