@@ -63,9 +63,11 @@ export default function Navigation() {
           <div className="flex items-center space-x-3 min-w-0">
             <Link href="/" className="flex items-center space-x-3 min-w-0">
               <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
-                <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center">
-                  <span className="text-white text-sm font-bold">🐏</span>
-                </div>
+                <img 
+                  src="/favicon-32x32.png" 
+                  alt="TakeItAndLeaveIt Logo" 
+                  className="w-8 h-8"
+                />
               </div>
               <h1 className="text-xl md:text-2xl font-elegant font-semibold text-primary-700 truncate">
                 TakeItAndLeaveIt

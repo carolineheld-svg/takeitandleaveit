@@ -95,9 +95,11 @@ export default function MobileNavigation() {
               <div className="flex items-center justify-between p-6 border-b border-secondary-200 relative z-[99999]">
                 <div className="flex items-center space-x-3">
                   <div className="w-8 h-8 flex items-center justify-center">
-                    <div className="w-6 h-6 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">🐏</span>
-                    </div>
+                    <img 
+                      src="/favicon-32x32.png" 
+                      alt="TakeItAndLeaveIt Logo" 
+                      className="w-6 h-6"
+                    />
                   </div>
                   <h1 className="text-lg font-elegant font-semibold text-primary-700 truncate">
                     TakeItAndLeaveIt
