@@ -49,6 +49,9 @@ export type Database = {
           is_traded: boolean
           traded_at: string | null
           traded_to_user_id: string | null
+          listing_type: 'free' | 'for_sale'
+          price: number | null
+          payment_methods: string[]
         }
         Insert: {
           id?: string
@@ -67,6 +70,9 @@ export type Database = {
           is_traded?: boolean
           traded_at?: string | null
           traded_to_user_id?: string | null
+          listing_type?: 'free' | 'for_sale'
+          price?: number | null
+          payment_methods?: string[]
         }
         Update: {
           id?: string
@@ -85,6 +91,9 @@ export type Database = {
           is_traded?: boolean
           traded_at?: string | null
           traded_to_user_id?: string | null
+          listing_type?: 'free' | 'for_sale'
+          price?: number | null
+          payment_methods?: string[]
         }
       }
       trade_requests: {

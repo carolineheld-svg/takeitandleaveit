@@ -184,9 +184,48 @@ export default function ItemDetailPage() {
                   <h2 className="text-3xl font-elegant font-bold text-pink-800 mb-2">
                     {item.name}
                   </h2>
-                  <p className="text-xl text-pink-700 font-medium">
+                  <p className="text-xl text-pink-700 font-medium mb-3">
                     {item.brand}
                   </p>
+
+                  {/* Price and Listing Type */}
+                  {item.listing_type === 'for_sale' && item.price && (
+                    <div className="mb-3">
+                      <div className="flex items-center gap-3">
+                        <span className="text-4xl font-bold text-green-600">
+                          ${item.price.toFixed(2)}
+                        </span>
+                        <span className="text-sm text-green-700 bg-green-100 px-3 py-1 rounded-full">
+                          For Sale
+                        </span>
+                      </div>
+                      
+                      {/* Payment Methods */}
+                      {item.payment_methods && item.payment_methods.length > 0 && (
+                        <div className="mt-3">
+                          <p className="text-sm text-pink-700 mb-2 font-medium">Accepted Payment Methods:</p>
+                          <div className="flex flex-wrap gap-2">
+                            {item.payment_methods.map((method) => (
+                              <span
+                                key={method}
+                                className="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full border border-blue-200"
+                              >
+                                {method}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {item.listing_type === 'free' && (
+                    <div className="mb-3">
+                      <span className="inline-block text-xl font-bold text-primary-600 bg-primary-100 px-4 py-2 rounded-full">
+                        Free
+                      </span>
+                    </div>
+                  )}
                 </div>
                 
                 <div className="flex items-center gap-2">
@@ -274,12 +313,14 @@ export default function ItemDetailPage() {
                   className="w-full btn-primary flex items-center justify-center gap-2 py-4 text-lg"
                 >
                   <MessageCircle className="w-5 h-5" />
-                  Send Trade Request
+                  {item.listing_type === 'for_sale' ? 'Contact Seller' : 'Send Trade Request'}
                 </button>
                 
                 <div className="text-center">
                   <p className="text-sm text-pink-700">
-                    Interested in this item? Send a trade request to coordinate a meeting!
+                    {item.listing_type === 'for_sale' 
+                      ? 'Interested in buying this item? Contact the seller to arrange payment and pickup!'
+                      : 'Interested in this item? Send a trade request to coordinate a meeting!'}
                   </p>
                 </div>
               </div>

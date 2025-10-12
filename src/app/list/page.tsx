@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { uploadMultipleImages } from '@/lib/supabase-storage'
 import { createItem } from '@/lib/database'
-import { CATEGORIES, CONDITIONS, SIZES, CLOTHING_CATEGORIES, SIZE_PREFERENCES } from '@/lib/constants'
+import { CATEGORIES, CONDITIONS, SIZES, CLOTHING_CATEGORIES, SIZE_PREFERENCES, LISTING_TYPES, PAYMENT_METHODS } from '@/lib/constants'
 
 interface FormData {
   name: string
@@ -18,6 +18,9 @@ interface FormData {
   size: string
   description: string
   images: File[]
+  listing_type: 'free' | 'for_sale'
+  price: string
+  payment_methods: string[]
 }
 
 export default function ListItemPage() {
@@ -31,7 +34,10 @@ export default function ListItemPage() {
     condition: '',
     size: '',
     description: '',
-    images: []
+    images: [],
+    listing_type: 'free',
+    price: '',
+    payment_methods: []
   })
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -79,6 +85,15 @@ export default function ListItemPage() {
     }))
   }
 
+  const handlePaymentMethodToggle = (method: string) => {
+    setFormData(prev => ({
+      ...prev,
+      payment_methods: prev.payment_methods.includes(method)
+        ? prev.payment_methods.filter(m => m !== method)
+        : [...prev.payment_methods, method]
+    }))
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
@@ -97,6 +112,20 @@ export default function ListItemPage() {
       setError('Please upload at least one image')
       setLoading(false)
       return
+    }
+
+    // Validate for_sale specific fields
+    if (formData.listing_type === 'for_sale') {
+      if (!formData.price || parseFloat(formData.price) <= 0) {
+        setError('Please enter a valid price for items for sale')
+        setLoading(false)
+        return
+      }
+      if (formData.payment_methods.length === 0) {
+        setError('Please select at least one payment method for items for sale')
+        setLoading(false)
+        return
+      }
     }
 
     if (!user) {
@@ -122,7 +151,10 @@ export default function ListItemPage() {
         condition: formData.condition,
         size: formData.size,
         description: formData.description,
-        images: imageUrls
+        images: imageUrls,
+        listing_type: formData.listing_type,
+        price: formData.listing_type === 'for_sale' ? parseFloat(formData.price) : null,
+        payment_methods: formData.listing_type === 'for_sale' ? formData.payment_methods : []
       })
 
       setSuccess(true)
@@ -170,7 +202,7 @@ export default function ListItemPage() {
             List Your Item
           </h1>
           <p className="text-xl text-light-purple-700">
-            Give your items a second life with fellow Cate students and faculty
+            Give your items a second life with Cate students and faculty
           </p>
         </div>
 
@@ -221,6 +253,88 @@ export default function ListItemPage() {
                 />
               </div>
             </div>
+
+            {/* Listing Type */}
+            <div>
+              <label className="block text-sm font-medium text-primary-800 mb-2">
+                Listing Type *
+              </label>
+              <div className="grid grid-cols-2 gap-4">
+                {Object.entries(LISTING_TYPES).map(([key, label]) => (
+                  <label
+                    key={key}
+                    className={`flex items-center justify-center px-4 py-3 border-2 rounded-lg cursor-pointer transition-all ${
+                      formData.listing_type === key
+                        ? 'border-primary-500 bg-primary-50'
+                        : 'border-primary-200 hover:border-primary-300'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="listing_type"
+                      value={key}
+                      checked={formData.listing_type === key}
+                      onChange={(e) => setFormData(prev => ({ ...prev, listing_type: e.target.value as 'free' | 'for_sale' }))}
+                      className="mr-2"
+                    />
+                    <span className="font-medium text-primary-800">{label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Price - Only show for for_sale items */}
+            {formData.listing_type === 'for_sale' && (
+              <div>
+                <label htmlFor="price" className="block text-sm font-medium text-primary-800 mb-2">
+                  Price *
+                </label>
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-500 font-medium">$</span>
+                  <input
+                    id="price"
+                    name="price"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    required
+                    value={formData.price}
+                    onChange={handleInputChange}
+                    className="w-full pl-8 pr-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
+                    placeholder="0.00"
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Payment Methods - Only show for for_sale items */}
+            {formData.listing_type === 'for_sale' && (
+              <div>
+                <label className="block text-sm font-medium text-primary-800 mb-2">
+                  Accepted Payment Methods * (Select at least one)
+                </label>
+                <div className="grid grid-cols-2 gap-3">
+                  {PAYMENT_METHODS.map(method => (
+                    <label
+                      key={method}
+                      className={`flex items-center px-4 py-3 border-2 rounded-lg cursor-pointer transition-all ${
+                        formData.payment_methods.includes(method)
+                          ? 'border-primary-500 bg-primary-50'
+                          : 'border-primary-200 hover:border-primary-300'
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={formData.payment_methods.includes(method)}
+                        onChange={() => handlePaymentMethodToggle(method)}
+                        className="mr-2"
+                      />
+                      <span className="text-primary-800">{method}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Category */}
             <div>

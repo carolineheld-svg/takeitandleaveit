@@ -27,7 +27,10 @@ CREATE TABLE public.items (
   status TEXT DEFAULT 'available' CHECK (status IN ('available', 'pending', 'traded')),
   is_traded BOOLEAN DEFAULT FALSE,
   traded_at TIMESTAMP WITH TIME ZONE,
-  traded_to_user_id UUID REFERENCES public.profiles(id)
+  traded_to_user_id UUID REFERENCES public.profiles(id),
+  listing_type TEXT DEFAULT 'free' CHECK (listing_type IN ('free', 'for_sale')),
+  price DECIMAL(10, 2),
+  payment_methods TEXT[] DEFAULT '{}'
 );
 
 -- Create trade_requests table

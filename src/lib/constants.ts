@@ -90,6 +90,20 @@ export const ITEM_STATUS = {
   traded: 'Traded'
 }
 
+// Listing type options
+export const LISTING_TYPES = {
+  free: 'Free',
+  for_sale: 'For Sale'
+}
+
+// Payment method options
+export const PAYMENT_METHODS = [
+  'Apple Pay',
+  'Zelle',
+  'Venmo',
+  'Cash'
+]
+
 // Condition options
 export const CONDITIONS = ['Excellent', 'Good', 'OK', 'Subpar']
 

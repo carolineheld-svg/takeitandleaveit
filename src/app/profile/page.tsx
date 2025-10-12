@@ -27,6 +27,9 @@ interface UserItem {
   images: string[]
   is_traded: boolean
   created_at: string
+  listing_type: 'free' | 'for_sale'
+  price: number | null
+  payment_methods: string[]
 }
 
 export default function ProfilePage() {
@@ -412,6 +415,26 @@ export default function ProfilePage() {
                             </span>
                           )}
                         </div>
+
+                        {/* Price Display */}
+                        {item.listing_type === 'for_sale' && item.price && (
+                          <div className="mb-2">
+                            <span className="text-xl font-bold text-green-600">
+                              ${item.price.toFixed(2)}
+                            </span>
+                            <span className="ml-2 text-xs text-green-700 bg-green-100 px-2 py-1 rounded-full">
+                              For Sale
+                            </span>
+                          </div>
+                        )}
+                        
+                        {item.listing_type === 'free' && (
+                          <div className="mb-2">
+                            <span className="text-sm font-semibold text-primary-600 bg-primary-100 px-2 py-1 rounded-full">
+                              Free
+                            </span>
+                          </div>
+                        )}
                         
                         <p className="text-light-blue-600 font-medium mb-2">{item.brand}</p>
                         <p className="text-light-blue-600 text-sm mb-3">

@@ -10,7 +10,7 @@ import DirectChatModal from '@/components/chat/DirectChatModal'
 import WishlistButton from '@/components/wishlist/WishlistButton'
 import SmartMatchSection from '@/components/browse/SmartMatchSection'
 import { smartMatchAI } from '@/lib/smartmatch'
-import { CATEGORIES, ITEM_STATUS } from '@/lib/constants'
+import { CATEGORIES, ITEM_STATUS, LISTING_TYPES } from '@/lib/constants'
 
 interface Item {
   id: string
@@ -26,6 +26,9 @@ interface Item {
   is_traded: boolean
   created_at: string
   user_id: string
+  listing_type: 'free' | 'for_sale'
+  price: number | null
+  payment_methods: string[]
   profiles: {
     id: string
     username: string
@@ -46,6 +49,7 @@ export default function BrowsePage() {
   const [selectedCondition, setSelectedCondition] = useState('')
   const [selectedSize, setSelectedSize] = useState('')
   const [selectedStatus, setSelectedStatus] = useState('')
+  const [selectedListingType, setSelectedListingType] = useState('')
   const [selectedItem, setSelectedItem] = useState<Item | null>(null)
   const [showChatModal, setShowChatModal] = useState(false)
   const [showFilters, setShowFilters] = useState(false)
@@ -86,8 +90,9 @@ export default function BrowsePage() {
     const matchesCondition = !selectedCondition || item.condition === selectedCondition
     const matchesSize = !selectedSize || (item.size && item.size === selectedSize)
     const matchesStatus = !selectedStatus || item.status === selectedStatus
+    const matchesListingType = !selectedListingType || item.listing_type === selectedListingType
     
-    return matchesSearch && matchesCategory && matchesSubcategory && matchesBrand && matchesCondition && matchesSize && matchesStatus
+    return matchesSearch && matchesCategory && matchesSubcategory && matchesBrand && matchesCondition && matchesSize && matchesStatus && matchesListingType
   })
 
   const brands = Array.from(new Set(items.map(item => item.brand))).sort()
@@ -103,6 +108,7 @@ export default function BrowsePage() {
     setSelectedCondition('')
     setSelectedSize('')
     setSelectedStatus('')
+    setSelectedListingType('')
   }
 
   const handleChatRequest = (item: Item) => {
@@ -269,6 +275,21 @@ export default function BrowsePage() {
                   </select>
                 </div>
 
+                {/* Listing Type Filter */}
+                <div>
+                  <label className="block text-sm font-medium text-light-green-800 mb-2">Listing Type</label>
+                  <select
+                    value={selectedListingType}
+                    onChange={(e) => setSelectedListingType(e.target.value)}
+                    className="w-full px-3 py-2 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
+                  >
+                    <option value="">All Types</option>
+                    {Object.entries(LISTING_TYPES).map(([key, value]) => (
+                      <option key={key} value={key}>{value}</option>
+                    ))}
+                  </select>
+                </div>
+
                 {/* Clear Filters Button */}
                 <div className="flex items-end">
                   <button
@@ -353,6 +374,26 @@ export default function BrowsePage() {
                     </span>
                   )}
                 </div>
+
+                {/* Price Display for For Sale Items */}
+                {item.listing_type === 'for_sale' && item.price && (
+                  <div className="mb-3">
+                    <span className="text-2xl font-bold text-green-600">
+                      ${item.price.toFixed(2)}
+                    </span>
+                    <span className="ml-2 text-xs text-light-green-700 bg-green-100 px-2 py-1 rounded-full">
+                      For Sale
+                    </span>
+                  </div>
+                )}
+                
+                {item.listing_type === 'free' && (
+                  <div className="mb-3">
+                    <span className="text-lg font-semibold text-primary-600 bg-primary-100 px-3 py-1 rounded-full">
+                      Free
+                    </span>
+                  </div>
+                )}
                 
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-xs text-light-green-800 bg-light-green-200 px-2 py-1 rounded-full">
