@@ -150,8 +150,20 @@ export default function EditItemPage() {
 
     // Validate for_sale specific fields
     if (formData.listing_type === 'for_sale') {
-      if (!formData.price || parseFloat(formData.price) <= 0) {
+      const price = parseFloat(formData.price)
+      if (!formData.price || price <= 0) {
         setError('Please enter a valid price for items for sale')
+        setSaving(false)
+        return
+      }
+      if (price > 200) {
+        setError('Price cannot exceed $200.00')
+        setSaving(false)
+        return
+      }
+      // Validate 2 decimal places
+      if (!/^\d+(\.\d{1,2})?$/.test(formData.price)) {
+        setError('Price must be a valid amount with up to 2 decimal places')
         setSaving(false)
         return
       }
@@ -379,23 +391,25 @@ export default function EditItemPage() {
                 {formData.listing_type === 'for_sale' && (
                   <div>
                     <label htmlFor="price" className="block text-sm font-medium text-primary-800 mb-2">
-                      Price *
+                      Price * (Max $200.00)
                     </label>
                     <div className="relative">
                       <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-500 font-medium">$</span>
-                      <input
-                        id="price"
-                        name="price"
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        required
-                        value={formData.price}
-                        onChange={handleInputChange}
-                        className="w-full pl-8 pr-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
-                        placeholder="0.00"
-                      />
+                  <input
+                    id="price"
+                    name="price"
+                    type="number"
+                    step="0.01"
+                    min="0.01"
+                    max="200"
+                    required
+                    value={formData.price}
+                    onChange={handleInputChange}
+                    className="w-full pl-8 pr-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
+                    placeholder="0.00"
+                  />
                     </div>
+                    <p className="text-xs text-primary-600 mt-1">Enter a price between $0.01 and $200.00</p>
                   </div>
                 )}
 

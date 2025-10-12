@@ -116,8 +116,20 @@ export default function ListItemPage() {
 
     // Validate for_sale specific fields
     if (formData.listing_type === 'for_sale') {
-      if (!formData.price || parseFloat(formData.price) <= 0) {
+      const price = parseFloat(formData.price)
+      if (!formData.price || price <= 0) {
         setError('Please enter a valid price for items for sale')
+        setLoading(false)
+        return
+      }
+      if (price > 200) {
+        setError('Price cannot exceed $200.00')
+        setLoading(false)
+        return
+      }
+      // Validate 2 decimal places
+      if (!/^\d+(\.\d{1,2})?$/.test(formData.price)) {
+        setError('Price must be a valid amount with up to 2 decimal places')
         setLoading(false)
         return
       }
@@ -287,7 +299,7 @@ export default function ListItemPage() {
             {formData.listing_type === 'for_sale' && (
               <div>
                 <label htmlFor="price" className="block text-sm font-medium text-primary-800 mb-2">
-                  Price *
+                  Price * (Max $200.00)
                 </label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-500 font-medium">$</span>
@@ -296,7 +308,8 @@ export default function ListItemPage() {
                     name="price"
                     type="number"
                     step="0.01"
-                    min="0"
+                    min="0.01"
+                    max="200"
                     required
                     value={formData.price}
                     onChange={handleInputChange}
@@ -304,6 +317,7 @@ export default function ListItemPage() {
                     placeholder="0.00"
                   />
                 </div>
+                <p className="text-xs text-primary-600 mt-1">Enter a price between $0.01 and $200.00</p>
               </div>
             )}
 
