@@ -157,6 +157,38 @@ export type Database = {
           is_read?: boolean
         }
       }
+      direct_messages: {
+        Row: {
+          id: string
+          created_at: string
+          sender_id: string
+          recipient_id: string
+          item_id: string | null
+          message: string
+          is_read: boolean
+          read_at: string | null
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          sender_id: string
+          recipient_id: string
+          item_id?: string | null
+          message: string
+          is_read?: boolean
+          read_at?: string | null
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          sender_id?: string
+          recipient_id?: string
+          item_id?: string | null
+          message?: string
+          is_read?: boolean
+          read_at?: string | null
+        }
+      }
       campus_locations: {
         Row: {
           id: string

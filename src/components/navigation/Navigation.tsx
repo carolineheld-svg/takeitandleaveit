@@ -92,6 +92,9 @@ export default function Navigation() {
               </Link>
               {user && (
                 <>
+                  <Link href="/messages" className="text-primary-600 hover:text-primary-700 transition-colors">
+                    Messages
+                  </Link>
                   <Link href="/wishlist" className="text-primary-600 hover:text-primary-700 transition-colors">
                     Wishlist
                   </Link>

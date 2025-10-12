@@ -7,6 +7,7 @@ import { useAuth } from '@/components/auth/AuthProvider'
 import { getItemById, addToWishlist, removeFromWishlist, getWishlist } from '@/lib/database'
 import { Item } from '@/lib/database'
 import DirectChatModal from '@/components/chat/DirectChatModal'
+import DirectMessagingModal from '@/components/chat/DirectMessagingModal'
 import Link from 'next/link'
 
 interface ItemWithProfile extends Item {
@@ -30,6 +31,7 @@ export default function ItemDetailPage() {
   const [isInWishlist, setIsInWishlist] = useState(false)
   const [wishlistLoading, setWishlistLoading] = useState(false)
   const [showTradeModal, setShowTradeModal] = useState(false)
+  const [showDirectMessageModal, setShowDirectMessageModal] = useState(false)
 
   useEffect(() => {
     const fetchItem = async () => {
@@ -94,6 +96,14 @@ export default function ItemDetailPage() {
       return
     }
     setShowTradeModal(true)
+  }
+
+  const handleSendMessage = () => {
+    if (!user) {
+      router.push('/auth/login')
+      return
+    }
+    setShowDirectMessageModal(true)
   }
 
   if (loading) {
@@ -309,18 +319,25 @@ export default function ItemDetailPage() {
             {user && user.id !== item.user_id && (
               <div className="space-y-3">
                 <button
+                  onClick={handleSendMessage}
+                  className="w-full bg-gradient-to-r from-blue-400 to-blue-500 text-white font-medium py-4 px-8 rounded-xl shadow-soft hover:shadow-primary transition-all duration-300 flex items-center justify-center gap-2 text-lg"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  Send a Message
+                </button>
+
+                <button
                   onClick={handleSendTradeRequest}
                   className="w-full btn-primary flex items-center justify-center gap-2 py-4 text-lg"
                 >
                   <MessageCircle className="w-5 h-5" />
-                  {item.listing_type === 'for_sale' ? 'Contact Seller' : 'Send Trade Request'}
+                  {item.listing_type === 'for_sale' ? 'Make an Offer' : 'Send Trade Request'}
                 </button>
                 
                 <div className="text-center">
                   <p className="text-sm text-pink-700">
-                    {item.listing_type === 'for_sale' 
-                      ? 'Interested in buying this item? Contact the seller to arrange payment and pickup!'
-                      : 'Interested in this item? Send a trade request to coordinate a meeting!'}
+                    <strong>Send a Message:</strong> Ask questions without commitment.<br/>
+                    <strong>{item.listing_type === 'for_sale' ? 'Make an Offer' : 'Send Trade Request'}:</strong> Express serious interest {item.listing_type === 'for_sale' ? 'and negotiate' : 'to trade'}.
                   </p>
                 </div>
               </div>
@@ -356,12 +373,30 @@ export default function ItemDetailPage() {
         </div>
       </div>
 
-      {/* Direct Chat Modal */}
+      {/* Trade Request Modal */}
       {showTradeModal && item && (
         <DirectChatModal
           isOpen={showTradeModal}
           onClose={() => setShowTradeModal(false)}
           item={item}
+        />
+      )}
+
+      {/* Direct Messaging Modal */}
+      {showDirectMessageModal && item && (
+        <DirectMessagingModal
+          isOpen={showDirectMessageModal}
+          onClose={() => setShowDirectMessageModal(false)}
+          recipientId={item.user_id}
+          recipientUsername={item.profiles?.username || 'User'}
+          item={{
+            id: item.id,
+            name: item.name,
+            brand: item.brand,
+            images: item.images,
+            listing_type: item.listing_type,
+            price: item.price
+          }}
         />
       )}
     </div>

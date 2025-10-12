@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createPortal } from 'react-dom'
-import { Menu, X, Home, Search, Plus, MessageSquare, Heart, User, LogOut } from 'lucide-react'
+import { Menu, X, Home, Search, Plus, MessageSquare, MessageCircle, Heart, User, LogOut } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 
 export default function MobileNavigation() {
@@ -32,6 +32,7 @@ export default function MobileNavigation() {
     { href: '/browse', icon: Search, label: 'Browse' },
     { href: '/list', icon: Plus, label: 'List Item' },
     { href: '/trades', icon: MessageSquare, label: 'Trades' },
+    { href: '/messages', icon: MessageCircle, label: 'Messages' },
     { href: '/wishlist', icon: Heart, label: 'Wishlist' },
     { href: '/profile', icon: User, label: 'Profile' }
   ]

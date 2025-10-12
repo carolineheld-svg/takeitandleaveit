@@ -136,6 +136,18 @@ CREATE TABLE public.chat_messages (
   is_read BOOLEAN DEFAULT FALSE
 );
 
+-- Create direct_messages table for user-to-user messaging
+CREATE TABLE public.direct_messages (
+  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  sender_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
+  recipient_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
+  item_id UUID REFERENCES public.items(id) ON DELETE CASCADE,
+  message TEXT NOT NULL,
+  is_read BOOLEAN DEFAULT FALSE,
+  read_at TIMESTAMP WITH TIME ZONE
+);
+
 -- Create indexes for better performance
 CREATE INDEX idx_items_user_id ON public.items(user_id);
 CREATE INDEX idx_items_is_traded ON public.items(is_traded);
@@ -147,12 +159,17 @@ CREATE INDEX idx_trade_requests_status ON public.trade_requests(status);
 CREATE INDEX idx_chat_messages_trade_request ON public.chat_messages(trade_request_id);
 CREATE INDEX idx_chat_messages_sender ON public.chat_messages(sender_id);
 CREATE INDEX idx_chat_messages_created_at ON public.chat_messages(created_at DESC);
+CREATE INDEX idx_direct_messages_sender ON public.direct_messages(sender_id);
+CREATE INDEX idx_direct_messages_recipient ON public.direct_messages(recipient_id);
+CREATE INDEX idx_direct_messages_item ON public.direct_messages(item_id);
+CREATE INDEX idx_direct_messages_created_at ON public.direct_messages(created_at DESC);
 
 -- Enable Row Level Security (RLS)
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.trade_requests ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.chat_messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.direct_messages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.notifications ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.wishlist ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.user_preferences ENABLE ROW LEVEL SECURITY;
@@ -210,6 +227,27 @@ CREATE POLICY "Users can create messages for their trade requests" ON public.cha
       WHERE id = trade_request_id 
       AND (from_user_id = auth.uid() OR to_user_id = auth.uid())
     )
+  );
+
+-- Direct messages policies
+CREATE POLICY "Users can view their own direct messages" ON public.direct_messages
+  FOR SELECT USING (
+    auth.uid() = sender_id OR auth.uid() = recipient_id
+  );
+
+CREATE POLICY "Users can send direct messages" ON public.direct_messages
+  FOR INSERT WITH CHECK (
+    auth.uid() = sender_id
+  );
+
+CREATE POLICY "Users can update their received direct messages" ON public.direct_messages
+  FOR UPDATE USING (
+    auth.uid() = recipient_id
+  );
+
+CREATE POLICY "Users can delete their own sent direct messages" ON public.direct_messages
+  FOR DELETE USING (
+    auth.uid() = sender_id
   );
 
 -- Function to automatically create profile on user signup
@@ -390,6 +428,13 @@ CREATE POLICY "Admin can update any trade request" ON public.trade_requests
   FOR UPDATE USING (auth.role() = 'service_role');
 
 CREATE POLICY "Admin can delete any trade request" ON public.trade_requests
+  FOR DELETE USING (auth.role() = 'service_role');
+
+-- Admin policies for direct messages management
+CREATE POLICY "Admin can view all direct messages" ON public.direct_messages
+  FOR SELECT USING (auth.role() = 'service_role');
+
+CREATE POLICY "Admin can delete any direct message" ON public.direct_messages
   FOR DELETE USING (auth.role() = 'service_role');
 
 -- Admin policies for notifications management

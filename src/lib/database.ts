@@ -15,6 +15,9 @@ type TradeRequestUpdate = Database['public']['Tables']['trade_requests']['Update
 type ChatMessage = Database['public']['Tables']['chat_messages']['Row']
 type ChatMessageInsert = Database['public']['Tables']['chat_messages']['Insert']
 
+type DirectMessage = Database['public']['Tables']['direct_messages']['Row']
+type DirectMessageInsert = Database['public']['Tables']['direct_messages']['Insert']
+
 type Profile = Database['public']['Tables']['profiles']['Row']
 type Notification = Database['public']['Tables']['notifications']['Row']
 type NotificationInsert = Database['public']['Tables']['notifications']['Insert']
@@ -592,5 +595,201 @@ export async function completeTrade(tradeRequestId: string): Promise<void> {
   } catch (notificationError) {
     console.error('Failed to create trade completion notifications:', notificationError)
     // Don't fail the trade completion if notifications fail
+  }
+}
+
+// Direct Messages
+export async function sendDirectMessage(message: Omit<DirectMessageInsert, 'id' | 'created_at'>): Promise<DirectMessage> {
+  const { data, error } = await supabase
+    .from('direct_messages')
+    .insert(message)
+    .select()
+    .single()
+
+  if (error) {
+    throw new Error(`Failed to send direct message: ${error.message}`)
+  }
+
+  // Create notification for the recipient
+  try {
+    // Get item name if item_id is provided
+    let itemName = 'an item'
+    if (message.item_id) {
+      const { data: item } = await supabase
+        .from('items')
+        .select('name')
+        .eq('id', message.item_id)
+        .single()
+      
+      if (item) {
+        itemName = item.name
+      }
+    }
+
+    await createNotification({
+      user_id: message.recipient_id,
+      type: 'chat_message',
+      title: 'New Message',
+      message: `You received a new message${message.item_id ? ` about ${itemName}` : ''}.`,
+      is_read: false,
+      read_at: null,
+      related_item_id: message.item_id || null,
+      related_trade_request_id: null,
+      related_chat_message_id: null,
+      action_url: '/messages',
+      metadata: {}
+    })
+  } catch (notificationError) {
+    console.error('Failed to create direct message notification:', notificationError)
+  }
+
+  return data
+}
+
+export async function getDirectMessages(userId: string, otherUserId: string, itemId?: string): Promise<(DirectMessage & { profiles: Profile })[]> {
+  let query = supabase
+    .from('direct_messages')
+    .select(`
+      *,
+      profiles:sender_id (
+        id,
+        username,
+        full_name,
+        avatar_url
+      )
+    `)
+    .or(`and(sender_id.eq.${userId},recipient_id.eq.${otherUserId}),and(sender_id.eq.${otherUserId},recipient_id.eq.${userId})`)
+    .order('created_at', { ascending: true })
+
+  if (itemId) {
+    query = query.eq('item_id', itemId)
+  }
+
+  const { data, error } = await query
+
+  if (error) {
+    throw new Error(`Failed to fetch direct messages: ${error.message}`)
+  }
+
+  return data || []
+}
+
+export async function getDirectMessageConversations(userId: string): Promise<{
+  otherUserId: string
+  otherUser: Profile
+  latestMessage: DirectMessage
+  unreadCount: number
+  item?: { id: string; name: string; images: string[] }
+}[]> {
+  // Get all messages involving this user
+  const { data: messages, error } = await supabase
+    .from('direct_messages')
+    .select(`
+      *,
+      sender_profile:sender_id (
+        id,
+        username,
+        full_name,
+        avatar_url
+      ),
+      recipient_profile:recipient_id (
+        id,
+        username,
+        full_name,
+        avatar_url
+      ),
+      items:item_id (
+        id,
+        name,
+        images
+      )
+    `)
+    .or(`sender_id.eq.${userId},recipient_id.eq.${userId}`)
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    throw new Error(`Failed to fetch conversations: ${error.message}`)
+  }
+
+  if (!messages || messages.length === 0) {
+    return []
+  }
+
+  // Group messages by conversation (sender + recipient pair + item)
+  const conversationMap = new Map<string, typeof messages>()
+
+  messages.forEach((msg: any) => {
+    const otherUserId = msg.sender_id === userId ? msg.recipient_id : msg.sender_id
+    const key = `${otherUserId}-${msg.item_id || 'general'}`
+    
+    if (!conversationMap.has(key)) {
+      conversationMap.set(key, [])
+    }
+    conversationMap.get(key)!.push(msg)
+  })
+
+  // Build conversation list
+  const conversations: {
+    otherUserId: string
+    otherUser: Profile
+    latestMessage: DirectMessage
+    unreadCount: number
+    item?: { id: string; name: string; images: string[] }
+  }[] = []
+
+  conversationMap.forEach((msgs) => {
+    const latestMsg = msgs[0]
+    const otherUserId = latestMsg.sender_id === userId ? latestMsg.recipient_id : latestMsg.sender_id
+    const otherUser = latestMsg.sender_id === userId ? latestMsg.recipient_profile : latestMsg.sender_profile
+    
+    const unreadCount = msgs.filter((m: any) => 
+      m.recipient_id === userId && !m.is_read
+    ).length
+
+    conversations.push({
+      otherUserId,
+      otherUser,
+      latestMessage: latestMsg,
+      unreadCount,
+      item: latestMsg.items || undefined
+    })
+  })
+
+  return conversations
+}
+
+export async function markDirectMessageAsRead(messageId: string): Promise<void> {
+  const { error } = await supabase
+    .from('direct_messages')
+    .update({ 
+      is_read: true, 
+      read_at: new Date().toISOString() 
+    })
+    .eq('id', messageId)
+
+  if (error) {
+    throw new Error(`Failed to mark direct message as read: ${error.message}`)
+  }
+}
+
+export async function markAllDirectMessagesAsRead(userId: string, otherUserId: string, itemId?: string): Promise<void> {
+  let query = supabase
+    .from('direct_messages')
+    .update({ 
+      is_read: true, 
+      read_at: new Date().toISOString() 
+    })
+    .eq('recipient_id', userId)
+    .eq('sender_id', otherUserId)
+    .eq('is_read', false)
+
+  if (itemId) {
+    query = query.eq('item_id', itemId)
+  }
+
+  const { error } = await query
+
+  if (error) {
+    throw new Error(`Failed to mark direct messages as read: ${error.message}`)
   }
 }
