@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { useAuth } from '@/components/auth/AuthProvider'
 import MobileNavigation from './MobileNavigation'
 import { getProfile } from '@/lib/database'
@@ -19,7 +18,6 @@ interface Profile {
 
 export default function Navigation() {
   const { user, signOut } = useAuth()
-  const router = useRouter()
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [profile, setProfile] = useState<Profile | null>(null)
 

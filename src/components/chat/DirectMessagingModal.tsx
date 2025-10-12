@@ -164,7 +164,7 @@ export default function DirectMessagingModal({
 
           <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
             <p className="text-sm text-blue-700">
-              💬 This is a casual conversation. You're not committed to any trade or purchase.
+              💬 This is a casual conversation. You&apos;re not committed to any trade or purchase.
             </p>
           </div>
         </div>
