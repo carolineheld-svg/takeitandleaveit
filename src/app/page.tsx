@@ -120,12 +120,12 @@ export default function Home() {
             Join the Cate community and start reducing waste while discovering amazing pre-loved items.
           </p>
           {user ? (
-            <Link href="/browse" className="btn-primary text-lg inline-flex items-center">
+            <Link href="/browse" className="btn-primary text-lg inline-flex items-center min-h-[48px] touch-manipulation">
               <Sparkles className="w-5 h-5 mr-2" />
               Explore Items
             </Link>
           ) : (
-            <Link href="/auth/signup" className="btn-primary text-lg inline-flex items-center">
+            <Link href="/auth/signup" className="btn-primary text-lg inline-flex items-center min-h-[48px] touch-manipulation">
               <UserPlus className="w-5 h-5 mr-2" />
               Join Now
             </Link>

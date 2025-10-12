@@ -121,9 +121,7 @@ export default function Navigation() {
           <div className="flex items-center space-x-2 md:space-x-4 flex-shrink-0">
             {user ? (
               <>
-                <div className="hidden sm:block">
-                  <NotificationBell />
-                </div>
+                <NotificationBell />
                 <div className="relative">
                   <button
                     onClick={() => setShowUserMenu(!showUserMenu)}

@@ -178,17 +178,18 @@ export default function DirectMessagingModal({
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] flex flex-col">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full h-[90vh] sm:max-h-[80vh] flex flex-col">
         {/* Header */}
-        <div className="p-6 border-b border-primary-100">
+        <div className="p-4 sm:p-6 border-b border-primary-100">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-elegant font-bold text-primary-800">
+            <h2 className="text-lg sm:text-2xl font-elegant font-bold text-primary-800">
               Message @{recipientUsername}
             </h2>
             <button
               onClick={onClose}
-              className="text-primary-600 hover:text-primary-700 transition-colors"
+              className="text-primary-600 hover:text-primary-700 transition-colors p-2 -mr-2 min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation"
+              aria-label="Close"
             >
               <X className="w-6 h-6" />
             </button>
@@ -292,7 +293,7 @@ export default function DirectMessagingModal({
         </div>
 
         {/* Messages */}
-        <div className="flex-1 p-6 overflow-y-auto space-y-4 min-h-0">
+        <div className="flex-1 p-3 sm:p-6 overflow-y-auto space-y-4 min-h-0">
           {loading ? (
             <div className="flex justify-center py-8">
               <div className="w-8 h-8 border-2 border-primary-200 border-t-primary-500 rounded-full animate-spin"></div>
@@ -337,20 +338,20 @@ export default function DirectMessagingModal({
         </div>
 
         {/* Message Input */}
-        <div className="p-6 border-t border-primary-100">
-          <form onSubmit={handleSendMessage} className="flex gap-3">
+        <div className="p-3 sm:p-6 border-t border-primary-100">
+          <form onSubmit={handleSendMessage} className="flex gap-2 sm:gap-3">
             <input
               type="text"
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               placeholder="Type your message..."
-              className="flex-1 px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors"
+              className="flex-1 px-3 sm:px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors text-base"
               disabled={sending}
             />
             <button
               type="submit"
               disabled={!newMessage.trim() || sending}
-              className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center px-4 py-3"
+              className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center px-4 py-3 min-h-[48px] touch-manipulation"
             >
               {sending ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

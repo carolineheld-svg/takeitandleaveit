@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Search, Heart, Tag, Filter, X } from 'lucide-react'
+import { Search, Heart, Tag, Filter, X, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { getItems } from '@/lib/database'
@@ -341,10 +341,10 @@ export default function BrowsePage() {
                           e.stopPropagation()
                           handleChatRequest(item)
                         }}
-                        className="bg-white/90 backdrop-blur-sm text-light-green-700 px-4 sm:px-6 py-2 rounded-full font-medium hover:bg-white transition-colors flex items-center gap-2 text-sm sm:text-base touch-manipulation min-h-[40px]"
+                        className="bg-white/90 backdrop-blur-sm text-light-green-700 px-4 sm:px-6 py-2 rounded-full font-medium hover:bg-white transition-colors flex items-center gap-2 text-sm sm:text-base touch-manipulation min-h-[44px]"
                       >
-                        <Heart className="w-4 h-4" />
-                        Send Trade Request
+                        <MessageCircle className="w-4 h-4" />
+                        Message Seller
                       </button>
                     ) : (
                       <div className="bg-white/90 backdrop-blur-sm text-light-green-700 px-6 py-2 rounded-full font-medium flex items-center gap-2">
