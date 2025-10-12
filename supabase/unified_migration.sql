@@ -1,7 +1,34 @@
--- Migration: Add direct messaging feature
--- Allows users to message each other about items without sending a trade request
+-- Comprehensive Migration: Selling Feature + Unified Messaging System
+-- Run this file in your Supabase SQL Editor to add all new features
 
--- Create direct_messages table for user-to-user messaging
+-- ================================================
+-- PART 1: Add Selling Feature to Items Table
+-- ================================================
+
+-- Add new columns to items table
+ALTER TABLE public.items
+ADD COLUMN IF NOT EXISTS listing_type TEXT DEFAULT 'free' CHECK (listing_type IN ('free', 'for_sale')),
+ADD COLUMN IF NOT EXISTS price DECIMAL(10, 2),
+ADD COLUMN IF NOT EXISTS payment_methods TEXT[] DEFAULT '{}';
+
+-- Add comments to document the columns
+COMMENT ON COLUMN public.items.listing_type IS 'Indicates if item is free or for sale';
+COMMENT ON COLUMN public.items.price IS 'Price for items listed for sale (null for free items)';
+COMMENT ON COLUMN public.items.payment_methods IS 'Array of accepted payment methods for items for sale';
+
+-- Create index for faster filtering by listing type
+CREATE INDEX IF NOT EXISTS idx_items_listing_type ON public.items(listing_type);
+
+-- Update existing items to have default listing_type of 'free'
+UPDATE public.items
+SET listing_type = 'free'
+WHERE listing_type IS NULL;
+
+-- ================================================
+-- PART 2: Create Unified Direct Messages Table
+-- ================================================
+
+-- Create direct_messages table for all user-to-user messaging
 CREATE TABLE IF NOT EXISTS public.direct_messages (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -56,6 +83,17 @@ DROP POLICY IF EXISTS "Admin can delete any direct message" ON public.direct_mes
 CREATE POLICY "Admin can delete any direct message" ON public.direct_messages
   FOR DELETE USING (auth.role() = 'service_role');
 
--- Add comment
-COMMENT ON TABLE public.direct_messages IS 'Direct messages between users about items, independent of trade requests';
+-- ================================================
+-- PART 3: Remove Old Chat Messages Table (Optional)
+-- ================================================
+
+-- Uncomment this line if you want to remove the old chat_messages table
+-- WARNING: This will delete all existing trade chat history
+-- DROP TABLE IF EXISTS public.chat_messages CASCADE;
+
+-- ================================================
+-- Migration Complete!
+-- ================================================
+
+COMMENT ON TABLE public.direct_messages IS 'Unified messaging system for all user conversations';
 
