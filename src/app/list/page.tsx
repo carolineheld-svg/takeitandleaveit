@@ -189,8 +189,7 @@ export default function ListItemPage() {
               Item Listed!
             </h2>
             <p className="text-light-purple-700 mb-6">
-              Your item is now live and ready for trading. 
-              Other users can now see it in the browse section.
+              Your item is now live! Other users can browse, message you, and {formData.listing_type === 'for_sale' ? 'make purchase offers' : 'send trade requests'}.
             </p>
             <div className="space-y-4">
               <Link href="/browse" className="btn-primary w-full block">
@@ -214,7 +213,7 @@ export default function ListItemPage() {
             List Your Item
           </h1>
           <p className="text-xl text-light-purple-700">
-            Give your items a second life with Cate students and faculty
+            Give items away for free or sell them for cash - your choice!
           </p>
         </div>
 

@@ -22,8 +22,8 @@ export default function Home() {
               </span>
             </h1>
             <p className="text-lg sm:text-xl text-primary-700 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed font-medium px-4">
-              Take It Or Leave It has come to the web! Connect with fellow Cate students, trade items locally, and reduce waste---all on campus.
-              Convenient and 100% free!
+              Trade items for free or sell them for cash! Connect with fellow Cate students and faculty, discover amazing deals, and reduce waste---all on campus.
+              Your sustainable marketplace!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center px-4">
               {user ? (
@@ -62,7 +62,7 @@ export default function Home() {
               How It Works
             </h2>
             <p className="text-lg text-primary-700 max-w-2xl mx-auto font-medium px-4">
-              Convenient and community-focused campus trading
+              Trade items for free or sell them for cash - all within the Cate community
             </p>
           </div>
           
@@ -75,8 +75,8 @@ export default function Home() {
                 List Your Items
               </h3>
               <p className="text-primary-700 leading-relaxed font-medium">
-                Upload up to 4 photos, add details about brand, condition, and size.
-                Give your items a second life with fellow Cate community members.
+                Upload up to 4 photos, add details, and choose: give items away for free or sell them for up to $200.
+                Your choice, your community!
               </p>
             </div>
             
@@ -88,8 +88,8 @@ export default function Home() {
                 Browse & Discover
               </h3>
               <p className="text-primary-700 leading-relaxed font-medium">
-                Explore items from fellow Cate students and faculty right on campus.
-                Find pre-loved items that fit your preferences.
+                Find free items and great deals from Cate students and faculty.
+                Filter by price, category, brand, and more to discover exactly what you need.
               </p>
             </div>
             
@@ -98,11 +98,11 @@ export default function Home() {
                 <Users className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-2xl font-elegant font-bold text-primary-900 mb-6">
-                Trade & Connect
+                Message, Trade & Buy
               </h3>
               <p className="text-primary-700 leading-relaxed font-medium">
-                Send trade requests, meet up on campus, and coordinate exchanges.
-                Build sustainable habits while connecting with the Cate community.
+                Chat with sellers, make offers, or get items for free. Coordinate meetups on campus and arrange payment through Venmo, Zelle, or cash.
+                Sustainable and community-focused!
               </p>
             </div>
           </div>
@@ -117,7 +117,7 @@ export default function Home() {
             <span className="block bg-gradient-to-r from-rose-500 to-lavender-500 bg-clip-text text-transparent">Journey?</span>
           </h2>
           <p className="text-xl text-primary-700 mb-12 font-medium">
-            Join the Cate community and start reducing waste while discovering amazing pre-loved items.
+            Join the Cate community to trade, buy, and sell items while reducing waste and saving money.
           </p>
           {user ? (
             <Link href="/browse" className="btn-primary text-lg inline-flex items-center min-h-[48px] touch-manipulation">
@@ -144,7 +144,7 @@ export default function Home() {
                      Environmental Impact
                    </h2>
                    <p className="text-xl text-primary-700 max-w-2xl mx-auto font-medium">
-                     Track your carbon footprint savings and see how trading makes a difference
+                     Track your carbon footprint savings from trading and buying secondhand
                    </p>
                  </div>
 

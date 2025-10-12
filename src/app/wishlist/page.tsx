@@ -106,7 +106,7 @@ export default function WishlistPage() {
             </h1>
           </div>
           <p className="text-xl text-light-blue-700 mt-2">
-            Items you&apos;ve saved for later
+            Free items and deals you&apos;ve saved for later
           </p>
         </div>
 

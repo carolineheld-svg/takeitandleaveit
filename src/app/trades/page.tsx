@@ -185,7 +185,7 @@ export default function TradesPage() {
             Trade Requests
           </h1>
           <p className="text-xl text-light-purple-700 max-w-2xl mx-auto">
-            Manage your incoming and outgoing trade requests
+            Review and manage purchase offers and trade requests
           </p>
         </div>
 

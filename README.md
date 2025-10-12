@@ -1,19 +1,23 @@
 # TakeItAndLeaveIt
 
-A campus trading platform with a pink and gold aesthetic. Trade items with fellow Cate students and faculty - sustainable, convenient, and completely free!
+A campus marketplace with a pink and gold aesthetic. Trade items for free or sell them for cash with fellow Cate students and faculty - sustainable, convenient, and community-focused!
 
 ## Features
 
 - **Design** - Pink and gold theme with elegant typography
+- **Flexible Listing** - Choose to give items away for free or sell them for up to $200
 - **Item Listing** - Upload up to 4 images with detailed item information (brand, condition, size, description)
-- **Browse & Discover** - Find items from the community with search and filtering
-- **Trade System** - Send, accept, or decline trade requests with custom messages
-- **Chat System** - Coordinate trades with real-time messaging after acceptance
-- **User Profiles** - Create and manage your profile with listed items
+- **Payment Methods** - Accept Venmo, Zelle, Apple Pay, or Cash for items you sell
+- **Browse & Discover** - Find free items and great deals with advanced search and filtering
+- **Unified Messaging** - Chat with sellers directly, ask questions, and negotiate
+- **Trade System** - Send formal purchase offers or trade requests that sellers can accept/decline
+- **User Profiles** - Manage your profile with payment preferences (Venmo, Zelle usernames)
 - **Authentication** - Secure user registration and login with Supabase Auth
-- **Responsive Design** - Works well on all devices
+- **Responsive Design** - Fully optimized for mobile and desktop
 - **Image Upload** - Secure image storage with Supabase Storage
 - **Item Management** - Mark items as traded and track trade history
+- **Smart Recommendations** - AI-powered suggestions based on your preferences
+- **Carbon Tracking** - Track your environmental impact from sustainable trading
 
 ## Tech Stack
 
@@ -68,10 +72,14 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 The application uses the following main tables:
 
-- **profiles** - User profiles (extends auth.users)
-- **items** - Listed clothing items with images, condition, size, etc.
-- **trade_requests** - Trade requests between users with status tracking
-- **chat_messages** - Messages for coordinating trades after acceptance
+- **profiles** - User profiles with payment preferences (Venmo, Zelle)
+- **items** - Listed items with pricing, payment methods, and listing type (free/for sale)
+- **trade_requests** - Formal purchase offers and trade requests with accept/decline
+- **direct_messages** - Unified messaging system for all user conversations
+- **wishlist** - Saved items
+- **notifications** - Real-time user notifications
+- **user_preferences** - SmartMatch AI recommendations data
+- **carbon tracking** - Environmental impact metrics
 
 ### Required Supabase Storage Bucket
 

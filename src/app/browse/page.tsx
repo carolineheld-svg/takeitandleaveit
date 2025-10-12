@@ -147,7 +147,7 @@ export default function BrowsePage() {
             Browse Items
           </h1>
           <p className="text-lg sm:text-xl text-light-green-700 max-w-2xl mx-auto px-4">
-            Discover pre-loved items from our very own Cate students and faculty
+            Discover free items and amazing deals from Cate students and faculty
           </p>
         </div>
 

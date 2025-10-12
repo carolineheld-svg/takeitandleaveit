@@ -106,7 +106,7 @@ export default function MessagesPage() {
             Messages
           </h1>
           <p className="text-xl text-light-purple-700">
-            Your conversations with other users
+            Chat with buyers and sellers about items
           </p>
         </div>
 
@@ -121,7 +121,7 @@ export default function MessagesPage() {
                 No messages yet
               </h3>
               <p className="text-light-purple-700 mb-6">
-                Start browsing items and send a message to connect with sellers!
+                Browse items, chat with sellers, and start trading or buying!
               </p>
               <a href="/browse" className="btn-primary">
                 Browse Items

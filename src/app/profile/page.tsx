@@ -227,7 +227,7 @@ export default function ProfilePage() {
             My Profile
           </h1>
           <p className="text-xl text-light-blue-700">
-            Manage your TakeItAndLeaveIt trading account
+            Manage your listings, payment preferences, and account settings
           </p>
         </div>
 
