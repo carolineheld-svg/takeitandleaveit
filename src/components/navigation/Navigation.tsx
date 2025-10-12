@@ -38,15 +38,21 @@ export default function Navigation() {
   }, [user])
 
   const handleSignOut = async () => {
+    setShowUserMenu(false)
+    setProfile(null) // Clear profile data immediately
+    
     try {
       await signOut()
-      setShowUserMenu(false)
-      setProfile(null) // Clear profile data on sign out
-      router.push('/') // Redirect to home page after sign out
-      router.refresh() // Refresh to update all components
     } catch (error) {
       console.error('Error signing out:', error)
-      alert('Failed to sign out. Please try again.')
+      // Even if signOut fails, we still want to redirect since we cleared local state
+    } finally {
+      // Always redirect to home and refresh, even if signOut had an error
+      router.push('/')
+      // Use window.location to force a full page refresh and clear all state
+      setTimeout(() => {
+        window.location.href = '/'
+      }, 100)
     }
   }
 

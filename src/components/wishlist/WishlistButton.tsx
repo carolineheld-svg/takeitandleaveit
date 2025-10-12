@@ -26,9 +26,9 @@ export default function WishlistButton({ itemId, className = '' }: WishlistButto
           .select('id')
           .eq('user_id', user.id)
           .eq('item_id', itemId)
-          .single()
+          .maybeSingle()
 
-        if (error && error.code !== 'PGRST116') {
+        if (error) {
           console.error('Error checking wishlist status:', error)
           return
         }

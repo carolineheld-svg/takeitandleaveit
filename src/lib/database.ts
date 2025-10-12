@@ -521,6 +521,9 @@ export async function updateUserPreferences(userId: string, updates: {
       ...updates,
       updated_at: new Date().toISOString(),
       last_recommendation_update: new Date().toISOString()
+    }, {
+      onConflict: 'user_id',
+      ignoreDuplicates: false
     })
 
   if (error) {

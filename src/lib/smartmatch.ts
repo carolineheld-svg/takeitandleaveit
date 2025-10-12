@@ -96,6 +96,9 @@ export class SmartMatchAI {
         .upsert({
           user_id: userId,
           ...updates
+        }, {
+          onConflict: 'user_id',
+          ignoreDuplicates: false
         })
     } catch (error) {
       console.error('Failed to track user activity:', error)
