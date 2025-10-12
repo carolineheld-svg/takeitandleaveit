@@ -1,9 +1,9 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { X, Send, Package } from 'lucide-react'
+import { X, Send, Package, CheckCircle } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
-import { sendDirectMessage, getDirectMessages, markAllDirectMessagesAsRead } from '@/lib/database'
+import { sendDirectMessage, getDirectMessages, markAllDirectMessagesAsRead, createTradeRequest } from '@/lib/database'
 
 interface DirectMessagingModalProps {
   isOpen: boolean
@@ -45,6 +45,7 @@ export default function DirectMessagingModal({
   const [newMessage, setNewMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const [sending, setSending] = useState(false)
+  const [showTradeRequestModal, setShowTradeRequestModal] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const scrollToBottom = () => {
@@ -104,6 +105,32 @@ export default function DirectMessagingModal({
       alert('Failed to send message. Please try again.')
     } finally {
       setSending(false)
+    }
+  }
+
+  const handleSendTradeRequest = async () => {
+    if (!user || !item) return
+
+    const confirmed = window.confirm(
+      `Send a formal ${item.listing_type === 'for_sale' ? 'purchase offer' : 'trade request'} for "${item.name}"?\n\nThe seller will be notified and can accept or decline.`
+    )
+    
+    if (!confirmed) return
+
+    try {
+      await createTradeRequest({
+        from_user_id: user.id,
+        to_user_id: recipientId,
+        item_id: item.id,
+        message: `I'm interested in ${item.listing_type === 'for_sale' ? 'purchasing' : 'trading for'} ${item.name}`,
+        meeting_location: null
+      })
+      
+      alert('Trade request sent! Check the Trades page to track its status.')
+      onClose()
+    } catch (error) {
+      console.error('Failed to send trade request:', error)
+      alert('Failed to send trade request. Please try again.')
     }
   }
 
@@ -167,6 +194,22 @@ export default function DirectMessagingModal({
               💬 This is a casual conversation. You&apos;re not committed to any trade or purchase.
             </p>
           </div>
+
+          {/* Send Trade Request Button */}
+          {item && (
+            <div className="mt-3">
+              <button
+                onClick={handleSendTradeRequest}
+                className="w-full bg-gradient-to-r from-rose-400 to-lavender-400 text-white font-semibold py-3 px-4 rounded-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
+              >
+                <CheckCircle className="w-5 h-5" />
+                {item.listing_type === 'for_sale' ? 'Send Purchase Offer' : 'Send Trade Request'}
+              </button>
+              <p className="text-xs text-center text-primary-600 mt-2">
+                Ready to {item.listing_type === 'for_sale' ? 'buy' : 'trade'}? Send a formal request that the seller can accept or decline.
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Messages */}

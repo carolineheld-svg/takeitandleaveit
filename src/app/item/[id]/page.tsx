@@ -334,10 +334,14 @@ export default function ItemDetailPage() {
                   {item.listing_type === 'for_sale' ? 'Make an Offer' : 'Send Trade Request'}
                 </button>
                 
-                <div className="text-center">
-                  <p className="text-sm text-pink-700">
-                    <strong>Send a Message:</strong> Ask questions without commitment.<br/>
-                    <strong>{item.listing_type === 'for_sale' ? 'Make an Offer' : 'Send Trade Request'}:</strong> Express serious interest {item.listing_type === 'for_sale' ? 'and negotiate' : 'to trade'}.
+                <div className="bg-white/50 rounded-lg p-4 text-center">
+                  <p className="text-sm text-pink-700 space-y-2">
+                    <span className="block">
+                      <strong className="text-blue-600">💬 Send a Message:</strong> Ask questions, chat casually, no commitment.
+                    </span>
+                    <span className="block">
+                      <strong className="text-rose-600">✓ {item.listing_type === 'for_sale' ? 'Make an Offer' : 'Send Trade Request'}:</strong> Formal request the seller can accept/decline. Item will be marked as traded.
+                    </span>
                   </p>
                 </div>
               </div>
