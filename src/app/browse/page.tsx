@@ -6,7 +6,7 @@ import { Search, Heart, Tag, Filter, X } from 'lucide-react'
 import Link from 'next/link'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { getItems } from '@/lib/database'
-import DirectChatModal from '@/components/chat/DirectChatModal'
+import DirectMessagingModal from '@/components/chat/DirectMessagingModal'
 import WishlistButton from '@/components/wishlist/WishlistButton'
 import SmartMatchSection from '@/components/browse/SmartMatchSection'
 import { smartMatchAI } from '@/lib/smartmatch'
@@ -448,15 +448,24 @@ export default function BrowsePage() {
         )}
       </div>
 
-      {/* Direct Chat Modal */}
+      {/* Direct Messaging Modal */}
       {selectedItem && (
-        <DirectChatModal
+        <DirectMessagingModal
           isOpen={showChatModal}
           onClose={() => {
             setShowChatModal(false)
             setSelectedItem(null)
           }}
-          item={selectedItem}
+          recipientId={selectedItem.user_id}
+          recipientUsername={selectedItem.profiles.username}
+          item={{
+            id: selectedItem.id,
+            name: selectedItem.name,
+            brand: selectedItem.brand,
+            images: selectedItem.images,
+            listing_type: selectedItem.listing_type,
+            price: selectedItem.price
+          }}
         />
       )}
 

@@ -6,7 +6,6 @@ import { ArrowLeft, MessageCircle, Heart, Share2, User } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { getItemById, addToWishlist, removeFromWishlist, getWishlist } from '@/lib/database'
 import { Item } from '@/lib/database'
-import DirectChatModal from '@/components/chat/DirectChatModal'
 import DirectMessagingModal from '@/components/chat/DirectMessagingModal'
 import Link from 'next/link'
 
@@ -30,7 +29,6 @@ export default function ItemDetailPage() {
   const [error, setError] = useState('')
   const [isInWishlist, setIsInWishlist] = useState(false)
   const [wishlistLoading, setWishlistLoading] = useState(false)
-  const [showTradeModal, setShowTradeModal] = useState(false)
   const [showDirectMessageModal, setShowDirectMessageModal] = useState(false)
 
   useEffect(() => {
@@ -90,19 +88,18 @@ export default function ItemDetailPage() {
     }
   }
 
-  const handleSendTradeRequest = () => {
-    if (!user) {
-      router.push('/auth/login')
-      return
-    }
-    setShowTradeModal(true)
-  }
-
   const handleSendMessage = () => {
     if (!user) {
       router.push('/auth/login')
       return
     }
+    
+    // Prevent messaging your own item
+    if (item && user.id === item.user_id) {
+      alert("This is your own listing!")
+      return
+    }
+    
     setShowDirectMessageModal(true)
   }
 
@@ -323,27 +320,23 @@ export default function ItemDetailPage() {
                   className="w-full bg-gradient-to-r from-blue-400 to-blue-500 text-white font-medium py-4 px-8 rounded-xl shadow-soft hover:shadow-primary transition-all duration-300 flex items-center justify-center gap-2 text-lg"
                 >
                   <MessageCircle className="w-5 h-5" />
-                  Send a Message
-                </button>
-
-                <button
-                  onClick={handleSendTradeRequest}
-                  className="w-full btn-primary flex items-center justify-center gap-2 py-4 text-lg"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  {item.listing_type === 'for_sale' ? 'Make an Offer' : 'Send Trade Request'}
+                  Contact Seller
                 </button>
                 
-                <div className="bg-white/50 rounded-lg p-4 text-center">
-                  <p className="text-sm text-pink-700 space-y-2">
-                    <span className="block">
-                      <strong className="text-blue-600">💬 Send a Message:</strong> Ask questions, chat casually, no commitment.
-                    </span>
-                    <span className="block">
-                      <strong className="text-rose-600">✓ {item.listing_type === 'for_sale' ? 'Make an Offer' : 'Send Trade Request'}:</strong> Formal request the seller can accept/decline. Item will be marked as traded.
-                    </span>
+                <div className="bg-blue-50 rounded-lg p-4 text-center border border-blue-200">
+                  <p className="text-sm text-blue-800">
+                    💬 Chat with the seller to ask questions, negotiate{item.listing_type === 'for_sale' ? ' price,' : ''} and coordinate meetup. You can send a formal {item.listing_type === 'for_sale' ? 'purchase offer' : 'trade request'} from within the chat!
                   </p>
                 </div>
+              </div>
+            )}
+
+            {/* Show different message for own items */}
+            {user && user.id === item.user_id && (
+              <div className="bg-primary-50 rounded-lg p-4 text-center border border-primary-200">
+                <p className="text-sm text-primary-700">
+                  📦 This is your listing. You&apos;ll receive messages and trade requests in your inbox.
+                </p>
               </div>
             )}
 
@@ -376,15 +369,6 @@ export default function ItemDetailPage() {
           </div>
         </div>
       </div>
-
-      {/* Trade Request Modal */}
-      {showTradeModal && item && (
-        <DirectChatModal
-          isOpen={showTradeModal}
-          onClose={() => setShowTradeModal(false)}
-          item={item}
-        />
-      )}
 
       {/* Direct Messaging Modal */}
       {showDirectMessageModal && item && (

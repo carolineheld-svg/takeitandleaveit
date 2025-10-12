@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { X, Send, Package, CheckCircle } from 'lucide-react'
+import { X, Send, Package, CheckCircle, Clock, Check } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { sendDirectMessage, getDirectMessages, markAllDirectMessagesAsRead, createTradeRequest } from '@/lib/database'
+import { createClient } from '@/lib/supabase-client'
 
 interface DirectMessagingModalProps {
   isOpen: boolean
@@ -45,8 +46,9 @@ export default function DirectMessagingModal({
   const [newMessage, setNewMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const [sending, setSending] = useState(false)
-  const [showTradeRequestModal, setShowTradeRequestModal] = useState(false)
+  const [existingTradeRequest, setExistingTradeRequest] = useState<{status: string} | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const supabase = createClient()
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -73,11 +75,32 @@ export default function DirectMessagingModal({
     }
   }, [user, recipientId, item?.id])
 
+  // Check for existing trade request
   useEffect(() => {
+    const checkTradeRequest = async () => {
+      if (!user || !item) return
+
+      try {
+        const { data } = await supabase
+          .from('trade_requests')
+          .select('status')
+          .eq('item_id', item.id)
+          .eq('from_user_id', user.id)
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .maybeSingle()
+
+        setExistingTradeRequest(data)
+      } catch (error) {
+        console.error('Failed to check trade request:', error)
+      }
+    }
+
     if (isOpen) {
       fetchMessages()
+      checkTradeRequest()
     }
-  }, [isOpen, fetchMessages])
+  }, [isOpen, fetchMessages, user, item, supabase])
 
   useEffect(() => {
     scrollToBottom()
@@ -111,6 +134,12 @@ export default function DirectMessagingModal({
   const handleSendTradeRequest = async () => {
     if (!user || !item) return
 
+    // Prevent sending trade request to yourself
+    if (user.id === recipientId) {
+      alert("You cannot send a trade request for your own item!")
+      return
+    }
+
     const confirmed = window.confirm(
       `Send a formal ${item.listing_type === 'for_sale' ? 'purchase offer' : 'trade request'} for "${item.name}"?\n\nThe seller will be notified and can accept or decline.`
     )
@@ -126,8 +155,19 @@ export default function DirectMessagingModal({
         meeting_location: null
       })
       
-      alert('Trade request sent! Check the Trades page to track its status.')
-      onClose()
+      // Refresh trade request status
+      const { data } = await supabase
+        .from('trade_requests')
+        .select('status')
+        .eq('item_id', item.id)
+        .eq('from_user_id', user.id)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle()
+      
+      setExistingTradeRequest(data)
+      
+      alert('Trade request sent! The seller will be notified and can accept or decline. Check the Trades page to track its status.')
     } catch (error) {
       console.error('Failed to send trade request:', error)
       alert('Failed to send trade request. Please try again.')
@@ -198,16 +238,45 @@ export default function DirectMessagingModal({
           {/* Send Trade Request Button */}
           {item && (
             <div className="mt-3">
-              <button
-                onClick={handleSendTradeRequest}
-                className="w-full bg-gradient-to-r from-rose-400 to-lavender-400 text-white font-semibold py-3 px-4 rounded-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
-              >
-                <CheckCircle className="w-5 h-5" />
-                {item.listing_type === 'for_sale' ? 'Send Purchase Offer' : 'Send Trade Request'}
-              </button>
-              <p className="text-xs text-center text-primary-600 mt-2">
-                Ready to {item.listing_type === 'for_sale' ? 'buy' : 'trade'}? Send a formal request that the seller can accept or decline.
-              </p>
+              {existingTradeRequest ? (
+                <div className={`w-full py-3 px-4 rounded-lg border-2 flex items-center justify-center gap-2 ${
+                  existingTradeRequest.status === 'pending' ? 'bg-yellow-50 border-yellow-300' :
+                  existingTradeRequest.status === 'accepted' ? 'bg-green-50 border-green-300' :
+                  'bg-gray-50 border-gray-300'
+                }`}>
+                  {existingTradeRequest.status === 'pending' && (
+                    <>
+                      <Clock className="w-5 h-5 text-yellow-600" />
+                      <span className="text-yellow-800 font-semibold">Trade Request Pending</span>
+                    </>
+                  )}
+                  {existingTradeRequest.status === 'accepted' && (
+                    <>
+                      <Check className="w-5 h-5 text-green-600" />
+                      <span className="text-green-800 font-semibold">Trade Request Accepted!</span>
+                    </>
+                  )}
+                  {existingTradeRequest.status === 'declined' && (
+                    <>
+                      <X className="w-5 h-5 text-gray-600" />
+                      <span className="text-gray-800 font-semibold">Request Declined</span>
+                    </>
+                  )}
+                </div>
+              ) : (
+                <>
+                  <button
+                    onClick={handleSendTradeRequest}
+                    className="w-full bg-gradient-to-r from-rose-400 to-lavender-400 text-white font-semibold py-3 px-4 rounded-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
+                  >
+                    <CheckCircle className="w-5 h-5" />
+                    {item.listing_type === 'for_sale' ? 'Send Purchase Offer' : 'Send Trade Request'}
+                  </button>
+                  <p className="text-xs text-center text-primary-600 mt-2">
+                    Ready to {item.listing_type === 'for_sale' ? 'buy' : 'trade'}? Send a formal request that the seller can accept or decline.
+                  </p>
+                </>
+              )}
             </div>
           )}
         </div>
