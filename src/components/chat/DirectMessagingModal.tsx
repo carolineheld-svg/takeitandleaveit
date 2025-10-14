@@ -270,8 +270,8 @@ export default function DirectMessagingModal({
             </div>
           )}
 
-          {/* Casual Chat Notice (only if no trade request) */}
-          {item && !existingTradeRequest && (
+          {/* Casual Chat Notice (only if no trade request and not your own item) */}
+          {item && !existingTradeRequest && user && user.id !== recipientId && (
             <div className="mt-3">
               <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg mb-3">
                 <p className="text-sm text-blue-700">
@@ -288,6 +288,17 @@ export default function DirectMessagingModal({
               <p className="text-xs text-center text-primary-600 mt-2">
                 Ready to {item.listing_type === 'for_sale' ? 'buy' : 'trade'}? Send a formal request that the seller can accept or decline.
               </p>
+            </div>
+          )}
+
+          {/* Message for own items */}
+          {item && user && user.id === recipientId && (
+            <div className="mt-3">
+              <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <p className="text-sm text-yellow-700 text-center">
+                  💡 This is your own item. You can chat with potential buyers here!
+                </p>
+              </div>
             </div>
           )}
         </div>
