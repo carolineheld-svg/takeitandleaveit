@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Search, Heart, Tag, Filter, X, MessageCircle } from 'lucide-react'
+import { Search, Tag, Filter, X, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { getItems } from '@/lib/database'

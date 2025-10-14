@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase-client'
 import { Database } from '@/lib/supabase'
+import { deleteImage } from '@/lib/supabase-storage'
 
 // Create a singleton client instance for consistent session handling
 const supabase = createClient()
@@ -97,6 +98,30 @@ export async function updateItem(id: string, updates: ItemUpdate): Promise<Item>
 }
 
 export async function deleteItem(id: string): Promise<void> {
+  // First, get the item to access its images
+  const { data: item, error: fetchError } = await supabase
+    .from('items')
+    .select('images')
+    .eq('id', id)
+    .single()
+
+  if (fetchError) {
+    throw new Error(`Failed to fetch item for deletion: ${fetchError.message}`)
+  }
+
+  // Delete all images from storage
+  if (item?.images && item.images.length > 0) {
+    try {
+      await Promise.all(
+        item.images.map((imageUrl: string) => deleteImage(imageUrl))
+      )
+    } catch (imageError) {
+      console.warn('Failed to delete some images:', imageError)
+      // Continue with item deletion even if image deletion fails
+    }
+  }
+
+  // Delete the item (this will cascade delete related records)
   const { error } = await supabase
     .from('items')
     .delete()
