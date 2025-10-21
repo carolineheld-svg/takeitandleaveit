@@ -14,7 +14,9 @@ export default function DetailedImageDebug() {
 
   const debugImages = async () => {
     try {
+      console.log('Starting debug images...')
       const supabase = createClient()
+      console.log('Supabase client created')
       
       const { data, error } = await supabase
         .from('items')
@@ -22,14 +24,18 @@ export default function DetailedImageDebug() {
         .not('images', 'is', null)
         .neq('images', '{}')
       
+      console.log('Query result:', { data, error })
+      
       if (error) {
+        console.error('Supabase error:', error)
         throw new Error(`Failed to fetch items: ${error.message}`)
       }
       
+      console.log('Setting items:', data)
       setItems(data || [])
       setLoading(false)
     } catch (err) {
-      console.error('Error:', err)
+      console.error('Error in debugImages:', err)
       setError(err instanceof Error ? err.message : 'Failed to fetch items')
       setLoading(false)
     }
@@ -51,11 +57,32 @@ export default function DetailedImageDebug() {
   }
 
   if (loading) {
-    return <div className="p-8">Loading...</div>
+    return (
+      <div className="p-8">
+        <h1 className="text-2xl font-bold mb-6">Debug Images - Loading...</h1>
+        <div className="animate-pulse">Loading...</div>
+        <div className="mt-4 text-sm text-gray-600">
+          Check browser console for debug logs
+        </div>
+      </div>
+    )
   }
 
   if (error) {
-    return <div className="p-8 text-red-600">Error: {error}</div>
+    return (
+      <div className="p-8">
+        <h1 className="text-2xl font-bold mb-6">Debug Images - Error</h1>
+        <div className="p-4 bg-red-50 border border-red-200 rounded text-red-700 mb-4">
+          Error: {error}
+        </div>
+        <button 
+          onClick={debugImages}
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Retry
+        </button>
+      </div>
+    )
   }
 
   return (
