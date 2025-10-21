@@ -11,7 +11,7 @@ export default function ImageUploadTest() {
   const [results, setResults] = useState<string[]>([])
   const [error, setError] = useState('')
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || [])
     console.log('Selected files:', selectedFiles.map(f => ({
       name: f.name,
@@ -19,7 +19,41 @@ export default function ImageUploadTest() {
       type: f.type,
       lastModified: f.lastModified
     })))
-    setFiles(selectedFiles)
+    
+    // Process HEIC files
+    const processedFiles: File[] = []
+    
+    for (const file of selectedFiles) {
+      try {
+        if (file.type.toLowerCase() === 'image/heic' || file.type.toLowerCase() === 'image/heif') {
+          console.log(`Converting HEIC file: ${file.name}`)
+          
+          // Dynamically import heic2any to avoid SSR issues
+          const heic2any = (await import('heic2any')).default
+          
+          const convertedBlob = await heic2any({
+            blob: file,
+            toType: 'image/jpeg',
+            quality: 0.8
+          }) as Blob
+          
+          const convertedFile = new File([convertedBlob], file.name.replace(/\.(heic|heif)$/i, '.jpg'), {
+            type: 'image/jpeg',
+            lastModified: file.lastModified
+          })
+          
+          console.log(`HEIC converted to JPEG: ${convertedFile.name}`)
+          processedFiles.push(convertedFile)
+        } else {
+          processedFiles.push(file)
+        }
+      } catch (error) {
+        console.error(`Failed to process file ${file.name}:`, error)
+        processedFiles.push(file)
+      }
+    }
+    
+    setFiles(processedFiles)
     setError('')
   }
 
@@ -57,7 +91,7 @@ export default function ImageUploadTest() {
           <input
             type="file"
             multiple
-            accept="image/*"
+            accept="image/*,.heic,.heif"
             onChange={handleFileChange}
             className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
           />
