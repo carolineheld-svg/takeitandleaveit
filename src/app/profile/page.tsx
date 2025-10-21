@@ -9,6 +9,7 @@ import { getProfile, getItemsByUser, deleteItem, updateProfile } from '@/lib/dat
 import { uploadProfilePicture, deleteProfilePicture } from '@/lib/supabase-storage'
 import DeleteItemModal from '@/components/item/DeleteItemModal'
 import SizePreferencesModal from '@/components/profile/SizePreferencesModal'
+import HEICImage from '@/components/common/HEICImage'
 
 interface Profile {
   id: string
@@ -447,7 +448,7 @@ export default function ProfilePage() {
                     <div key={item.id} className="card-coquette-hover">
                       <div className="relative">
                         <div className="aspect-[4/5] bg-gradient-to-br from-coquette-pink-100 to-coquette-gold-100 rounded-t-2xl overflow-hidden">
-                          <img
+                          <HEICImage
                             src={item.images[0] || '/api/placeholder/400/500'}
                             alt={item.name}
                             className="w-full h-full object-cover"

@@ -7,6 +7,7 @@ import { Heart, ArrowLeft, Package } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { createClient } from '@/lib/supabase-client'
 import { Database } from '@/lib/supabase'
+import HEICImage from '@/components/common/HEICImage'
 
 type WishlistItem = Database['public']['Tables']['wishlist']['Row'] & {
   items: Database['public']['Tables']['items']['Row'] & {
@@ -143,7 +144,7 @@ export default function WishlistPage() {
                   {/* Item Images */}
                   <div className="relative h-48 bg-gray-100">
                     {item.images && item.images.length > 0 ? (
-                      <img
+                      <HEICImage
                         src={item.images[0]}
                         alt={item.name}
                         className="w-full h-full object-cover"

@@ -8,6 +8,7 @@ import { getItemById, addToWishlist, removeFromWishlist, getWishlist } from '@/l
 import { Item } from '@/lib/database'
 import DirectMessagingModal from '@/components/chat/DirectMessagingModal'
 import Link from 'next/link'
+import HEICImage from '@/components/common/HEICImage'
 
 interface ItemWithProfile extends Item {
   profiles: {
@@ -154,7 +155,7 @@ export default function ItemDetailPage() {
           <div className="space-y-4">
             <div className="aspect-square bg-white rounded-2xl overflow-hidden shadow-lg">
               {item.images && item.images.length > 0 ? (
-                <img
+                <HEICImage
                   src={item.images[0]}
                   alt={item.name}
                   className="w-full h-full object-cover"
@@ -171,7 +172,7 @@ export default function ItemDetailPage() {
               <div className="grid grid-cols-4 gap-2">
                 {item.images.slice(1, 5).map((image, index) => (
                   <div key={index} className="aspect-square bg-white rounded-lg overflow-hidden shadow">
-                    <img
+                    <HEICImage
                       src={image}
                       alt={`${item.name} ${index + 2}`}
                       className="w-full h-full object-cover"

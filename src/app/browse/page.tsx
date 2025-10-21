@@ -8,6 +8,7 @@ import { useAuth } from '@/components/auth/AuthProvider'
 import { getItems } from '@/lib/database'
 import DirectMessagingModal from '@/components/chat/DirectMessagingModal'
 import WishlistButton from '@/components/wishlist/WishlistButton'
+import HEICImage from '@/components/common/HEICImage'
 import SmartMatchSection from '@/components/browse/SmartMatchSection'
 import { smartMatchAI } from '@/lib/smartmatch'
 import { CATEGORIES, ITEM_STATUS, LISTING_TYPES } from '@/lib/constants'
@@ -319,7 +320,7 @@ export default function BrowsePage() {
               <div className="card-primary group">
               <div className="relative">
                 <div className="aspect-[4/5] bg-gradient-to-br from-primary-100 to-secondary-100 rounded-t-2xl overflow-hidden">
-                  <img
+                  <HEICImage
                     src={item.images[0] || '/api/placeholder/400/500'}
                     alt={item.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
