@@ -1,6 +1,6 @@
 'use client'
 
-import { useHEICImage } from '@/lib/heic-utils'
+import { useState, useEffect } from 'react'
 
 interface HEICImageProps {
   src: string
@@ -11,31 +11,40 @@ interface HEICImageProps {
 }
 
 export default function HEICImage({ src, alt, className, onLoad, onError }: HEICImageProps) {
-  const { displayUrl, loading, error } = useHEICImage(src)
+  const [imageError, setImageError] = useState(false)
+  const [isHEIC, setIsHEIC] = useState(false)
 
-  if (loading) {
-    return (
-      <div className={`bg-gray-200 animate-pulse flex items-center justify-center ${className}`}>
-        <div className="text-gray-500 text-sm">Converting...</div>
-      </div>
-    )
+  useEffect(() => {
+    setIsHEIC(src.toLowerCase().includes('.heic') || src.toLowerCase().includes('.heif'))
+  }, [src])
+
+  const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    console.log('Image failed to load:', src)
+    setImageError(true)
+    if (onError) onError(e)
   }
 
-  if (error) {
+  // If it's a HEIC file and there's an error, show placeholder
+  if (isHEIC && imageError) {
     return (
-      <div className={`bg-gray-100 flex items-center justify-center ${className}`}>
-        <div className="text-gray-500 text-sm">Image unavailable</div>
+      <div className={`bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center ${className}`}>
+        <div className="text-gray-500 text-xs text-center p-2">
+          <div className="w-8 h-8 mx-auto mb-1 bg-gray-300 rounded flex items-center justify-center">
+            📷
+          </div>
+          Image unavailable
+        </div>
       </div>
     )
   }
 
   return (
     <img
-      src={displayUrl}
+      src={src}
       alt={alt}
       className={className}
       onLoad={onLoad}
-      onError={onError}
+      onError={handleError}
     />
   )
 }
