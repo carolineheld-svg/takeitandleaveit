@@ -98,7 +98,8 @@ export default function ListItemPage() {
     const filesToAdd = validFiles.slice(0, remainingSlots)
     
     if (validFiles.length !== files.length) {
-      alert(`Some files were skipped. Only JPEG, PNG, WebP, and GIF files under 10MB are allowed. HEIC files are not supported.`)
+      const skippedCount = files.length - validFiles.length
+      alert(`${skippedCount} file(s) were skipped. Only JPEG, PNG, WebP, and GIF files under 10MB are supported.`)
     }
     
     if (filesToAdd.length === 0) {
@@ -571,7 +572,10 @@ export default function ListItemPage() {
                       <span className="font-medium">Click to upload</span> or drag and drop
                     </p>
                     <p className="text-xs text-primary-600">
-                      JPEG, PNG, WebP, GIF up to 10MB each (HEIC not supported)
+                      Supported formats: JPEG, PNG, WebP, GIF
+                    </p>
+                    <p className="text-xs text-primary-500 mt-1">
+                      Max size: 10MB per image
                     </p>
                   </div>
                   <input

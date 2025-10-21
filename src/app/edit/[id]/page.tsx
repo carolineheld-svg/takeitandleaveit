@@ -113,10 +113,50 @@ export default function EditItemPage() {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || [])
+    
+    // Validate files
+    const validFiles = files.filter(file => {
+      // Check file type - only support standard formats
+      const supportedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']
+      if (!supportedTypes.includes(file.type.toLowerCase())) {
+        console.warn(`Invalid file type: ${file.type}`)
+        return false
+      }
+      
+      // Reject HEIC files specifically
+      if (file.type.toLowerCase().includes('heic') || file.type.toLowerCase().includes('heif')) {
+        console.warn(`HEIC files not supported: ${file.name}`)
+        return false
+      }
+      
+      // Check file size (10MB limit)
+      if (file.size > 10 * 1024 * 1024) {
+        console.warn(`File too large: ${file.name} (${file.size} bytes)`)
+        return false
+      }
+      
+      return true
+    })
+    
+    const remainingSlots = 4 - formData.images.length
+    const filesToAdd = validFiles.slice(0, remainingSlots)
+    
+    if (validFiles.length !== files.length) {
+      const skippedCount = files.length - validFiles.length
+      alert(`${skippedCount} file(s) were skipped. Only JPEG, PNG, WebP, and GIF files under 10MB are supported.`)
+    }
+    
+    if (filesToAdd.length === 0) {
+      return
+    }
+    
     setFormData(prev => ({
       ...prev,
-      images: [...prev.images, ...files]
+      images: [...prev.images, ...filesToAdd]
     }))
+    
+    // Clear the input so the same file can be selected again
+    e.target.value = ''
   }
 
   const removeImage = (index: number) => {
@@ -564,13 +604,13 @@ export default function EditItemPage() {
                       id="images"
                       type="file"
                       multiple
-                      accept="image/*"
+                      accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
                       onChange={handleImageChange}
                       className="w-full pl-10 pr-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-100 file:text-primary-800 hover:file:bg-primary-200"
                     />
                   </div>
                   <p className="text-sm text-primary-600 mt-2">
-                    You can add up to 4 additional images. Existing images will be kept.
+                    You can add up to 4 additional images. Supported formats: JPEG, PNG, WebP, GIF (max 10MB each).
                   </p>
                 </div>
 
