@@ -72,10 +72,16 @@ export default function ListItemPage() {
     
     // Validate files
     const validFiles = files.filter(file => {
-      // Check file type - support HEIC and other image formats
-      const supportedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif', 'image/heic', 'image/heif']
+      // Check file type - NO HEIC support (too complicated)
+      const supportedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']
       if (!supportedTypes.includes(file.type.toLowerCase())) {
         console.warn(`Invalid file type: ${file.type}`)
+        return false
+      }
+      
+      // Reject HEIC files specifically
+      if (file.type.toLowerCase().includes('heic') || file.type.toLowerCase().includes('heif')) {
+        console.warn(`HEIC files not supported: ${file.name}`)
         return false
       }
       
@@ -92,56 +98,18 @@ export default function ListItemPage() {
     const filesToAdd = validFiles.slice(0, remainingSlots)
     
     if (validFiles.length !== files.length) {
-      alert(`Some files were skipped. Only image files under 10MB are allowed.`)
+      alert(`Some files were skipped. Only JPEG, PNG, WebP, and GIF files under 10MB are allowed. HEIC files are not supported.`)
     }
     
     if (filesToAdd.length === 0) {
       return
     }
     
-    console.log('Processing files:', filesToAdd.map(f => ({ name: f.name, size: f.size, type: f.type })))
-    
-    // Convert HEIC files to JPEG
-    const processedFiles: File[] = []
-    
-    for (const file of filesToAdd) {
-      try {
-        if (file.type.toLowerCase() === 'image/heic' || file.type.toLowerCase() === 'image/heif') {
-          console.log(`Converting HEIC file: ${file.name}`)
-          
-          // Dynamically import heic2any to avoid SSR issues
-          const heic2any = (await import('heic2any')).default
-          
-          // Convert HEIC to JPEG
-          const convertedBlob = await heic2any({
-            blob: file,
-            toType: 'image/jpeg',
-            quality: 0.8
-          }) as Blob
-          
-          // Create a new File object with JPEG type
-          const convertedFile = new File([convertedBlob], file.name.replace(/\.(heic|heif)$/i, '.jpg'), {
-            type: 'image/jpeg',
-            lastModified: file.lastModified
-          })
-          
-          console.log(`HEIC converted to JPEG: ${convertedFile.name} (${convertedFile.size} bytes)`)
-          processedFiles.push(convertedFile)
-        } else {
-          processedFiles.push(file)
-        }
-      } catch (error) {
-        console.error(`Failed to process file ${file.name}:`, error)
-        // If conversion fails, try to use the original file
-        processedFiles.push(file)
-      }
-    }
-    
-    console.log('Final processed files:', processedFiles.map(f => ({ name: f.name, size: f.size, type: f.type })))
+    console.log('Adding files:', filesToAdd.map(f => ({ name: f.name, size: f.size, type: f.type })))
     
     setFormData(prev => ({
       ...prev,
-      images: [...prev.images, ...processedFiles]
+      images: [...prev.images, ...filesToAdd]
     }))
     
     // Clear the input so the same file can be selected again
@@ -603,13 +571,13 @@ export default function ListItemPage() {
                       <span className="font-medium">Click to upload</span> or drag and drop
                     </p>
                     <p className="text-xs text-primary-600">
-                      PNG, JPG, HEIC up to 10MB each
+                      JPEG, PNG, WebP, GIF up to 10MB each (HEIC not supported)
                     </p>
                   </div>
                   <input
                     type="file"
                     multiple
-                    accept="image/*,.heic,.heif"
+                    accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
                     onChange={handleImageUpload}
                     className="hidden"
                   />
