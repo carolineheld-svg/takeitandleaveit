@@ -16,23 +16,41 @@ export default function HEICConverter() {
     try {
       const supabase = createClient()
       
-      // Get all items with HEIC images
-      const { data: items, error: fetchError } = await supabase
+      // Get all items with images (same query as check-formats page)
+      const { data: allItems, error: fetchError } = await supabase
         .from('items')
         .select('id, images, name')
-        .or('images.cs.{.heic},images.cs.{.heif}')
+        .not('images', 'is', null)
+        .neq('images', '{}')
       
       if (fetchError) {
         throw new Error(`Failed to fetch items: ${fetchError.message}`)
       }
       
-      if (!items || items.length === 0) {
+      // Filter for items that actually have HEIC images
+      const items = (allItems || []).filter(item => 
+        item.images.some((imageUrl: string) => 
+          imageUrl.toLowerCase().includes('.heic') || 
+          imageUrl.toLowerCase().includes('.heif')
+        )
+      )
+      
+      if (items.length === 0) {
         setResults(['No HEIC images found to convert'])
         setConverting(false)
         return
       }
       
       setResults([`Found ${items.length} items with HEIC images`])
+      
+      // Debug: Show which items have HEIC images
+      items.forEach(item => {
+        const heicImages = item.images.filter((imageUrl: string) => 
+          imageUrl.toLowerCase().includes('.heic') || 
+          imageUrl.toLowerCase().includes('.heif')
+        )
+        setResults(prev => [...prev, `  - ${item.name}: ${heicImages.length} HEIC images`])
+      })
       
       // Convert each item's images
       for (const item of items) {
