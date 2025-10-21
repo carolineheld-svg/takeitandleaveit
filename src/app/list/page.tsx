@@ -69,13 +69,44 @@ export default function ListItemPage() {
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || [])
+    
+    // Validate files
+    const validFiles = files.filter(file => {
+      // Check file type
+      if (!file.type.startsWith('image/')) {
+        console.warn(`Invalid file type: ${file.type}`)
+        return false
+      }
+      
+      // Check file size (10MB limit)
+      if (file.size > 10 * 1024 * 1024) {
+        console.warn(`File too large: ${file.name} (${file.size} bytes)`)
+        return false
+      }
+      
+      return true
+    })
+    
     const remainingSlots = 4 - formData.images.length
-    const filesToAdd = files.slice(0, remainingSlots)
+    const filesToAdd = validFiles.slice(0, remainingSlots)
+    
+    if (validFiles.length !== files.length) {
+      alert(`Some files were skipped. Only image files under 10MB are allowed.`)
+    }
+    
+    if (filesToAdd.length === 0) {
+      return
+    }
+    
+    console.log('Adding files:', filesToAdd.map(f => ({ name: f.name, size: f.size, type: f.type })))
     
     setFormData(prev => ({
       ...prev,
       images: [...prev.images, ...filesToAdd]
     }))
+    
+    // Clear the input so the same file can be selected again
+    e.target.value = ''
   }
 
   const removeImage = (index: number) => {
@@ -150,8 +181,19 @@ export default function ListItemPage() {
       // Generate a unique temporary ID for image uploads
       const tempItemId = `temp-${Date.now()}-${Math.random().toString(36).substring(2)}`
       
+      console.log('Starting image upload for', formData.images.length, 'images')
+      console.log('User ID:', user.id, 'Temp Item ID:', tempItemId)
+      
       // Upload images first
       const imageUrls = await uploadMultipleImages(formData.images, user.id, tempItemId)
+      
+      console.log('Image upload successful. URLs:', imageUrls)
+      
+      if (imageUrls.length === 0) {
+        setError('Failed to upload images. Please try again.')
+        setLoading(false)
+        return
+      }
 
       // Create the item in the database with image URLs
       await createItem({
@@ -171,7 +213,18 @@ export default function ListItemPage() {
 
       setSuccess(true)
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : 'Failed to list item')
+      console.error('Error during item listing:', error)
+      if (error instanceof Error) {
+        if (error.message.includes('upload')) {
+          setError('Failed to upload images. Please check your internet connection and try again.')
+        } else if (error.message.includes('storage')) {
+          setError('Storage error. Please try again or contact support.')
+        } else {
+          setError(error.message)
+        }
+      } else {
+        setError('Failed to list item. Please try again.')
+      }
     } finally {
       setLoading(false)
     }
@@ -468,24 +521,38 @@ export default function ListItemPage() {
               
               {formData.images.length > 0 && (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                  {formData.images.map((image, index) => (
-                    <div key={index} className="relative group">
-                      <div className="aspect-square bg-gradient-to-br from-primary-100 to-secondary-100 rounded-lg overflow-hidden">
-                        <img
-                          src={URL.createObjectURL(image)}
-                          alt={`Preview ${index + 1}`}
-                          className="w-full h-full object-cover"
-                        />
+                  {formData.images.map((image, index) => {
+                    console.log(`Image ${index}:`, { 
+                      name: image.name, 
+                      size: image.size, 
+                      type: image.type,
+                      lastModified: image.lastModified 
+                    })
+                    
+                    const imageUrl = URL.createObjectURL(image)
+                    console.log(`Generated URL for image ${index}:`, imageUrl)
+                    
+                    return (
+                      <div key={index} className="relative group">
+                        <div className="aspect-square bg-gradient-to-br from-primary-100 to-secondary-100 rounded-lg overflow-hidden">
+                          <img
+                            src={imageUrl}
+                            alt={`Preview ${index + 1}`}
+                            className="w-full h-full object-cover"
+                            onLoad={() => console.log(`Image ${index} loaded successfully`)}
+                            onError={(e) => console.error(`Image ${index} failed to load:`, e)}
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => removeImage(index)}
+                          className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => removeImage(index)}
-                        className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </div>
               )}
 
