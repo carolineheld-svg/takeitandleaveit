@@ -112,51 +112,76 @@ export default function EditItemPage() {
   }
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || [])
-    
-    // Validate files
-    const validFiles = files.filter(file => {
-      // Check file type - only support standard formats
-      const supportedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']
-      if (!supportedTypes.includes(file.type.toLowerCase())) {
-        console.warn(`Invalid file type: ${file.type}`)
-        return false
+    try {
+      const files = Array.from(e.target.files || [])
+      
+      if (files.length === 0) {
+        return
       }
       
-      // Reject HEIC files specifically
-      if (file.type.toLowerCase().includes('heic') || file.type.toLowerCase().includes('heif')) {
-        console.warn(`HEIC files not supported: ${file.name}`)
-        return false
+      // Validate files
+      const validFiles = files.filter(file => {
+        // Check file type - only support standard formats
+        const supportedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']
+        const fileType = file.type.toLowerCase()
+        const fileName = file.name.toLowerCase()
+        
+        // Check MIME type
+        if (!supportedTypes.includes(fileType)) {
+          console.warn(`Invalid MIME type: ${file.type}`)
+          return false
+        }
+        
+        // Check file extension as backup
+        const extension = fileName.split('.').pop()
+        const supportedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif']
+        if (!extension || !supportedExtensions.includes(extension)) {
+          console.warn(`Invalid file extension: ${extension}`)
+          return false
+        }
+        
+        // Reject HEIC files specifically (by name and type)
+        if (fileType.includes('heic') || fileType.includes('heif') || 
+            fileName.includes('.heic') || fileName.includes('.heif')) {
+          console.warn(`HEIC files not supported: ${file.name}`)
+          return false
+        }
+        
+        // Check file size (10MB limit)
+        if (file.size > 10 * 1024 * 1024) {
+          console.warn(`File too large: ${file.name} (${file.size} bytes)`)
+          return false
+        }
+        
+        return true
+      })
+      
+      const remainingSlots = 4 - formData.images.length
+      const filesToAdd = validFiles.slice(0, remainingSlots)
+      
+      if (validFiles.length !== files.length) {
+        const skippedCount = files.length - validFiles.length
+        const skippedFiles = files.filter(file => !validFiles.includes(file))
+        const fileNames = skippedFiles.map(f => f.name).join(', ')
+        
+        alert(`${skippedCount} file(s) were skipped: ${fileNames}\n\nOnly JPEG, PNG, WebP, and GIF files under 10MB are supported.\n\nPlease convert your images to a supported format and try again.`)
       }
       
-      // Check file size (10MB limit)
-      if (file.size > 10 * 1024 * 1024) {
-        console.warn(`File too large: ${file.name} (${file.size} bytes)`)
-        return false
+      if (filesToAdd.length === 0) {
+        return
       }
       
-      return true
-    })
-    
-    const remainingSlots = 4 - formData.images.length
-    const filesToAdd = validFiles.slice(0, remainingSlots)
-    
-    if (validFiles.length !== files.length) {
-      const skippedCount = files.length - validFiles.length
-      alert(`${skippedCount} file(s) were skipped. Only JPEG, PNG, WebP, and GIF files under 10MB are supported.`)
+      setFormData(prev => ({
+        ...prev,
+        images: [...prev.images, ...filesToAdd]
+      }))
+      
+      // Clear the input so the same file can be selected again
+      e.target.value = ''
+    } catch (error) {
+      console.error('Error handling image upload:', error)
+      alert('There was an error processing your images. Please try again with supported formats (JPEG, PNG, WebP, GIF).')
     }
-    
-    if (filesToAdd.length === 0) {
-      return
-    }
-    
-    setFormData(prev => ({
-      ...prev,
-      images: [...prev.images, ...filesToAdd]
-    }))
-    
-    // Clear the input so the same file can be selected again
-    e.target.value = ''
   }
 
   const removeImage = (index: number) => {
